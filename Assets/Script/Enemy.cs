@@ -1,13 +1,13 @@
-﻿using System.Collections;
+﻿/**
+ * @Description: 敌人父类 
+ * @Author:  夜里猛
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/**
- * @Description: 敌人父类 
- * @Author:  夜里猛
- * @Date: 2021/1/27  作者编写完成时间
- 
-*/
+
 public class Enemy : LivingBody
 {
     /// <summary>

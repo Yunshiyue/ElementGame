@@ -1,7 +1,6 @@
 ﻿/**
  * @Description: CanBeFighted类是所有能够“被攻击”的单位所拥有的组件。在每一帧中记录每次被攻击的信息，以数组方式储存。
  * @Author: ridger
- * @Date: 2021-1-27 23:16
  *           
 */
 

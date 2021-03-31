@@ -1,14 +1,14 @@
-﻿using UnityEngine;
-/**
+﻿/**
  * @Description: CanFight类是所有能够进行“攻击”的单位的父类。拥有血量、攻击力、是否死亡等基本属性，以及攻击、被攻击、死亡等基本方法。
  * @Author: ridger
- * @Date: 2021-1-26 19:51
  * 
- * @EditTime: 2021/1/27 16:03:00  改动时间
  * @Editors: 夜里猛  
  * @Edit:CanFight改为LivingBody 为player和Enermy的父类，去除了攻击、被攻击的方法,增加了移动的方法。
 
  */
+
+using UnityEngine;
+
 abstract public class LivingBody : MonoBehaviour
 {
     /// <summary>

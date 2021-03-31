@@ -1,7 +1,6 @@
 ﻿/**
  * @Description: 表示矩形结构体，具有起点、宽高属性。
  * @Author: ridger
- * @Date: 2021-1-26 19:51
  * 
  */
 public struct RectStruct

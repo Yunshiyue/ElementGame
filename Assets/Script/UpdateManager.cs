@@ -1,4 +1,11 @@
-﻿using System.Collections.Generic;
+﻿/**
+ * @Description: 该类负责管理继承自myUpdate的有更新需求组件类，通过注册到该唯一类，updateManager根据myUpdate中的
+ *               UpdateType将不同类型的myUpdate放入不同的优先级队列中，并根据PriorityInType升序更新。
+ * @Author: ridger
+
+ */
+
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UpdateManager : MonoBehaviour
@@ -64,7 +71,6 @@ public class UpdateManager : MonoBehaviour
         return false;
     }
 
-    private static UpdateManager me = new UpdateManager();
     private SortedList<int, myUpdate> GUIUpdates = new SortedList<int, myUpdate>();
     private SortedList<int, myUpdate> MapUpdates = new SortedList<int, myUpdate>();
     private SortedList<int, myUpdate> PlayerUpdates = new SortedList<int, myUpdate>();

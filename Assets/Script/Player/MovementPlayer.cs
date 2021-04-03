@@ -1,0 +1,803 @@
+﻿/**
+ * @Description: 主角的移动组件，继承自myUpdate类。主要负责对每一帧的控制状态改变请求和移动请求进行处理，根据每一帧
+ *               的请求和状态计算出这一帧的player位移。并通知动画管理组件进行动画管理。
+ *               
+ * @Author: ridger
+
+ * 
+ * 
+ */
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using System.Text;
+
+public class MovementPlayer : myUpdate
+{
+    //public部分
+
+    //unity编辑器中可以进行调试的参数，包括是否受重力、重力大小、跳跃初速度、下蹲的减速系数等
+    public bool isGravity = true;
+    public float gravity = 5.0f;
+    public float jumpForce = 5.0f;
+    //下蹲后减速系数(除法)
+    public float crouchDivision = 3.0f;
+    public int jumpNumberMax = 2;
+    //X轴速度倍数(乘法)
+    public float xSpeedRatio = 3f;
+    //Y轴最大速度
+    public float yMaxSpeed = 5f;
+
+   
+
+    //该组件主要食用方法：通过RequestChangeControlStatus判断能否执行下一个状态，如果可以，通过RequestMove申请移动
+    //请求执行下一个状态，switch-case分支列举了不同状态下，能够转换成哪些状态的规则(考虑表示成状态转移矩阵)
+    //同时会改变can系列参数，控制在某种状态下能够接受哪些移动，不能接受哪些移动
+    //Time参数表示该状态最多持续多长时间，如果时间到了则会转移成Normal状态
+    public bool RequestChangeControlStatus(float statusTime, PlayerControlStatus status)
+    {
+        switch (controlStatus)
+        {
+            case PlayerControlStatus.Normal:
+                ChangeControlStatus(statusTime, status);
+                return true;
+
+            case PlayerControlStatus.Crouch:
+                if (status == PlayerControlStatus.Normal ||
+                    status == PlayerControlStatus.Interrupt ||
+                    status == PlayerControlStatus.Stun ||
+                    status == PlayerControlStatus.Crouch)
+                {
+                    ChangeControlStatus(statusTime, status);
+                    return true;
+                }
+                return false;
+
+            case PlayerControlStatus.AbilityNeedControl:
+            case PlayerControlStatus.AbilityWithMovement:
+                if (status == PlayerControlStatus.Normal ||
+                   status == PlayerControlStatus.Stun)
+                {
+                    ChangeControlStatus(statusTime, status);
+                    return true;
+                }
+                return false;
+
+            //暂时设定打断\眩晕状态下不允许被打断，眩晕状态下眩晕允许且时间刷新
+            case PlayerControlStatus.Interrupt:
+            case PlayerControlStatus.Stun:
+                if (status == PlayerControlStatus.Normal ||
+                   status == PlayerControlStatus.Stun)
+                {
+                    ChangeControlStatus(statusTime, status);
+                    return true;
+                }
+                return false;
+        }
+
+        return false;
+    }
+
+    public enum MovementMode { PlayerControl, Ability, Attacked }
+    //请求在规定时间内执行给定的位移，如果当前状态允许，则记录请求，在update中实现
+    //mode表示该请求来自何种源头，比如：玩家控制、技能移动、挨打后退
+    //其中，技能控制会根据当前主角朝向改变方向，而挨打则不会
+    public bool RequestMoveByTime(Vector2 movement, float time, MovementMode mode)
+    {
+        switch (mode)
+        {
+            case MovementMode.PlayerControl:
+                return false;
+
+            case MovementMode.Ability:
+                if (canAbilityMovement)
+                {
+                    isAbilityMovement = true;
+                    if(!isFacingLeft)
+                    {
+                        abilityMovement = movement;
+                        abilityMovementSpeed = movement / time;
+                    }
+                    else
+                    {
+                        abilityMovement = - movement;
+                        abilityMovementSpeed = - movement / time;
+                    }
+                    abilityMovementTotalTime = time;
+                    abilityMovementCurTime = 0f;
+                    return true;
+                }
+                return false;
+
+            case MovementMode.Attacked:
+                if (canPassiveMovement)
+                {
+                    isPassiveMovement = true;
+                    passiveMovement = movement;
+                    passiveMovementTotalTime = time;
+                    passiveMovementCurTime = 0f;
+                    passiveMovementSpeed = movement / time;
+                    return true;
+                }
+                return false;
+        }
+        return false;
+    }
+    //请求在这一帧中进行position的跳跃，movement为相对位移改变量
+    //同理，技能控制会根据当前主角朝向改变方向，而被动传送则不会
+    public bool RequestMoveByFrame(Vector2 movement, MovementMode mode)
+    {
+        switch (mode)
+        {
+            case MovementMode.PlayerControl:
+                if (canControllorMovement)
+                {
+                    isControllorMovement = true;
+                    controllorMovement = movement;
+                    return true;
+                }
+                return false;
+
+            case MovementMode.Ability:
+                if (canActiveTransport)
+                {
+                    isActiveTransport = true;
+                    if(isFacingLeft)
+                    {
+                        activeTransportPosition = - movement;
+                    }
+                    else
+                    {
+                        activeTransportPosition = movement;
+                    }
+                    return true;
+                }
+                return false;
+
+            case MovementMode.Attacked:
+                if (canPassiveTransport)
+                {
+                    isPassiveTransport = true;
+                    passiveTransportPosition = movement;
+                    return true;
+                }
+                return false;
+        }
+
+        return false;
+    }
+
+    //下蹲相关
+    private OnFloorDetector detector;
+    //在这一帧中是否请求下蹲
+    private bool isRequestCrouch = false;
+    private CapsuleCollider2D playerCollider;
+    //正常collider的大小和offset，以及下蹲后的collider参数
+    private Vector2 colliderNormalSize;
+    private Vector2 colliderNormalOffset;
+    private Vector2 colliderCrouchSize;
+    private Vector2 colliderCrouchOffset;
+    public void RequestCrouch()
+    {
+        isRequestCrouch = true;
+    }
+
+    //起跳相关
+    //在这一帧中是否请求跳跃
+    private bool isRequestJump = false;
+    private int jumpNumberCur = 0;
+    public void RequestJump()
+    {
+        isRequestJump = true;
+    }
+
+    //内部逻辑部分
+
+    //与状态控制相关的整个类所用到的变量
+    public enum PlayerControlStatus { Normal, Crouch, AbilityWithMovement, AbilityNeedControl, Interrupt, Stun}
+    //当前主角处于何种状态：普通(包括行走、idle、jump、fall)，下蹲，技能释放，被控制
+    private PlayerControlStatus controlStatus = PlayerControlStatus.Normal;
+    //当前主角是否处于非正常状态，指主角是否处于释放技能状态或者被控制的状态，根据这个bool值判断某一帧是否需要计时器++
+    private bool isInAbnormalStatus = false;
+    //当前状态的计时器，Normal态和Crouch态不需要计时器
+    private float controlStatusTotalTime = 0f;
+    private float controlStatusCurTime = 0f;
+
+    private bool isOnFloor = true;
+    private bool isDownFloor = false;
+    private bool isLeftDetect = false;
+    private bool isRightDetect = false;
+
+    private bool isFacingLeft = false;
+    private Vector3 leftLocalScale = new Vector3(-1, 1, 0);
+    private Vector3 rightLocalScale = new Vector3(1, 1, 0);
+    //public bool IsFacingLeft() { return isFacingLeft; }
+
+
+    //主角是否处于下坠状态，当主角在空中受到interrupt类型的攻击时，该状态位为true；当处于该状态且着地时，该状态为恢复为false
+    private bool isAttackedFalling = false;
+
+    
+    
+
+    private Text debugInfo1;
+    private Text debugInfo2;
+
+    //动画组件(改成public,用于其他类调用）
+    public PlayerAnim playerAnim;
+    override public void Initialize()
+    {
+        playerAnim = GetComponent<PlayerAnim>();
+
+        if(playerAnim == null)
+        {
+            Debug.LogError("在" + gameObject.name + "中，没有找到PlayerAnim组件！");
+        }
+
+
+        playerCollider = GetComponent<CapsuleCollider2D>();
+        if(playerCollider == null)
+        {
+            Debug.LogError("在" + gameObject.name + "中，没有找到collider组件！");
+        }
+        colliderNormalSize = playerCollider.size;
+        colliderNormalOffset = playerCollider.offset;
+
+        CapsuleCollider2D crouchCollider = GameObject.Find("CrouchCollider").GetComponent<CapsuleCollider2D>();
+        if (crouchCollider == null)
+        {
+            Debug.LogError("在" + gameObject.name + "中，没有找到子物体中crouchCollider组件！");
+        }
+        colliderCrouchOffset = crouchCollider.offset;
+        colliderCrouchSize = crouchCollider.size;
+
+        detector = GameObject.Find("FloorDetector").GetComponent<OnFloorDetector>();
+        if(detector == null)
+        {
+            Debug.LogError("在" + gameObject.name + "中，没有找到子物体中OnFloorDetector组件！");
+        }
+
+        debugInfo1 = GameObject.Find("DebugInfo1").GetComponent<Text>();
+        if (debugInfo1 == null)
+        {
+            Debug.LogError("在" + gameObject.name + "中，没有找到DebugInfo这个ui组件！");
+        }
+        debugInfo2 = GameObject.Find("DebugInfo2").GetComponent<Text>();
+        if (debugInfo2 == null)
+        {
+            Debug.LogError("在" + gameObject.name + "中，没有找到DebugInfo这个ui组件！");
+        }
+    }
+
+    //在ui上输出movement状态信息
+    StringBuilder debugInfoText = new StringBuilder(2048);
+    private void SetDebugInfo()
+    {
+        //下面是debugInfo1的信息**************************
+
+        debugInfoText.AppendLine("总体状态");
+        debugInfoText.Append("ControlStatus: ");
+        debugInfoText.AppendLine(controlStatus.ToString());
+        debugInfoText.Append("isInAbnormalStatus: ");
+        debugInfoText.AppendLine(isInAbnormalStatus.ToString());
+        debugInfoText.Append("controlStatusTotalTime: ");
+        debugInfoText.AppendLine(controlStatusTotalTime.ToString());
+        debugInfoText.Append("controlStatusCurTime: ");
+        debugInfoText.AppendLine(controlStatusCurTime.ToString());
+
+        debugInfoText.AppendLine("探测器状态");
+        debugInfoText.Append("isOnFloor: ");
+        debugInfoText.AppendLine(isOnFloor.ToString());
+        debugInfoText.Append("isDownFloor: ");
+        debugInfoText.AppendLine(isDownFloor.ToString());
+        debugInfoText.Append("isLeftDetect: ");
+        debugInfoText.AppendLine(isLeftDetect.ToString());
+        debugInfoText.Append("isRightDetect: ");
+        debugInfoText.AppendLine(isRightDetect.ToString());
+        debugInfoText.Append("isAttackedFalling: ");
+        debugInfoText.AppendLine(isAttackedFalling.ToString());
+
+        debugInfoText.AppendLine("跳跃状态");
+        debugInfoText.Append("isRequestJump: ");
+        debugInfoText.AppendLine(isRequestJump.ToString());
+        debugInfoText.Append("jumpNumberCur: ");
+        debugInfoText.AppendLine(jumpNumberCur.ToString());
+
+        debugInfoText.AppendLine("下蹲状态");
+        debugInfoText.Append("isRequestCrouch: ");
+        debugInfoText.AppendLine(isRequestCrouch.ToString());
+
+
+        debugInfoText.AppendLine("结算信息");
+        debugInfoText.Append("xSpeed: ");
+        debugInfoText.AppendLine(xSpeed.ToString());
+        debugInfoText.Append("ySpeed: ");
+        debugInfoText.AppendLine(ySpeed.ToString());
+        debugInfoText.Append("xMovementPerFrame: ");
+        debugInfoText.AppendLine(xMovementPerFrame.ToString());
+        debugInfoText.Append("yMovementPerFrame: ");
+        debugInfoText.AppendLine(yMovementPerFrame.ToString());
+        debugInfoText.Append("newPosition: ");
+        debugInfoText.AppendLine(newPosition.ToString());
+
+        debugInfo1.text = debugInfoText.ToString();
+
+        debugInfoText.Clear();
+
+        //下面是debugInfo2的信息**************************
+
+        debugInfoText.AppendLine("被动传送");
+        debugInfoText.Append("canPassiveTransport: ");
+        debugInfoText.AppendLine(canPassiveTransport.ToString());
+        debugInfoText.Append("isPassiveTransport: ");
+        debugInfoText.AppendLine(isPassiveTransport.ToString());
+        debugInfoText.Append("passiveTransportPosition: ");
+        debugInfoText.AppendLine(passiveTransportPosition.ToString());
+
+        debugInfoText.AppendLine("主动传送");
+        debugInfoText.Append("canActiveTransport: ");
+        debugInfoText.AppendLine(canActiveTransport.ToString());
+        debugInfoText.Append("isActiveTransport: ");
+        debugInfoText.AppendLine(isActiveTransport.ToString());
+        debugInfoText.Append("activeTransportPosition: ");
+        debugInfoText.AppendLine(activeTransportPosition.ToString());
+
+        debugInfoText.AppendLine("技能位移");
+        debugInfoText.Append("canAbilityMovement: ");
+        debugInfoText.AppendLine(canAbilityMovement.ToString());
+        debugInfoText.Append("isAbilityMovement: ");
+        debugInfoText.AppendLine(isAbilityMovement.ToString());
+        debugInfoText.Append("abilityMovement: ");
+        debugInfoText.AppendLine(abilityMovement.ToString());
+        debugInfoText.Append("abilityMovementSpeed: ");
+        debugInfoText.AppendLine(abilityMovementSpeed.ToString());
+        debugInfoText.Append("abilityMovementTotalTime: ");
+        debugInfoText.AppendLine(abilityMovementTotalTime.ToString());
+        debugInfoText.Append("abilityMovementCurTime: ");
+        debugInfoText.AppendLine(abilityMovementCurTime.ToString());
+
+        debugInfoText.AppendLine("被动位移");
+        debugInfoText.Append("canPassiveMovement: ");
+        debugInfoText.AppendLine(canPassiveMovement.ToString());
+        debugInfoText.Append("isPassiveMovement: ");
+        debugInfoText.AppendLine(isPassiveMovement.ToString());
+        debugInfoText.Append("passiveMovement: ");
+        debugInfoText.AppendLine(passiveMovement.ToString());
+        debugInfoText.Append("passiveMovementSpeed: ");
+        debugInfoText.AppendLine(passiveMovementSpeed.ToString());
+        debugInfoText.Append("passiveMovementTotalTime: ");
+        debugInfoText.AppendLine(passiveMovementTotalTime.ToString());
+        debugInfoText.Append("passiveMovementCurTime: ");
+        debugInfoText.AppendLine(passiveMovementCurTime.ToString());
+
+
+        debugInfoText.AppendLine("控制移动");
+        debugInfoText.Append("canControllorMovement: ");
+        debugInfoText.AppendLine(canControllorMovement.ToString());
+        debugInfoText.Append("isControllorMovement: ");
+        debugInfoText.AppendLine(isControllorMovement.ToString());
+        debugInfoText.Append("controllorMovement: ");
+        debugInfoText.AppendLine(controllorMovement.ToString());
+
+
+        debugInfo2.text = debugInfoText.ToString();
+
+        debugInfoText.Clear();
+    }
+
+
+    //update函数，处理异常状态计时与恢复、下蹲逻辑、起跳逻辑、根据这一帧的运动记录结算运动情况、结算减速
+    override public void MyUpdate()
+    {
+        //如果当前状态不是Normal或Crouch，则时间++，
+        if (isInAbnormalStatus)
+        {
+            ////如果在空中处于挨打，则处于受击下落状态，同时改变Interrupt时间为正无穷，直到落地才退出该状态
+            //if (controlStatus == PlayerControlStatus.Interrupt && !isOnFloor)
+            //{
+            //    isAttackedFalling = true;
+            //    controlStatusTotalTime = float.MaxValue;
+            //}
+            ////如果处于受击下落状态，且在这一帧着地，则进入普通状态(后面可以考虑改动为进入落地动画)
+            //if (isAttackedFalling && isOnFloor)
+            //{
+            //    isAttackedFalling = false;
+            //    ChangeControlStatus(0f, PlayerControlStatus.Normal);
+            //}
+
+            //状态时间++
+            controlStatusCurTime += Time.deltaTime;
+            //状态到期发生的事情
+            if (controlStatusCurTime >= controlStatusTotalTime)
+            {
+                ChangeControlStatus(0f, PlayerControlStatus.Normal);
+                playerAnim.SetAbilityNum(999);
+            }
+        }
+        //在处理正常状态
+        else
+        {
+            //如果在地面上
+            if(isOnFloor)
+            {
+                //处理下蹲逻辑
+                //如果在地面上按下了下蹲键，或者，没有按下下蹲，但是蹲的时候头上有东西，则保持下蹲
+                if (isRequestCrouch || !isRequestCrouch && controlStatus == PlayerControlStatus.Crouch && isDownFloor)
+                {
+                    crouchBehavior();
+                }
+                //否则恢复Normal
+                else
+                {
+                    if(controlStatus == PlayerControlStatus.Crouch)
+                    {
+                        restoreFromCrouchBehavior();
+                    }
+                }
+            }
+        }
+
+        //处理起跳逻辑
+        //在某些技能状态下，允许玩家控制运动状态，我们也应该允许跳跃
+        //跳跃计数在clear函数中恢复
+        if(controlStatus == PlayerControlStatus.Normal || controlStatus == PlayerControlStatus.AbilityNeedControl)
+        {
+            if(isRequestJump && jumpNumberCur < jumpNumberMax)
+            {
+                ySpeed += jumpForce;
+                jumpNumberCur++;
+            }
+        }
+
+        //结算运动情况
+        if(isPassiveTransport)
+        {
+            xMovementPerFrame += passiveTransportPosition.x;
+            yMovementPerFrame += passiveTransportPosition.y;
+        }
+        else if(isActiveTransport)
+        {
+            xMovementPerFrame += activeTransportPosition.x;
+            yMovementPerFrame += activeTransportPosition.y;
+        }
+        else if(isAbilityMovement)
+        {
+            xSpeed += abilityMovementSpeed.x;
+            ySpeed += abilityMovementSpeed.y;
+
+            abilityMovementCurTime += Time.deltaTime;
+            if(abilityMovementCurTime >= abilityMovementTotalTime)
+            {
+                isAbilityMovement = false;
+                abilityMovementCurTime = 0f;
+                abilityMovementTotalTime = 0f;
+            }
+        }
+        else if(isPassiveMovement)
+        {
+            xSpeed += passiveMovementSpeed.x;
+            ySpeed += passiveMovementSpeed.y;
+
+            passiveMovementCurTime += Time.deltaTime;
+            if(passiveMovementCurTime >= passiveMovementTotalTime)
+            {
+                isPassiveMovement = false;
+                passiveMovementCurTime = 0f;
+                passiveMovementTotalTime = 0f;
+            }
+        }
+        else if(isControllorMovement)
+        {
+            xSpeed += controllorMovement.x;
+            ySpeed += controllorMovement.y;
+        }
+
+        //结算减速列表
+
+        if(controlStatus == PlayerControlStatus.Crouch)
+        {
+            xSpeed /= crouchDivision;
+        }
+
+        //放大x轴向速度
+        xSpeed *= xSpeedRatio;
+
+        //结算重力
+        if(isGravity)
+        {
+            ySpeed -= gravity * Time.deltaTime;
+        }
+
+        //检测墙体碰撞，以便速度归0
+        if( (isOnFloor && ySpeed < 0) || (isDownFloor && ySpeed > 0) )
+        {
+            ySpeed = 0f;
+        }
+        if( (isLeftDetect && xSpeed < 0) || (isRightDetect && xSpeed > 0) )
+        {
+            xSpeed = 0f;
+        }
+
+        xMovementPerFrame += xSpeed * Time.deltaTime;
+        yMovementPerFrame += ySpeed * Time.deltaTime;
+
+        //转身
+        if(xMovementPerFrame < 0)
+        {
+            isFacingLeft = true;
+            transform.localScale = leftLocalScale;
+        }
+        else if(xMovementPerFrame > 0)
+        {
+            isFacingLeft = false;
+            transform.localScale = rightLocalScale;
+        }
+
+        ////控制y轴速度绝对值在最大值以内
+        //ySpeed = ySpeed > yMaxSpeed ? yMaxSpeed : ySpeed;
+        //ySpeed = ySpeed < -yMaxSpeed ? -yMaxSpeed : ySpeed;
+
+        transform.Translate(xMovementPerFrame, yMovementPerFrame, 0, Space.Self);
+
+        //newPosition.x = transform.position.x + xMovementPerFrame;
+        //newPosition.y = transform.position.y + yMovementPerFrame;
+        //transform.position = newPosition;
+
+
+        SetAnimStatus();
+        //setDebugInfo();
+        //update结束，清理状态位以供下一帧重新使用
+        Clear();
+    }
+    private void SetAnimStatus()
+    {
+        playerAnim.SetXvelocity(xSpeed);
+        playerAnim.SetYvelocity(ySpeed);
+        playerAnim.SetIsOnGround(isOnFloor);
+        playerAnim.SetStatus(controlStatus);
+    }
+
+    //下蹲动作：改变状态、改变collider、改变探测器位置
+    private void crouchBehavior()
+    {
+        ChangeControlStatus(0f, PlayerControlStatus.Crouch);
+
+        ////改变大小实际上没用，因为碰撞检测交给探测器去实现了
+        playerCollider.size = colliderCrouchSize;
+        playerCollider.offset = colliderCrouchOffset;
+
+
+        //这才是有用的
+        detector.swtichToCrouchStatus();
+
+    }
+    //下蹲回复动作：改变状态、改变collider、改变探测器位置
+    private void restoreFromCrouchBehavior()
+    {
+        ChangeControlStatus(0f, PlayerControlStatus.Normal);
+        playerCollider.size = colliderNormalSize;
+        playerCollider.offset = colliderNormalOffset;
+      
+        detector.swtichToNormalStatus();
+    }
+    //清除该帧统计信息
+    private void Clear()
+    {
+        isRequestCrouch = false;
+        isRequestJump = false;
+        if(isOnFloor)
+        {
+            jumpNumberCur = 0;
+        }
+
+        isPassiveTransport = false;
+        isActiveTransport = false;
+        isControllorMovement = false;
+
+        xMovementPerFrame = 0f;
+        yMovementPerFrame = 0f;
+        xSpeed = 0f;
+    }
+
+    
+    //记录当前帧的运动记录参数
+
+    //传送统一使用local坐标系
+    //被动传送 = 被动以帧为结算的位移
+    private Vector2 passiveTransportPosition;
+    private bool canPassiveTransport = false;
+    private bool isPassiveTransport = false;
+
+    //主动传送
+    private Vector2 activeTransportPosition;
+    private bool canActiveTransport = false;
+    private bool isActiveTransport = false;
+
+    //技能位移
+    private Vector2 abilityMovement;
+    private float abilityMovementTotalTime = 0f;
+    private Vector2 abilityMovementSpeed = new Vector2(0,0);
+    private float abilityMovementCurTime = 0f;
+    private bool canAbilityMovement = false;
+    private bool isAbilityMovement = false;
+
+    //被动位移
+    private Vector2 passiveMovement;
+    private Vector2 passiveMovementSpeed = new Vector2(0, 0);
+    private float passiveMovementTotalTime = 0f;
+    private float passiveMovementCurTime = 0f;
+    private bool canPassiveMovement = false;
+    private bool isPassiveMovement = false;
+
+    //控制位移，以帧结算
+    private Vector2 controllorMovement = new Vector2(0,0);
+    private bool isControllorMovement = false;
+    private bool canControllorMovement = true;
+
+    //变速状态管理(加速、减速的计时结构)
+    private const int SPEED_RATIO_LIST_MAX_SIZE = 32;
+
+    //减速列表
+    private float[] speedRatioList = new float[SPEED_RATIO_LIST_MAX_SIZE];
+    private float[] speedClockList = new float[SPEED_RATIO_LIST_MAX_SIZE];
+    private float[] speedTimeList = new float[SPEED_RATIO_LIST_MAX_SIZE];
+    private int speedListPointer = 0;
+
+    //当前x\y轴向速度，结算之后进行改变
+    private float xSpeed = 0f;
+    private float ySpeed = 0f;
+    private float xMovementPerFrame = 0f;
+    private float yMovementPerFrame = 0f;
+    private Vector2 newPosition = new Vector2(0, 0);
+
+    //修改当前状态的私有方法；在修改当前状态的同时，把Can系列的状态为设置，保证在某些状态下屏蔽掉低优先级的请求
+    //(比如在眩晕的时候请求释放技能)；同时，将低优先级的计时器状态设置为false(is系列状态位)，保证进行高优先级计时器是
+    //低优先级计时器不在工作(比如0.5s眩晕状态会终止1s的技能释放状态，否则0.5s眩晕结束后，技能没有被打断，仍然处在技能移动状态下)
+    private void ChangeControlStatus(float statusTime, PlayerControlStatus status)
+    {
+        //如果是需要计时的状态，则重置计时器
+        if (status != PlayerControlStatus.Normal && status != PlayerControlStatus.Crouch)
+        {
+            isInAbnormalStatus = true;
+            controlStatusTotalTime = statusTime;
+            controlStatusCurTime = 0f;
+        }
+        //否则不需要重置计时器
+        else
+        {
+            isInAbnormalStatus = false;
+            controlStatusTotalTime = 0f;
+            controlStatusCurTime = 0f;
+        }
+        controlStatus = status;
+
+        switch (status)
+        {
+            case PlayerControlStatus.Normal:
+                canPassiveTransport = true;
+                canActiveTransport = true;
+                canAbilityMovement = true;
+                canPassiveMovement = true;
+                canControllorMovement = true;
+
+                isAbilityMovement = false;
+                isPassiveMovement = false;
+
+                isInAbnormalStatus = false;
+                break;
+            case PlayerControlStatus.Crouch:
+                canPassiveMovement = true;
+                canActiveTransport = false;
+                canAbilityMovement = false;
+                canPassiveMovement = true;
+                canControllorMovement = true;
+
+                isAbilityMovement = false;
+                isPassiveMovement = false;
+
+                isInAbnormalStatus = false;
+                break;
+            case PlayerControlStatus.AbilityWithMovement:
+                canPassiveMovement = true;
+                canActiveTransport = true;
+                canAbilityMovement = true;
+                canPassiveMovement = false;
+                canControllorMovement = false;
+
+                isPassiveMovement = false;
+                isControllorMovement = false;
+
+                isInAbnormalStatus = true;
+                break;
+            case PlayerControlStatus.AbilityNeedControl:
+                canPassiveMovement = true;
+                canActiveTransport = true;
+                canAbilityMovement = true;
+                canPassiveMovement = false;
+                canControllorMovement = true;
+
+                isPassiveMovement = false;
+
+                isInAbnormalStatus = true;
+                break;
+            case PlayerControlStatus.Interrupt:
+            case PlayerControlStatus.Stun:
+                canPassiveMovement = true;
+                canActiveTransport = false;
+                canAbilityMovement = false;
+                canPassiveMovement = true;
+                canControllorMovement = false;
+
+                isAbilityMovement = false;
+                isPassiveMovement = false;
+                isControllorMovement = false;
+
+                isInAbnormalStatus = true;
+                break;
+        }
+    }
+
+
+    //子物体需要对该物体进行的实时更新函数
+    //比如检测器告诉player是否在地面上，头顶是否有东西等
+    public void setOnFloor(GameObject sender, bool isOnFloor)
+    {
+        if (sender.transform.IsChildOf(transform))
+        {
+            this.isOnFloor = isOnFloor;
+        }
+        else
+        {
+            Debug.LogError("在" + gameObject.name + "中，非探测器物体调用了setOnFloor函数！");
+        }
+    }
+    public void setDownFloor(GameObject sender, bool isDownFloor)
+    {
+        if (sender.transform.IsChildOf(transform))
+        {
+            this.isDownFloor = isDownFloor;
+        }
+        else
+        {
+            Debug.LogError("在" + gameObject.name + "中，非探测器物体调用了setDownFloor函数！");
+        }
+    }
+    public void setLeftDetect(GameObject sender, bool flag)
+    {
+        if (sender.transform.IsChildOf(transform))
+        {
+            this.isLeftDetect = flag;
+        }
+        else
+        {
+            Debug.LogError("在" + gameObject.name + "中，非探测器物体调用了setDownFloor函数！");
+        }
+    }
+    public void setRightDetect(GameObject sender, bool flag)
+    {
+        if (sender.transform.IsChildOf(transform))
+        {
+            this.isRightDetect = flag;
+        }
+        else
+        {
+            Debug.LogError("在" + gameObject.name + "中，非探测器物体调用了setDownFloor函数！");
+        }
+    }
+
+    //MyUpdate相关的属性及方法
+    //所在update队列为Player
+    public UpdateType updateType = UpdateType.Player;
+    //player中优先级等级为5
+    private int priorityInType = 5;
+    public override UpdateType GetUpdateType()
+    {
+        return updateType;
+    }
+    public override int GetPriorityInType()
+    {
+        return priorityInType;
+    }
+
+}

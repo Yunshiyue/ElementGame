@@ -1,6 +1,7 @@
 ﻿/**
  * @Description: CanBeFighted类是所有能够“被攻击”的单位所拥有的组件。在每一帧中记录每次被攻击的信息，以数组方式储存。
  * @Author: ridger
+
  *           
 */
 
@@ -40,11 +41,13 @@ public class CanBeFighted : MonoBehaviour
         if (attackListPointer >= ATTACK_LIST_MAX_SIZE)
         {
             Debug.LogError("在" + gameObject.name + "物体中，在一帧中beAttacked数量超过上限" + ATTACK_LIST_MAX_SIZE);
+            attackListPointer = 0;
         }
         isAttacked = true;
         beAttackedList[attackListPointer] = new AttackContent(who, damage, interruptType);
         attackListPointer++;
-
+        Debug.Log(gameObject.name + "收到了来自" + who.name + "的攻击，栈顶指针为" + attackListPointer);
+        
         return damage;
     }
 

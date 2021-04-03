@@ -430,9 +430,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 67
-        y: 345
+        y: 346
         width: 17
-        height: 19
+        height: 18
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -723,10 +723,10 @@ TextureImporter:
       name: player_24
       rect:
         serializedVersion: 2
-        x: 30
-        y: 294
-        width: 24
-        height: 21
+        x: 35
+        y: 293
+        width: 19
+        height: 22
       alignment: 9
       pivot: {x: 0.42281112, y: 0.45589194}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -807,10 +807,10 @@ TextureImporter:
       name: player_28
       rect:
         serializedVersion: 2
-        x: 166
-        y: 293
-        width: 25
-        height: 23
+        x: 169
+        y: 294
+        width: 19
+        height: 22
       alignment: 9
       pivot: {x: 0.42281112, y: 0.45589194}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -828,10 +828,10 @@ TextureImporter:
       name: player_29
       rect:
         serializedVersion: 2
-        x: 196
-        y: 293
-        width: 25
-        height: 23
+        x: 199
+        y: 294
+        width: 20
+        height: 22
       alignment: 9
       pivot: {x: 0.42281112, y: 0.45589194}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1017,12 +1017,12 @@ TextureImporter:
       name: player_38
       rect:
         serializedVersion: 2
-        x: 3
-        y: 129
+        x: 4
+        y: 131
         width: 22
-        height: 37
+        height: 35
       alignment: 9
-      pivot: {x: 0.42281112, y: 0.45589194}
+      pivot: {x: 0.5, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1039,11 +1039,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 32
-        y: 127
+        y: 131
         width: 35
-        height: 37
+        height: 35
       alignment: 9
-      pivot: {x: 0.42281112, y: 0.45589194}
+      pivot: {x: 0.25, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1059,12 +1059,12 @@ TextureImporter:
       name: player_40
       rect:
         serializedVersion: 2
-        x: 70
-        y: 127
+        x: 71
+        y: 131
         width: 35
-        height: 37
+        height: 35
       alignment: 9
-      pivot: {x: 0.42281112, y: 0.45589194}
+      pivot: {x: 0.25, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1077,36 +1077,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: player_41
-      rect:
-        serializedVersion: 2
-        x: 107
-        y: 127
-        width: 35
-        height: 37
-      alignment: 9
-      pivot: {x: 0.42281112, y: 0.45589194}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cdecb8ea8b6e1a020800000000000000
-      internalID: 2351414161340878556
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: player_42
       rect:
         serializedVersion: 2
         x: 107
-        y: 127
-        width: 35
-        height: 37
+        y: 131
+        width: 36
+        height: 35
       alignment: 9
-      pivot: {x: 0.42281112, y: 0.45589194}
+      pivot: {x: 0.25, y: 0.25}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 13312, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: Wasteland-Files_43
   m_EditorClassIdentifier: 
-  m_Sprite: {fileID: -977066657300012544, guid: c65748662470a5a49bf68d97dce07a1b,
+  m_Sprite: {fileID: -977066657300012544, guid: 20f6d60890760e34bafefb605cee0086,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Transform:

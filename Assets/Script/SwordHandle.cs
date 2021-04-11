@@ -51,7 +51,7 @@ public class SwordHandle : MonoBehaviour
             mSequence.Join(sword.transform.DORotate(new Vector3(0,0,225+angle * ((i + 1) / 2) * dirto), 0.3f));//Join 与上一个动画一起 旋转的同时移动散开
             mSequence.Join(sword.transform.DOMove(pos, 0.3f));//Join 与上一个动画一起 旋转的同时移动散开
             mSequence.AppendInterval(1);//等待1s
-            mSequence.Append(sword.transform.DOMove(-dir * 2 + pos, 0.1f));//方向乘距离+位置 后退移动一点 0.4f为时间 
+            mSequence.Append(sword.transform.DOMove(-dir * 2 + pos, 0.1f));//方向乘距离+位置 后退移动一点 0.1f为时间 
             mSequence.Append(sword.transform.DOMove(attackPos, 0.3f));// 进行攻击 DOMove(a,b) a为目标位置，b为时间
             mSequence.Play();
         }

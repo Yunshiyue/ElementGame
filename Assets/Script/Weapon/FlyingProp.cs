@@ -10,25 +10,20 @@ using UnityEngine;
 
 public abstract class FlyingProp : MonoBehaviour
 {
-    public Collider2D coll;
+    protected Collider2D coll;
 
     [Header("时间参数")]
-
     protected const float MAX_EXIST_TIME = 5f;
-
-    /// <summary>
-    /// 道具生成时间
-    /// </summary>
-    protected float startTime;
+    protected float existTime = 0f;
 
     /// <summary>
     /// 移动
     /// </summary>
     protected abstract void Movement();
 
-    void Start()
+    protected virtual void Start()
     {
-        startTime = Time.time;
+        coll = GetComponent<Collider2D>();
         if (coll == null)
         {
             Debug.LogError("在" + gameObject.name + "中，获取collider错误");
@@ -40,13 +35,10 @@ public abstract class FlyingProp : MonoBehaviour
     /// </summary>
     protected virtual void TimeOutDetect()
     {
-        if (startTime + MAX_EXIST_TIME > Time.time)
+        if (existTime > MAX_EXIST_TIME)
         {
             Disappear();
         }
     }
-    protected void Disappear()
-    {
-        gameObject.SetActive(false);
-    }
+    abstract protected void Disappear();
 }

@@ -21,7 +21,7 @@ public class OnFloorDetector : myUpdate
     private CapsuleCollider2D coll;
 
     //头顶探测器长度
-    private float headDetectorLength = 0.2f;
+    private float headDetectorLength = 0.3f;
     //其他探测器长度
     private float detectorLength = 0.02f;
     //脚下探测器x轴向缩放比例
@@ -193,7 +193,7 @@ public class OnFloorDetector : myUpdate
     /// <param name="length">射线长度</param>
     /// <param name="layer">投射射线，选择投射的层蒙版</param>
     /// <returns>返回bool，判断射线是否触碰到layer</returns>
-    RaycastHit2D Raycast(Vector2 offset, Vector2 rayDiraction, float length, LayerMask layer)
+    public RaycastHit2D Raycast(Vector2 offset, Vector2 rayDiraction, float length, LayerMask layer)
     {
         Vector2 pos = transform.position;//人物位置
 

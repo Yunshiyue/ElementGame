@@ -4,41 +4,39 @@
  * @Author: ridger
 
  * 
- * 
+
+ * @Editor: ridger
+ * @Edit: 下蹲修改为通过Request实现
  */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Text;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(MovementPlayer))]
 [RequireComponent(typeof(AttackPlayer))]
 [RequireComponent(typeof(DefencePlayer))]
 public class Player : myUpdate
 {
+    public enum Element { Fire, Icy, Wind, Thunder }
+
+    private float fullyCastTime = 0.3f;
+
     private MovementPlayer movementComponent;
     private AttackPlayer attackComponent;
     private DefencePlayer defenceComponent;
 
-    private PlayerAnim playerAnim;
-
-    //updateManager.player调用顺序
-    //Player: 0
-    //OnFloorDetector: 2
     private int priorityInType = 0;
     private UpdateType updateType = UpdateType.Player;
     //临时变量
     private Vector2 tempMovement = new Vector2(0, 0);
 
-    private GameObject HpPanel;//血条UI
-    private void Start()
-    {
-        HpPanel = GameObject.Find("HP Panel");
-    }
+    //心心数组
+    private HPItem[] hpArray;
     public override void Initialize()
     {
-        playerAnim = GetComponent<PlayerAnim>();
-
         movementComponent = GetComponent<MovementPlayer>();
         if(movementComponent == null)
         {
@@ -58,24 +56,273 @@ public class Player : myUpdate
         }
         defenceComponent.Initialize(5);
 
+        debugInfoUI = GameObject.Find("PlayerAbilityDebugInfo").GetComponent<Text>();
+        if(debugInfoUI == null)
+        {
+            Debug.LogError("没找到PlayerAbilityDebugInfo这个ui物体");
+        }
+
+        //初始化心心数
+        GameObject HpPanel = GameObject.Find("HP Panel");
+
+        hpArray = new HPItem[defenceComponent.getHpMax()];
         
+        for (int i = 0; i < defenceComponent.getHp(); i++)
+        {
+            Transform hpItem = HpPanel.transform.GetChild(i);
+            hpArray[i] = hpItem.GetComponent<HPItem>();
+            hpArray[i].Getting();
+        }
     }
+
     private string temp;
     //根据设计，先进行受伤判断，再进行移动控制和技能控制
     public override void MyUpdate()
     {
         MenuCheck();
         DefenceCheck();
+        AbilityControl();
+        SetCastDebugInfo();
         MoveControl();
 
 
         //将技能控制的结果输出到控制台
-        temp = AttackControl();
-        if(temp != null)
+        //temp = AttackControl();
+        //if(temp != null)
+        //{
+        //    Debug.Log(temp);
+        //}
+    }
+
+    private Element mainElement = Element.Fire;
+    private Element firstOtherElement = Element.Icy;
+    private Element secondOtherElement = Element.Thunder;
+    private int firstOtherElementPoint = 5;
+    private int secondOtherElementPoint = 5;
+
+    private bool isLastFrameCasting = false;
+    private bool isAddFirstElement = false;
+    private bool isAddSecondElement = false;
+
+    private bool isRequestMainElement = false;
+    private bool isRequestFirstOtherElement = false;
+    private bool isRequestSecondOtherElement = false;
+
+    private float currentCastingTime = 0f;
+    private int otherElementCost = 1;
+
+    private Text debugInfoUI;
+    private StringBuilder debugInfo = new StringBuilder(512);
+    private void AbilityControl()
+    {
+        if(movementComponent.IsOnFloor()) // 或当前元素为风属性
         {
-            Debug.Log(temp);
+            isRequestFirstOtherElement = Input.GetButtonDown("FirstOtherElement");
+            isRequestSecondOtherElement = Input.GetButtonDown("SecondOtherElement");
+            isRequestMainElement = Input.GetButton("MainElement");
+        }
+        else
+        {
+            isRequestFirstOtherElement = false;
+            isRequestSecondOtherElement = false;
+            isRequestMainElement = false;
         }
 
+        //如果上一帧没有施法，则直接释放辅助技能
+        if (!isLastFrameCasting)
+        {
+            if(isRequestFirstOtherElement && canConsumeElement(1, 1))
+            {
+                //剩余元素点够不够
+                consumeElement(1, otherElementCost);
+                //释放辅助元素A技能
+                CastFirstOtherSpell();
+                return;
+            }
+            if(isRequestSecondOtherElement && canConsumeElement(2, 1))
+            {
+                consumeElement(2, otherElementCost);
+                //释放辅助元素B技能
+                CastSecondOtherSpell();
+                return;
+            }
+        }
+        //如果上一帧正在施法，则加入辅助元素
+        else
+        {
+            if (isRequestFirstOtherElement && canConsumeElement(1, 1) && !isAddFirstElement)
+            {
+                consumeElement(1, otherElementCost);
+                isAddFirstElement = true;
+                //播放消耗元素动画
+            }
+            if (isRequestSecondOtherElement && canConsumeElement(2, 1) && !isAddSecondElement)
+            {
+                consumeElement(2, otherElementCost);
+                isAddSecondElement = true;
+                //播放消耗元素动画
+            }
+        }
+        //有没有按下主元素请求继续施法/开始施法
+        if (isRequestMainElement)
+        {
+            Debug.Log("请求施法！");
+            //请求施法成功，开始/继续施法
+            if(movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Casting))
+            {
+                currentCastingTime += Time.deltaTime;
+                isLastFrameCasting = true;
+
+                if(currentCastingTime >= fullyCastTime)
+                {
+                    //施法完成动画
+                }
+                else
+                {
+                    //施法未完成动画
+                }
+            }
+            //请求施法失败，啥也不干/被打断
+            else
+            {
+                //打断施法
+                if(isLastFrameCasting)
+                {
+                    Debug.Log("施法被打断！");
+                    resumeElement();
+                    isAddFirstElement = false;
+                    isAddSecondElement = false;
+                    isLastFrameCasting = false;
+                    currentCastingTime = 0f;
+                }
+            }
+        }
+        //没有请求施法，进入主动中断/啥也不干
+        else
+        {
+            //如果上一帧正在施法，则主动中断，法术放出
+            if(isLastFrameCasting)
+            {
+                if(currentCastingTime >= fullyCastTime)
+                {
+                    CastFullyMainSpell();
+                }
+                else
+                {
+                    CastShortMainSpell();
+                    //短暂施法，归还蓄力元素
+                    resumeElement();
+                }
+                isAddFirstElement = false;
+                isAddSecondElement = false;
+                isLastFrameCasting = false;
+                currentCastingTime = 0f;
+            }
+            //如果上一帧没有施法，则啥也不干
+        }
+    }
+
+    private void SetCastDebugInfo()
+    {
+        debugInfo.AppendLine("元素搭配");
+        debugInfo.Append("mainElement: ");
+        debugInfo.AppendLine(mainElement.ToString());
+        debugInfo.Append("firstOtherElement: ");
+        debugInfo.AppendLine(firstOtherElement.ToString());
+        debugInfo.Append("secondOtherElement: ");
+        debugInfo.AppendLine(secondOtherElement.ToString());
+        
+        debugInfo.AppendLine("元素点");
+        debugInfo.Append("firstOtherElementPoint: ");
+        debugInfo.AppendLine(firstOtherElementPoint.ToString());
+        debugInfo.Append("secondOtherElementPoint: ");
+        debugInfo.AppendLine(secondOtherElementPoint.ToString());
+
+        debugInfo.AppendLine("其他参数");
+        debugInfo.Append("currentCastingTime: ");
+        debugInfo.AppendLine(currentCastingTime.ToString());
+
+        debugInfo.Append("isLastFrameCasting: ");
+        debugInfo.AppendLine(isLastFrameCasting.ToString());
+        debugInfo.Append("isAddFirstElement: ");
+        debugInfo.AppendLine(isAddFirstElement.ToString());
+        debugInfo.Append("isAddSecondElement: ");
+        debugInfo.AppendLine(isAddSecondElement.ToString());
+        debugInfo.Append("isRequestMainElement: ");
+        debugInfo.AppendLine(isRequestMainElement.ToString());
+        debugInfo.Append("isRequestFirstOtherElement: ");
+        debugInfo.AppendLine(isRequestFirstOtherElement.ToString());
+        debugInfo.Append("isRequestSecondOtherElement: ");
+        debugInfo.AppendLine(isRequestSecondOtherElement.ToString());
+
+        debugInfoUI.text = debugInfo.ToString();
+        debugInfo.Clear();
+    }
+    private bool canConsumeElement(int otherElementIndex, int consumeAmount)
+    {
+        switch(otherElementIndex)
+        {
+            case 1:
+                if(firstOtherElementPoint >= consumeAmount)
+                {
+                    return true;
+                }
+                return false;
+            case 2:
+                if(secondOtherElementPoint >= consumeAmount)
+                {
+                    return true;
+                }
+                return false;
+        }
+        return false;
+    }
+    private void consumeElement(int otherElementIndex, int consumeAmount)
+    {
+        switch (otherElementIndex)
+        {
+            case 1:
+                firstOtherElementPoint -= consumeAmount;
+                return;
+            case 2:
+                secondOtherElementPoint -= consumeAmount;
+                return;
+        }
+    }
+    private void resumeElement()
+    {
+        if(isAddFirstElement)
+        {
+            firstOtherElementPoint++;
+        }
+        if(isAddSecondElement)
+        {
+            secondOtherElementPoint++;
+        }
+    }
+
+    private void CastFullyMainSpell()
+    {
+        attackComponent.Dart();
+        Debug.Log("释放主要蓄力法术！");
+    }
+    private void CastShortMainSpell()
+    {
+        attackComponent.NormalAttack();
+        Debug.Log("释放主要短按法术！");
+
+        //测试雷火攻击
+        //attackComponent.ThunderAndFire();
+    }
+    private void CastFirstOtherSpell()
+    {
+        attackComponent.dash();
+        Debug.Log("释放辅助A元素法术！");
+    }
+    private void CastSecondOtherSpell()
+    {
+        attackComponent.blink();
+        Debug.Log("释放辅助B元素法术！");
     }
     private void MenuCheck()
     {
@@ -89,7 +336,20 @@ public class Player : myUpdate
     private void DefenceCheck()
     {
         defenceComponent.AttackCheck();
+        if (defenceComponent.getRealDamage() > 0)
+        {
+            ChangeHpUI();
+        }
         defenceComponent.Clear();
+    }
+    public void ChangeHpUI()
+    {
+        for (int i = 0; i < defenceComponent.getRealDamage(); i++)
+        {
+            int index = defenceComponent.getHp() - i;
+            Debug.Log("lost-- HP:" + defenceComponent.getHp() + ";index:" + index);
+            hpArray[index].Lost();
+        }
     }
     //移动控制，包括X轴移动、跳跃、下蹲；通过向移动组件“请求”实现。
     private void MoveControl()
@@ -103,40 +363,39 @@ public class Player : myUpdate
         }
         if(Input.GetButton("Crouch"))
         {
-            movementComponent.RequestCrouch();
+            movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Crouch);
         }
     }
 
-    //技能控制，在一帧中只能释放一个技能
-    private string AttackControl()
-    {
-        if (Input.GetButtonDown(AttackPlayer.BLINK_NAME))
-        {
-            attackComponent.blink();
-            return AttackPlayer.BLINK_NAME;
-        }
+    ////技能控制，在一帧中只能释放一个技能
+    //private string AttackControl()
+    //{
+    //    if (Input.GetButtonDown(AttackPlayer.BLINK_NAME))
+    //    {
+    //        attackComponent.blink();
+    //        return AttackPlayer.BLINK_NAME;
+    //    }
 
-        if (Input.GetButtonDown(AttackPlayer.DASH_NAME))
-        {
-            attackComponent.dash();
-            return AttackPlayer.DASH_NAME;
-        }
+    //    if (Input.GetButtonDown(AttackPlayer.DASH_NAME))
+    //    {
+    //        attackComponent.dash();
+    //        return AttackPlayer.DASH_NAME;
+    //    }
 
-        if (Input.GetButtonDown(AttackPlayer.NORMAL_ATTACK_NAME))
-        {
+    //    if (Input.GetButtonDown(AttackPlayer.NORMAL_ATTACK_NAME))
+    //    {
             
-            attackComponent.NormalAttack();
-            return AttackPlayer.NORMAL_ATTACK_NAME;
-        }
+    //        attackComponent.NormalAttack();
+    //        return AttackPlayer.NORMAL_ATTACK_NAME;
+    //    }
 
-        if (Input.GetButtonDown("Dart"))
-        {
-            GameObject dart = PoolManager.Instance.GetGameObject(PoolManager.poolType.Dart, gameObject.transform.position);
-            dart.GetComponent<Dart>().Init(gameObject);
-            return "Dart";
-        }
-        return null;
-    }
+    //    if (Input.GetButtonDown("Dart"))
+    //    {
+    //        attackComponent.Dart();
+    //        return "Dart";
+    //    }
+    //    return null;
+    //}
 
     public override int GetPriorityInType()
     {

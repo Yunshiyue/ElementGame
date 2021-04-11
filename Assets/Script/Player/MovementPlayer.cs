@@ -5,7 +5,23 @@
  * @Author: ridger
 
  * 
- * 
+
+ * @Editor: ridger
+ * @Eidt: 1.修正了下蹲请求的方式，变为了在控制组件中RequestChangeStatus
+ *        2.调整了跳跃导致的y轴的速度计算方式：
+ *              a.跳跃不再直接增加速度变化量，而是ySpeed = jumpForce + ySpeed * jumpOriRatio;
+ *              b.下落速度设置最大下界yFallingMaxSpeed
+ *              c.调整了重力参数和起跳力jumpForce的参数，使得手感优化
+ *              d.跳跃次数改成了2次
+ *              
+
+ * @Editor: ridger
+ * @Edit: 1.修正了blink会卡墙的bug，现在的算法是，每当有瞬间移动请求的时候，都会检测传送地点是否有墙体，如果有
+ *          则向主角方向移动一点距离再次检测，直到没有墙体为止
+ *          
+
+ * @Editor: ridger
+ * @Edit: 
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -18,23 +34,29 @@ public class MovementPlayer : myUpdate
     //public部分
 
     //unity编辑器中可以进行调试的参数，包括是否受重力、重力大小、跳跃初速度、下蹲的减速系数等
-    public bool isGravity = true;
-    public float gravity = 5.0f;
-    public float jumpForce = 5.0f;
+    private bool isGravity = true;
+    private float gravity = 20.0f;
+    private float jumpForce = 12.0f;
+    //计算下一次跳跃时的速度，详见引用处
+    private float jumpOriRatio = 0.15f;
     //下蹲后减速系数(除法)
-    public float crouchDivision = 3.0f;
-    public int jumpNumberMax = 2;
+    private float crouchDivision = 3.0f;
+    //+1 = 2次
+    private int jumpNumberMax = 1;
     //X轴速度倍数(乘法)
-    public float xSpeedRatio = 3f;
+    private float xSpeedRatio = 3f;
     //Y轴最大速度
-    public float yMaxSpeed = 5f;
+    private float yFallingMaxSpeed = -15f;
+    //传送时，每隔该距离，检测有无墙体；
+    private float transportStuckDetectionSnap = 0.2f;
 
-   
+
 
     //该组件主要食用方法：通过RequestChangeControlStatus判断能否执行下一个状态，如果可以，通过RequestMove申请移动
     //请求执行下一个状态，switch-case分支列举了不同状态下，能够转换成哪些状态的规则(考虑表示成状态转移矩阵)
     //同时会改变can系列参数，控制在某种状态下能够接受哪些移动，不能接受哪些移动
     //Time参数表示该状态最多持续多长时间，如果时间到了则会转移成Normal状态
+    //当status == 0时，表示单帧申请状态改变，现在只有申请持续施法会这样做
     public bool RequestChangeControlStatus(float statusTime, PlayerControlStatus status)
     {
         switch (controlStatus)
@@ -48,6 +70,19 @@ public class MovementPlayer : myUpdate
                     status == PlayerControlStatus.Interrupt ||
                     status == PlayerControlStatus.Stun ||
                     status == PlayerControlStatus.Crouch)
+                {
+                    ChangeControlStatus(statusTime, status);
+                    return true;
+                }
+                return false;
+
+            //释放法术必须是单帧调用的
+            case PlayerControlStatus.Casting:
+                if (statusTime == 0 && (
+                    status == PlayerControlStatus.Normal ||
+                    status == PlayerControlStatus.Stun ||
+                    status == PlayerControlStatus.AbilityWithMovement ||
+                    status == PlayerControlStatus.AbilityNeedControl ))
                 {
                     ChangeControlStatus(statusTime, status);
                     return true;
@@ -124,10 +159,29 @@ public class MovementPlayer : myUpdate
         }
         return false;
     }
+
     //请求在这一帧中进行position的跳跃，movement为相对位移改变量
     //同理，技能控制会根据当前主角朝向改变方向，而被动传送则不会
     public bool RequestMoveByFrame(Vector2 movement, MovementMode mode)
     {
+        if(mode == MovementMode.Ability || mode == MovementMode.Attacked)
+        {
+            LayerMask ground = LayerMask.GetMask("Platform");
+            float detectWidth = 0.8f;
+            Vector2 detectPoint1 = movement;
+            Vector2 detectPoint2 = movement;
+            detectPoint1.x -= detectWidth / 2;
+            detectPoint2.y -= detectWidth / 2;
+            while (Raycast(detectPoint1, Vector2.right, detectWidth, ground) || 
+                   Raycast(detectPoint2, Vector2.up, detectWidth, ground))
+            {
+                movement = Vector2.MoveTowards(movement, Vector2.zero, transportStuckDetectionSnap);
+                detectPoint1 = movement;
+                detectPoint1.x -= detectWidth / 2;
+                detectPoint2 = movement;
+                detectPoint2.y -= detectWidth / 2;
+            }
+        }
         switch (mode)
         {
             case MovementMode.PlayerControl:
@@ -178,10 +232,10 @@ public class MovementPlayer : myUpdate
     private Vector2 colliderNormalOffset;
     private Vector2 colliderCrouchSize;
     private Vector2 colliderCrouchOffset;
-    public void RequestCrouch()
-    {
-        isRequestCrouch = true;
-    }
+    //public void RequestCrouch()
+    //{
+    //    isRequestCrouch = true;
+    //}
 
     //起跳相关
     //在这一帧中是否请求跳跃
@@ -195,7 +249,7 @@ public class MovementPlayer : myUpdate
     //内部逻辑部分
 
     //与状态控制相关的整个类所用到的变量
-    public enum PlayerControlStatus { Normal, Crouch, AbilityWithMovement, AbilityNeedControl, Interrupt, Stun}
+    public enum PlayerControlStatus { Normal, Crouch, Casting, AbilityWithMovement, AbilityNeedControl, Interrupt, Stun}
     //当前主角处于何种状态：普通(包括行走、idle、jump、fall)，下蹲，技能释放，被控制
     private PlayerControlStatus controlStatus = PlayerControlStatus.Normal;
     //当前主角是否处于非正常状态，指主角是否处于释放技能状态或者被控制的状态，根据这个bool值判断某一帧是否需要计时器++
@@ -218,14 +272,12 @@ public class MovementPlayer : myUpdate
     //主角是否处于下坠状态，当主角在空中受到interrupt类型的攻击时，该状态位为true；当处于该状态且着地时，该状态为恢复为false
     private bool isAttackedFalling = false;
 
-    
-    
+    //动画组件(改成public,用于其他类调用）
+    public PlayerAnim playerAnim;
 
     private Text debugInfo1;
     private Text debugInfo2;
 
-    //动画组件(改成public,用于其他类调用）
-    public PlayerAnim playerAnim;
     override public void Initialize()
     {
         playerAnim = GetComponent<PlayerAnim>();
@@ -234,7 +286,6 @@ public class MovementPlayer : myUpdate
         {
             Debug.LogError("在" + gameObject.name + "中，没有找到PlayerAnim组件！");
         }
-
 
         playerCollider = GetComponent<CapsuleCollider2D>();
         if(playerCollider == null)
@@ -387,169 +438,6 @@ public class MovementPlayer : myUpdate
     }
 
 
-    //update函数，处理异常状态计时与恢复、下蹲逻辑、起跳逻辑、根据这一帧的运动记录结算运动情况、结算减速
-    override public void MyUpdate()
-    {
-        //如果当前状态不是Normal或Crouch，则时间++，
-        if (isInAbnormalStatus)
-        {
-            ////如果在空中处于挨打，则处于受击下落状态，同时改变Interrupt时间为正无穷，直到落地才退出该状态
-            //if (controlStatus == PlayerControlStatus.Interrupt && !isOnFloor)
-            //{
-            //    isAttackedFalling = true;
-            //    controlStatusTotalTime = float.MaxValue;
-            //}
-            ////如果处于受击下落状态，且在这一帧着地，则进入普通状态(后面可以考虑改动为进入落地动画)
-            //if (isAttackedFalling && isOnFloor)
-            //{
-            //    isAttackedFalling = false;
-            //    ChangeControlStatus(0f, PlayerControlStatus.Normal);
-            //}
-
-            //状态时间++
-            controlStatusCurTime += Time.deltaTime;
-            //状态到期发生的事情
-            if (controlStatusCurTime >= controlStatusTotalTime)
-            {
-                ChangeControlStatus(0f, PlayerControlStatus.Normal);
-                playerAnim.SetAbilityNum(999);
-            }
-        }
-        //在处理正常状态
-        else
-        {
-            //如果在地面上
-            if(isOnFloor)
-            {
-                //处理下蹲逻辑
-                //如果在地面上按下了下蹲键，或者，没有按下下蹲，但是蹲的时候头上有东西，则保持下蹲
-                if (isRequestCrouch || !isRequestCrouch && controlStatus == PlayerControlStatus.Crouch && isDownFloor)
-                {
-                    crouchBehavior();
-                }
-                //否则恢复Normal
-                else
-                {
-                    if(controlStatus == PlayerControlStatus.Crouch)
-                    {
-                        restoreFromCrouchBehavior();
-                    }
-                }
-            }
-        }
-
-        //处理起跳逻辑
-        //在某些技能状态下，允许玩家控制运动状态，我们也应该允许跳跃
-        //跳跃计数在clear函数中恢复
-        if(controlStatus == PlayerControlStatus.Normal || controlStatus == PlayerControlStatus.AbilityNeedControl)
-        {
-            if(isRequestJump && jumpNumberCur < jumpNumberMax)
-            {
-                ySpeed += jumpForce;
-                jumpNumberCur++;
-            }
-        }
-
-        //结算运动情况
-        if(isPassiveTransport)
-        {
-            xMovementPerFrame += passiveTransportPosition.x;
-            yMovementPerFrame += passiveTransportPosition.y;
-        }
-        else if(isActiveTransport)
-        {
-            xMovementPerFrame += activeTransportPosition.x;
-            yMovementPerFrame += activeTransportPosition.y;
-        }
-        else if(isAbilityMovement)
-        {
-            xSpeed += abilityMovementSpeed.x;
-            ySpeed += abilityMovementSpeed.y;
-
-            abilityMovementCurTime += Time.deltaTime;
-            if(abilityMovementCurTime >= abilityMovementTotalTime)
-            {
-                isAbilityMovement = false;
-                abilityMovementCurTime = 0f;
-                abilityMovementTotalTime = 0f;
-            }
-        }
-        else if(isPassiveMovement)
-        {
-            xSpeed += passiveMovementSpeed.x;
-            ySpeed += passiveMovementSpeed.y;
-
-            passiveMovementCurTime += Time.deltaTime;
-            if(passiveMovementCurTime >= passiveMovementTotalTime)
-            {
-                isPassiveMovement = false;
-                passiveMovementCurTime = 0f;
-                passiveMovementTotalTime = 0f;
-            }
-        }
-        else if(isControllorMovement)
-        {
-            xSpeed += controllorMovement.x;
-            ySpeed += controllorMovement.y;
-        }
-
-        //结算减速列表
-
-        if(controlStatus == PlayerControlStatus.Crouch)
-        {
-            xSpeed /= crouchDivision;
-        }
-
-        //放大x轴向速度
-        xSpeed *= xSpeedRatio;
-
-        //结算重力
-        if(isGravity)
-        {
-            ySpeed -= gravity * Time.deltaTime;
-        }
-
-        //检测墙体碰撞，以便速度归0
-        if( (isOnFloor && ySpeed < 0) || (isDownFloor && ySpeed > 0) )
-        {
-            ySpeed = 0f;
-        }
-        if( (isLeftDetect && xSpeed < 0) || (isRightDetect && xSpeed > 0) )
-        {
-            xSpeed = 0f;
-        }
-
-        xMovementPerFrame += xSpeed * Time.deltaTime;
-        yMovementPerFrame += ySpeed * Time.deltaTime;
-
-        //转身
-        if(xMovementPerFrame < 0)
-        {
-            isFacingLeft = true;
-            transform.localScale = leftLocalScale;
-        }
-        else if(xMovementPerFrame > 0)
-        {
-            isFacingLeft = false;
-            transform.localScale = rightLocalScale;
-        }
-
-        ////控制y轴速度绝对值在最大值以内
-        //ySpeed = ySpeed > yMaxSpeed ? yMaxSpeed : ySpeed;
-        //ySpeed = ySpeed < -yMaxSpeed ? -yMaxSpeed : ySpeed;
-
-        transform.Translate(xMovementPerFrame, yMovementPerFrame, 0, Space.Self);
-
-        //newPosition.x = transform.position.x + xMovementPerFrame;
-        //newPosition.y = transform.position.y + yMovementPerFrame;
-        //transform.position = newPosition;
-
-
-        SetAnimStatus();
-        //setDebugInfo();
-        //update结束，清理状态位以供下一帧重新使用
-        Clear();
-    }
     private void SetAnimStatus()
     {
         playerAnim.SetXvelocity(xSpeed);
@@ -589,6 +477,11 @@ public class MovementPlayer : myUpdate
         if(isOnFloor)
         {
             jumpNumberCur = 0;
+        }
+
+        if(controlStatus == PlayerControlStatus.Casting)
+        {
+            ChangeControlStatus(0, PlayerControlStatus.Normal);
         }
 
         isPassiveTransport = false;
@@ -697,12 +590,27 @@ public class MovementPlayer : myUpdate
                 isPassiveMovement = false;
 
                 isInAbnormalStatus = false;
+
+                isRequestCrouch = true;
+                break;
+
+            case PlayerControlStatus.Casting:
+                canPassiveMovement = true;
+                canActiveTransport = true;
+                canAbilityMovement = true;
+                canPassiveMovement = true;
+                canControllorMovement = false;
+
+                isPassiveMovement = false;
+                isControllorMovement = false;
+
+                isInAbnormalStatus = true;
                 break;
             case PlayerControlStatus.AbilityWithMovement:
                 canPassiveMovement = true;
                 canActiveTransport = true;
                 canAbilityMovement = true;
-                canPassiveMovement = false;
+                canPassiveMovement = true;
                 canControllorMovement = false;
 
                 isPassiveMovement = false;
@@ -714,7 +622,7 @@ public class MovementPlayer : myUpdate
                 canPassiveMovement = true;
                 canActiveTransport = true;
                 canAbilityMovement = true;
-                canPassiveMovement = false;
+                canPassiveMovement = true;
                 canControllorMovement = true;
 
                 isPassiveMovement = false;
@@ -787,6 +695,177 @@ public class MovementPlayer : myUpdate
     }
 
     //MyUpdate相关的属性及方法
+
+    //update函数，处理异常状态计时与恢复、下蹲逻辑、起跳逻辑、根据这一帧的运动记录结算运动情况、结算减速
+    override public void MyUpdate()
+    {
+        //Debug.Log("1Player当前的状态是" + controlStatus.ToString());
+
+        //如果当前状态不是Normal或Crouch，则时间++，
+        if (isInAbnormalStatus && controlStatus != PlayerControlStatus.Casting)
+        {
+            ////如果在空中处于挨打，则处于受击下落状态，同时改变Interrupt时间为正无穷，直到落地才退出该状态
+            //if (controlStatus == PlayerControlStatus.Interrupt && !isOnFloor)
+            //{
+            //    isAttackedFalling = true;
+            //    controlStatusTotalTime = float.MaxValue;
+            //}
+            ////如果处于受击下落状态，且在这一帧着地，则进入普通状态(后面可以考虑改动为进入落地动画)
+            //if (isAttackedFalling && isOnFloor)
+            //{
+            //    isAttackedFalling = false;
+            //    ChangeControlStatus(0f, PlayerControlStatus.Normal);
+            //}
+
+            //状态时间++
+            controlStatusCurTime += Time.deltaTime;
+            //状态到期发生的事情
+            if (controlStatusCurTime >= controlStatusTotalTime)
+            {
+                ChangeControlStatus(0f, PlayerControlStatus.Normal);
+                playerAnim.SetAbilityNum(999);
+            }
+        }
+        //在处理正常状态
+        else
+        {
+            //如果在地面上
+            if (isOnFloor)
+            {
+                //处理下蹲逻辑
+                //如果在地面上按下了下蹲键，或者，没有按下下蹲，但是蹲的时候头上有东西，则保持下蹲
+                if (isRequestCrouch || !isRequestCrouch && controlStatus == PlayerControlStatus.Crouch && isDownFloor)
+                {
+                    crouchBehavior();
+                }
+                //否则恢复Normal
+                else
+                {
+                    if (controlStatus == PlayerControlStatus.Crouch)
+                    {
+                        restoreFromCrouchBehavior();
+                    }
+                }
+            }
+        }
+
+        //处理起跳逻辑
+        //在某些技能状态下，允许玩家控制运动状态，我们也应该允许跳跃
+        //跳跃计数在clear函数中恢复
+        if (controlStatus == PlayerControlStatus.Normal || controlStatus == PlayerControlStatus.AbilityNeedControl)
+        {
+            if (isRequestJump && jumpNumberCur < jumpNumberMax)
+            {
+                ySpeed = jumpForce + ySpeed * jumpOriRatio;
+                jumpNumberCur++;
+            }
+        }
+
+        //Debug.Log("2Player当前的状态是" + controlStatus.ToString());
+
+        //结算运动情况
+        if (isPassiveTransport)
+        {
+            xMovementPerFrame += passiveTransportPosition.x;
+            yMovementPerFrame += passiveTransportPosition.y;
+        }
+        else if (isActiveTransport)
+        {
+            xMovementPerFrame += activeTransportPosition.x;
+            yMovementPerFrame += activeTransportPosition.y;
+        }
+        else if (isAbilityMovement)
+        {
+            xSpeed += abilityMovementSpeed.x;
+            ySpeed += abilityMovementSpeed.y;
+
+            abilityMovementCurTime += Time.deltaTime;
+            if (abilityMovementCurTime >= abilityMovementTotalTime)
+            {
+                isAbilityMovement = false;
+                abilityMovementCurTime = 0f;
+                abilityMovementTotalTime = 0f;
+            }
+        }
+        else if (isPassiveMovement)
+        {
+            xSpeed += passiveMovementSpeed.x;
+            ySpeed += passiveMovementSpeed.y;
+
+            passiveMovementCurTime += Time.deltaTime;
+            if (passiveMovementCurTime >= passiveMovementTotalTime)
+            {
+                isPassiveMovement = false;
+                passiveMovementCurTime = 0f;
+                passiveMovementTotalTime = 0f;
+            }
+        }
+        else if (isControllorMovement)
+        {
+            xSpeed += controllorMovement.x;
+            ySpeed += controllorMovement.y;
+        }
+
+        //结算减速列表
+
+        if (controlStatus == PlayerControlStatus.Crouch)
+        {
+            xSpeed /= crouchDivision;
+        }
+
+        //放大x轴向速度
+        xSpeed *= xSpeedRatio;
+
+        //结算重力
+        if (isGravity)
+        {
+            ySpeed -= gravity * Time.deltaTime;
+            ySpeed = ySpeed < yFallingMaxSpeed ? yFallingMaxSpeed : ySpeed;
+        }
+
+        //检测墙体碰撞，以便速度归0
+        if ((isOnFloor && ySpeed < 0) || (isDownFloor && ySpeed > 0))
+        {
+            ySpeed = 0f;
+        }
+        if ((isLeftDetect && xSpeed < 0) || (isRightDetect && xSpeed > 0))
+        {
+            xSpeed = 0f;
+        }
+
+        xMovementPerFrame += xSpeed * Time.deltaTime;
+        yMovementPerFrame += ySpeed * Time.deltaTime;
+
+        //转身
+        if (xMovementPerFrame < 0)
+        {
+            isFacingLeft = true;
+            transform.localScale = leftLocalScale;
+        }
+        else if (xMovementPerFrame > 0)
+        {
+            isFacingLeft = false;
+            transform.localScale = rightLocalScale;
+        }
+
+        ////控制y轴速度绝对值在最大值以内
+        //ySpeed = ySpeed > yMaxSpeed ? yMaxSpeed : ySpeed;
+        //ySpeed = ySpeed < -yMaxSpeed ? -yMaxSpeed : ySpeed;
+
+        transform.Translate(xMovementPerFrame, yMovementPerFrame, 0, Space.Self);
+
+        //newPosition.x = transform.position.x + xMovementPerFrame;
+        //newPosition.y = transform.position.y + yMovementPerFrame;
+        //transform.position = newPosition;
+
+        SetAnimStatus();
+
+        //Debug.Log("3Player当前的状态是" + controlStatus.ToString());
+
+        SetDebugInfo();
+        //update结束，清理状态位以供下一帧重新使用
+        Clear();
+    }
     //所在update队列为Player
     public UpdateType updateType = UpdateType.Player;
     //player中优先级等级为5
@@ -799,5 +878,20 @@ public class MovementPlayer : myUpdate
     {
         return priorityInType;
     }
+    public RaycastHit2D Raycast(Vector2 offset, Vector2 rayDiraction, float length, LayerMask layer)
+    {
+        Vector2 pos = transform.position;//人物位置
 
+        RaycastHit2D hit = Physics2D.Raycast(pos + offset, rayDiraction, length, layer);
+
+        Color color = hit ? Color.red : Color.green; //射线颜色 触碰layerr变red;不触碰则为green
+
+        Debug.DrawRay(pos + offset, rayDiraction * length, color);//显示射线
+
+        return hit;
+    }
+    public bool IsOnFloor()
+    {
+        return isOnFloor;
+    }
 }

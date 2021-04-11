@@ -11,8 +11,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using System.Text;
 
 //Defence组件需要一个CanBeFighted组件，作为底层操作对象
 [RequireComponent(typeof(CanBeFighted))]
@@ -39,11 +37,6 @@ abstract public class Defence : MonoBehaviour
     //血量下降值
     protected int hpReduction = 0;
 
-    //ui:DebugInfo
-    private Text debugInfoUI;
-
-    
-    
     protected virtual void Start()
     {
         attackedCheck = GetComponent<CanBeFighted>();
@@ -51,8 +44,6 @@ abstract public class Defence : MonoBehaviour
         {
             Debug.LogError("在" + gameObject.name + "中，Defence组件没有找到所依赖的CanBeFighted组件");
         }
-
-        debugInfoUI = GameObject.Find("SlimerDebug").GetComponent<Text>();            
     }
     public virtual void Initialize(int hpMax)
     {
@@ -63,31 +54,6 @@ abstract public class Defence : MonoBehaviour
     //子类中应该在这个方法中包含你想通过这个组件做到的全部事情，除了clear
     abstract public void AttackCheck();
 
-    private StringBuilder debugInfo = new StringBuilder(1024);
-    public void ChangeDebugInfo()
-    {
-        debugInfo.Append("hp: ");
-        debugInfo.AppendLine(hp.ToString());
-        
-        debugInfo.Append("isDead: ");
-        debugInfo.AppendLine(isDead.ToString());
-
-        debugInfo.Append("attackNum: ");
-        debugInfo.AppendLine(attackNum.ToString());
-        
-        debugInfo.Append("damageSum: ");
-        debugInfo.AppendLine(damageSum.ToString());
-        
-        debugInfo.Append("maxInterrupt: ");
-        debugInfo.AppendLine(maxInterrupt.ToString());
-        
-        debugInfo.Append("hpReduction: ");
-        debugInfo.AppendLine(hpReduction.ToString());
-
-        debugInfoUI.text = debugInfo.ToString();
-
-        debugInfo.Clear();
-    }
 
     public int getHpMax() { return hpMax; }
     public int getHp() { return hp; }

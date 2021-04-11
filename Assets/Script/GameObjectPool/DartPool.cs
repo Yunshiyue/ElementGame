@@ -15,10 +15,16 @@ public class DartPool : GameObjectPool
     /// 初始化Dart对象池，加载预设
     /// </summary>
     /// <param name="poolType">对象池类型</param>
-    /// <param name="transform">父物体transform</param>
-    public override void Init(PoolManager.poolType poolType, Transform transform)
+    /// <param name="parentTransfrom">父物体transform</param>
+    public override void Init(PoolManager.poolType poolType, Transform parentTransfrom)
     {
-        base.Init(poolType, transform);
+        base.Init(poolType, parentTransfrom);
+
+        //新建GameObject并修改transform关系
+        GameObject dartPool = new GameObject("DartPool");
+        dartPool.transform.SetParent(parentTransfrom);
+        currentTransfrom = dartPool.transform;
+
         prefab = (GameObject)Resources.Load("Prefabs/Dart");
     }
 }

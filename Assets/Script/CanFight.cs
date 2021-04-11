@@ -56,9 +56,7 @@ public class CanFight : MonoBehaviour
         {
             targetLayer ^= 1 << LayerMask.NameToLayer(layername);
         }
-
         Debug.Log("在" + gameObject.name + "中，可攻击到的层为" + System.Convert.ToString(targetLayer,2));
-
 
         filter.layerMask = targetLayer;
         //32个bit表示32个层，左移表示筛选需要哪个层
@@ -105,20 +103,56 @@ public class CanFight : MonoBehaviour
         {
             Debug.Log("攻击碰到敌人");
 
-            //构建被攻击的敌人CanBeFighted数组
-            CanBeFighted[] enemiesAttacked = new CanBeFighted[enemiesNumber];           
-
+            CanBeFighted[] enemiesAttacked = new CanBeFighted[enemiesNumber];
             CanBeFighted enemyBody;
             //对碰到的敌人进行以下操作，如果敌人有CanBeFighted组件，则施加攻击，否则报错
-            for (int i =0 ; i<enemiesNumber ; i++ )
-            {
 
+            for(int i = 0; i < enemiesNumber; i++)
+            {
 
                 if (enemies[i].TryGetComponent<CanBeFighted>(out enemyBody))
                 {
                     Attack(enemyBody, damage, AttackInterruptType.NONE);
                     enemiesAttacked[i] = enemyBody;
+                }
+                else
+                {
+                    Debug.LogError("在" + gameObject.name +
+                        "释放范围攻击时,这些物体被检测为敌人，但是没有CanBeFighted组件" + enemies[i].gameObject.name);
+                }
+            }
+            return enemiesAttacked;
+        }
 
+        return null;
+    }
+
+    public CanBeFighted[] AttackArea(Collider2D area, int damage, CanBeFighted[] hasAttacked, AttackInterruptType interruptType = AttackInterruptType.NONE)
+    {
+        //输入范围需要Trigger才行
+        if (!area.isTrigger)
+        {
+            Debug.LogError("在" + gameObject.name + "释放范围攻击时,输入的collider2d并不是trigger态");
+            return null;
+        }
+
+        Collider2D[] enemies = new Collider2D[ENMEIES_MAX_NUM_ONEATTACK];
+        int enemiesNumber = area.OverlapCollider(filter, enemies);
+
+        if (enemiesNumber != 0)
+        {
+            Debug.Log("攻击碰到敌人");
+
+            CanBeFighted[] enemiesAttacked = new CanBeFighted[enemiesNumber];
+            CanBeFighted enemyBody;
+            //对碰到的敌人进行以下操作，如果敌人有CanBeFighted组件，则施加攻击，否则报错
+
+            for (int i = 0; i < enemiesNumber; i++)
+            {
+                if (enemies[i].TryGetComponent<CanBeFighted>(out enemyBody))
+                {
+                    Attack(enemyBody, damage, AttackInterruptType.NONE);
+                    enemiesAttacked[i] = enemyBody;
                 }
                 else
                 {

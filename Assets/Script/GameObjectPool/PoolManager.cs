@@ -2,7 +2,11 @@
  * @Description: PoolManager类是对象池管理类，所有的对象池要在该类中注册，生成特定对象时要调用此类中的接口
  * @Author: CuteRed
 
- *      
+ * 
+ * 
+ * @Description: 在对象池中添加了poolType-FireBall 火球 typeCount = 2
+ * @Author:夜里猛
+
 */
 
 using System.Collections;
@@ -11,42 +15,15 @@ using UnityEngine;
 
 public class PoolManager : MonoBehaviour
 {
-    public enum poolType { Dart };
-    private int typeCount = 1;
+    public enum poolType { Dart,FireBall };
+    private int typeCount = 2;
 
     /// <summary>
     /// 存放所有对象池
     /// </summary>
-    Dictionary<PoolManager.poolType, GameObjectPool> pools = new Dictionary<PoolManager.poolType, GameObjectPool>();
+    private Dictionary<PoolManager.poolType, GameObjectPool> pools = new Dictionary<PoolManager.poolType, GameObjectPool>();
 
-    Transform parentTransform;
-
-    public static PoolManager instance = null;
-
-    public static PoolManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                GameObject gameObject = GameObject.Find("PoolManager");
-
-                if (gameObject == null)
-                {
-                    gameObject = new GameObject("PoolManager");
-                    DontDestroyOnLoad(gameObject);
-                }
-
-                instance = gameObject.GetComponent<PoolManager>();
-
-                if (instance == null)
-                {
-                    instance = gameObject.AddComponent<PoolManager>();
-                }
-            }
-            return instance;
-        }
-    }
+    private Transform parentTransform;
 
     private void Start()
     {
@@ -56,6 +33,11 @@ public class PoolManager : MonoBehaviour
         DartPool dartPool = new DartPool();
         dartPool.Init(PoolManager.poolType.Dart, transform);
         pools.Add(PoolManager.poolType.Dart, dartPool);
+
+        //初始化火球对象池
+        FireBallPool fireBallPool = new FireBallPool();
+        fireBallPool.Init(PoolManager.poolType.FireBall, transform);
+        pools.Add(PoolManager.poolType.FireBall, fireBallPool);
     }
 
     /// <summary>
@@ -87,7 +69,7 @@ public class PoolManager : MonoBehaviour
         //检查是否有该对象池
         if (pools.ContainsKey(poolType))
         {
-            pools[poolType].Remove(obj);
+            pools[poolType].Recycle(obj);
         }
     }
 

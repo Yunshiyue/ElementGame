@@ -14,16 +14,23 @@ public class Trap : Machanism
 
     [Header("伤害参数")]
     protected int damage = 1;
-    protected CanFight fight;
+    public CanFight canFight;
+    protected string targetLayerName = "Player";
 
 
     // Start is called before the first frame update
     void Start()
     {
-        fight = GetComponent<CanFight>();
-        if (fight == null)
+        canFight = GetComponent<CanFight>();
+
+        //使用string数组初始化canFight能够检测到的层
+        string[] targets = new string[1];
+        targets[0] = targetLayerName;
+        canFight.Initiailize(targets);
+
+        if (canFight == null)
         {
-            Debug.LogError("在" + gameObject.name + "中，获取fight组件时出错");
+            Debug.LogError("在" + gameObject.name + "中，获取canFight组件时出错");
         }
 
         if (collider == null)
@@ -44,21 +51,25 @@ public class Trap : Machanism
     public override void Trigger()
     {
         //对区域内目标进行攻击
-        fight.AttackArea(collider, damage);
+        canFight.AttackArea(collider, damage);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void SetTargetLayerName(string layerName)
     {
-        if (collision.tag == "Player")
-        {
-            //检测到玩家，造成伤害
-            CanBeFighted beFought;
-            if (collision.TryGetComponent<CanBeFighted>(out beFought))
-            {
-                Debug.Log("Trap对玩家造成伤害");
-                fight.Attack(beFought, damage);
-            }
-            
-        }
+        targetLayerName = layerName;
     }
+
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if (collision.tag == "Player")
+    //    {
+    //        //检测到玩家，造成伤害
+    //        CanBeFighted beFought;
+    //        if (collision.TryGetComponent<CanBeFighted>(out beFought))
+    //        {
+    //            Debug.Log("Trap对玩家造成伤害");
+    //            canFight.Attack(beFought, damage);
+    //        }        
+    //    }
+    //}
 }

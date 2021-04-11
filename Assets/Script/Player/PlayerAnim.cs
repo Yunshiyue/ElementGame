@@ -15,14 +15,14 @@ public class PlayerAnim : myUpdate
     private Animator anim;
     //private PlayerMovement movement;
     //private Rigidbody2D rb;
-    private float xVelocity=0;
-    private float yVelocity=0;
+    private float xVelocity = 0;
+    private float yVelocity = 0;
     private bool isOnGround;
     private bool isCrouch;
-    private int abilityNum=999;
+    private int abilityNum = 999;
     private int status;
 
-    private int priorityInType =15;
+    private int priorityInType = 15;
     private UpdateType updateType = UpdateType.Player;
 
     // Start is called before the first frame update
@@ -71,14 +71,6 @@ public class PlayerAnim : myUpdate
         isOnGround = on;
     }
     /// <summary>
-    /// 提供动画机：是否下蹲
-    /// </summary>
-    /// <param name="x"></param>
-    public void SetIsCrouch(bool on)
-    {
-        isCrouch = on;
-    }
-    /// <summary>
     /// 提供动画机：当前人物状态
     /// </summary>
     /// <param name="x"></param>
@@ -94,9 +86,7 @@ public class PlayerAnim : myUpdate
                 status = 1;
                 break;
             case MovementPlayer.PlayerControlStatus.AbilityWithMovement:
-                
             case MovementPlayer.PlayerControlStatus.AbilityNeedControl:
-                
                 status = 2;
                 break;
             case MovementPlayer.PlayerControlStatus.Interrupt:

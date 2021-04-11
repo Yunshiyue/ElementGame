@@ -9,19 +9,23 @@
  * @Edit: 1.增加了道具存在时间超时的判断
  *        2.增加了被攻击单位的列表
  *        
-<<<<<<< HEAD
 
  * @Editor: CuteRed's daddy
  * @Edit: 1.增加了接口，给回旋镖设置目标投掷位置
  *        2.增加了接口，让player扔它
  *        3.改变了回旋镖死亡动作：setactive(false)而不是destroy
  *        4.增加了接口，设置抛出者，并设置判断位判定是否设置了抛出者
-=======
+ *        
 
  * @Editor: CuteRed
  * @Edit: 1.将直接销毁改为由对象池回收
  *        2.增加print和OnEnable函数
->>>>>>> a31ff31d88086891f0374cb8992a2db0ddfbe766
+ *        
+
+ * @Editor: daddy!
+ * @Edit: 1.增加了碰到墙面返回的特性，通过每update一帧调用射线检测实现(尝试过用collider的isTouching但是失败了，原因未知)
+ *          当向前飞的时候，碰到墙则返回；当飞回来的时候，碰到墙则消失
+ *        2.将一些GetComponent的方法变为了成员变量，比如poolManager、throwerHand
 */
 
 
@@ -35,63 +39,62 @@ public class Dart : FlyingProp
     float rotateSpeed = 1000f;
 
     [Header("移动参数")]
-    float moveSpeed = 10f;
+    private float moveSpeed = 10f;
 
     /// <summary>
     /// 目标位置
     /// </summary>
-    Vector2 targetPosition = new Vector2();
+    private Vector2 targetPosition = new Vector2();
 
     /// <summary>
     /// 投掷者
     /// </summary>
     /// TODO 这里还没有初始化
-    GameObject thrower;
+    private GameObject thrower;
 
     [Header("bool参数")]
     /// <summary>
     /// 旋转状态
     /// </summary>
-    bool isRotating = false;
+    private bool isRotating = false;
 
     /// <summary>
     /// 前进状态
     /// </summary>
-    bool isGo = false;
+    private bool isGo = false;
 
     /// <summary>
     /// 返回状态
     /// </summary>
-    bool isBack = false;
+    private bool isBack = false;
 
     [Header("伤害参数")]
-    int damage = 1;
-    /// <summary>
-    /// 可以攻击
-    /// </summary>
-    CanFight fight;
+    private int damage = 1;
+    
     /// <summary>
     /// 被该飞镖攻击过的物体
     /// </summary>
-    List<CanBeFighted> fought = new List<CanBeFighted>();
+    private List<CanBeFighted> fought = new List<CanBeFighted>();
 
-   
-    
+    private LayerMask ground;
+    private PoolManager poolManager;
+    private CanFight throwerHand;
 
     // Start is called before the first frame update
-    private void Start()
+    protected override void Start()
     {
-        if(thrower == null)
+        base.Start();
+        ground = LayerMask.GetMask("Platform");
+
+        poolManager = GameObject.Find("PoolManager").GetComponent<PoolManager>();
+        if(poolManager == null)
         {
-            Debug.LogError("飞镖类没有设置thrower！");
+            Debug.LogError("飞镖中没有找到pollManager！");
         }
 
-        startTime = Time.time;
-
-        fight = GetComponent<CanFight>();
-        if (fight == null)
+        if (thrower == null)
         {
-            Debug.LogError("在" +  gameObject.name +"中，获取fight组件时出错");
+            Debug.LogError("飞镖类没有设置thrower！");
         }
 
         if (thrower == null)
@@ -105,7 +108,7 @@ public class Dart : FlyingProp
         isRotating = false;
         isGo = false;
         isBack = false;
-        startTime = Time.time;
+        existTime = 0f;
         fought.Clear();
     }
 
@@ -113,11 +116,32 @@ public class Dart : FlyingProp
     /// 初始化Dart，包括投掷者、目标位置，在每次生成飞镖时需要调用
     /// </summary>
     /// <param name="thrower">投掷者</param>
-    public void Init(GameObject thrower)
+    public void SetThrower(GameObject thrower)
     {
         this.thrower = thrower;
-        targetPosition.y = thrower.transform.position.y;
-        targetPosition.x = thrower.transform.position.x + 10 * thrower.transform.localScale.x;
+        throwerHand = thrower.GetComponent<CanFight>();
+        if(throwerHand == null)
+        {
+            Debug.LogError("在飞镖中，投掷者没有CanFight类！");
+        }
+    }
+
+    public void SetTargetPosition(Vector2 tarPosition)
+    {
+        targetPosition.x = tarPosition.x;
+        targetPosition.y = tarPosition.y;
+    }
+
+    /// <summary>
+    /// 初始化飞镖，设置投掷者和目标位置
+    /// </summary>
+    /// <param name="thrower">投掷者</param>
+    /// <param name="tarPosition">目标位置</param>
+    public void Initialize(GameObject thrower, Vector2 tarPosition)
+    {
+        Debug.Log("thrower:" + thrower.name);
+        SetThrower(thrower);
+        SetTargetPosition(tarPosition);       
     }
 
     // Update is called once per frame
@@ -135,12 +159,11 @@ public class Dart : FlyingProp
         {
             SelfRotate();
             Movement();
-            Debug.Log("运动中" + gameObject.transform);
+            //Debug.Log("Dart运动中" + gameObject.transform);
         }
 
-        //print();
         //超时检测
-        //TimeOutDetect();
+        TimeOutDetect();
     }
 
     /// <summary>
@@ -156,21 +179,30 @@ public class Dart : FlyingProp
     /// </summary>
     protected override void Movement()
     {
-        //武器到达目的点时
-        if (Vector2.Distance(transform.position, targetPosition) < 0.01f)
+        //武器到达目的点时 或者 碰到墙
+        if(isGo && !isBack)
         {
-            isBack = true;
-            isGo = false;
+            if (Vector2.Distance(transform.position, targetPosition) < 0.1f || Physics2D.Raycast(transform.position, Vector2.right, 0.5f, ground))
+            {
+                isBack = true;
+                isGo = false;
+            }
+        }
+        else
+        {
+            if (Physics2D.Raycast(transform.position, Vector2.right, 0.5f, ground))
+            {
+                Disappear();
+            }
         }
 
+
         //武器回到投掷者手中
-        if (Vector2.Distance(transform.position, thrower.transform.position) < 0.01f && isBack)
+        if (Vector2.Distance(transform.position, thrower.transform.position) < 0.2f && isBack)
         {
             isBack = false;
-            //飞镖消失
-
-            //Destroy(this);
-            PoolManager.instance.RemoveGameObject(PoolManager.poolType.Dart, gameObject);
+            //回到对象池
+            Disappear();
         }
 
         //在前进状态下，前往目标地点
@@ -189,35 +221,33 @@ public class Dart : FlyingProp
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //撞到人，造成伤害
-        if (collision.tag == "Enemy")
+        CanBeFighted beFought;
+        if (collision.TryGetComponent<CanBeFighted>(out beFought))
         {
-            CanBeFighted beFought;
-            if (collision.TryGetComponent<CanBeFighted>(out beFought))
+            //不可对同一目标造成2次伤害
+            if (!fought.Contains(beFought))
             {
-                fight.Attack(beFought, damage);
+                throwerHand.Attack(beFought, damage);
                 fought.Add(beFought);
+                Debug.Log("Dart对" + beFought.name + "造成伤害");
             }
-        }
-
-        //撞到地图，直接返回
-        if (collision.tag == "Map")
-        {
-            isGo = false;
-            isBack = true;
-        }
+        }       
     }
-
 
     /// <summary>
     /// 超时检测，超过最大时间后，销毁
     /// </summary>
     protected override void TimeOutDetect()
     {
-        float currentTime = Time.time;
-        if (startTime + MAX_EXIST_TIME > currentTime)
+        existTime += Time.deltaTime;
+        if (existTime > MAX_EXIST_TIME)
         {
-            PoolManager.instance.RemoveGameObject(PoolManager.poolType.Dart, gameObject);
+            Disappear();
         }
+    }
+    protected override void Disappear()
+    {
+        poolManager.RemoveGameObject(PoolManager.poolType.Dart, gameObject);
     }
 
     /// <summary>

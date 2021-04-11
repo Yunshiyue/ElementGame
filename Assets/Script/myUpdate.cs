@@ -6,7 +6,13 @@
  * @Author: ridger
 
  * 
+
+ * @Editor: ridger
+ * @Edit: 增加了注销方法，以供myUpdate方法从update队列中移除；
  * 
+
+ * @Editor: ridger
+ * @Edit: 增加了UpdateType.PoolThing的枚举，从对象池中拿出来的物体type应该设为这个值
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -14,15 +20,24 @@ using UnityEngine;
 
 abstract public class myUpdate : MonoBehaviour
 {
+    public enum UpdateType { GUI, Map, PoolThing, Player, Enemy }
+
+    private UpdateManager manager;
+
     private void Awake()
     {
-        GameObject.Find("UpdateManager").GetComponent<UpdateManager>().Register(this);
+        manager = GameObject.Find("UpdateManager").GetComponent<UpdateManager>();
+        manager.Register(this);
     }
+
+    public void LogOut()
+    {
+        manager.LogOut(this);
+    }
+
     abstract public void Initialize();
 
     abstract public void MyUpdate();
-
-    public enum UpdateType { GUI, Map, Player, Enemy }
 
     abstract public UpdateType GetUpdateType();
 

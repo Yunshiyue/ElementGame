@@ -54,7 +54,7 @@ public class WitcherAttack : MonoBehaviour
     }
     public void FireBall()
     {
-        GameObject fireBall = GameObject.Find("PoolManager").GetComponent<PoolManager>().GetGameObject(PoolManager.poolType.FireBall, gameObject.transform.position);
+        GameObject fireBall = GameObject.Find("PoolManager").GetComponent<PoolManager>().GetGameObject("FireBall", gameObject.transform.position);
 
         //修改位置
         //fireBallTargetPosition.x = gameObject.transform.position.x + fireBallDistance * gameObject.transform.localScale.x;
@@ -70,7 +70,7 @@ public class WitcherAttack : MonoBehaviour
         var dir = (target.transform.position - gameObject.transform.position).normalized;
         Debug.Log("向量：" + dir.ToString() +"角度：" + Vector2.Angle(target.transform.position, gameObject.transform.position));
         fireBallTargetPosition = dir * fireBallDistance;
-        fireBall.GetComponent<FireBall>().Initialize(gameObject, fireBallTargetPosition);
+        fireBall.GetComponent<FireBall>().Init(gameObject, fireBallTargetPosition);
         fireBall.GetComponent<FireBall>().SetAngle(Vector2.Angle(target.transform.position, gameObject.transform.position), scale);
 
         movementComponent.witcherAnim.SetBool("firing", false);

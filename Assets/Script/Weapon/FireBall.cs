@@ -19,9 +19,24 @@ public class FireBall : FlyingProp
     private string targetLayerName;
     private int damage = 2;
 
-    protected override void Start()
+    //protected override void Start()
+    //{
+    //    base.Start();
+
+    //    if (thrower == null)
+    //    {
+    //        Debug.LogError("火球没有设置thrower！");
+    //    }
+
+    //    if (thrower == null)
+    //    {
+    //        Debug.LogError("在" + gameObject.name + "中，初始化thrower时出错");
+    //    }
+    //}
+
+    public override void Initialize()
     {
-        base.Start();
+        base.Initialize();
 
         if (thrower == null)
         {
@@ -34,11 +49,12 @@ public class FireBall : FlyingProp
         }
     }
 
-    private void OnEnable()
-    {
-        existTime = 0f;
-        fought.Clear();
-    }
+    //private void OnEnable()
+    //{
+    //    existTime = 0f;
+    //    fought.Clear();
+    //}
+
     //调整角度
     public void SetAngle(float angle , int scale)
     {
@@ -64,13 +80,17 @@ public class FireBall : FlyingProp
     /// </summary>
     /// <param name="thrower">投掷者</param>
     /// <param name="tarPosition">目标位置</param>
-    public void Initialize(GameObject thrower, Vector2 tarPosition)
+    public void Init(GameObject thrower, Vector2 tarPosition)
     {
         SetThrower(thrower);
         SetTargetPosition(tarPosition);
 
+        existTime = 0f;
+        fought.Clear();
     }
-    private void Update()
+
+
+    public override void MyUpdate()
     {
         //超时检测
         Movement();
@@ -89,7 +109,7 @@ public class FireBall : FlyingProp
         //撞到地图，直接消失
         if (collision.gameObject.layer == LayerMask.NameToLayer("Platform"))
         {
-            GameObject.Find("PoolManager").GetComponent<PoolManager>().RemoveGameObject(PoolManager.poolType.FireBall, gameObject);
+            GameObject.Find("PoolManager").GetComponent<PoolManager>().RemoveGameObject("FireBall", gameObject);
         }
 
         //撞到人，造成伤害       
@@ -113,12 +133,16 @@ public class FireBall : FlyingProp
     {
         if (transform.position.Equals(targetPosition))
         {
-            GameObject.Find("PoolManager").GetComponent<PoolManager>().RemoveGameObject(PoolManager.poolType.FireBall, gameObject);
+            GameObject.Find("PoolManager").GetComponent<PoolManager>().RemoveGameObject("FireBall", gameObject);
+            LogOut();
         }
     }
 
     protected override void Disappear()
     {
-        throw new System.NotImplementedException();
+        GameObject.Find("PoolManager").GetComponent<PoolManager>().RemoveGameObject("FireBall", gameObject);
+        LogOut();
     }
+
+    
 }

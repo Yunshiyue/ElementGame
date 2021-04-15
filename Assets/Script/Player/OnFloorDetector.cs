@@ -4,6 +4,13 @@
  * @Author: ridger
 
  * 
+
+ * @Editor: ridger
+ * @Edit: 1. 修改了下方探测器的位置设定逻辑，现在下方探测器长度由两部分组成，一部分是player内部探测器长度，用于
+ *           固定探测器的初始位置，以及计算当触碰到地板的时候y轴距离补偿。另一部分是是player外部探测器长度，用于检测
+ *           isOnfloor。
+ *        2. 当这一帧主角y轴速度为负值(下落)且下方探测器探测到地板时，进行y轴距离补偿，调整y轴位置以使得主角
+ *           不再陷入地板
  */
 
 using System.Collections;
@@ -22,6 +29,10 @@ public class OnFloorDetector : myUpdate
 
     //头顶探测器长度
     private float headDetectorLength = 0.3f;
+    //脚下探测器长度参数
+    private static float floorOutOfBodyDistance = 0.1f;
+    private static float floorDetectorAsecendDistance = 0.25f;
+    private static float floorDetectorLength = floorOutOfBodyDistance + floorDetectorAsecendDistance;
     //其他探测器长度
     private float detectorLength = 0.02f;
     //脚下探测器x轴向缩放比例
@@ -64,11 +75,11 @@ public class OnFloorDetector : myUpdate
         rtcx = rtnx;
         rtcy = rtny - descentDistance;
         flnx = -coll.size.x / 2 * detectorInsideOffsetRatio;
-        flny = -coll.size.y / 2 + 0.029f;
+        flny = -coll.size.y / 2 + floorDetectorAsecendDistance;
         flcx = flnx;
         flcy = flny;
         frnx = coll.size.x / 2 * detectorInsideOffsetRatio;
-        frny = -coll.size.y / 2 + 0.029f;
+        frny = -coll.size.y / 2 + floorDetectorAsecendDistance;
         frcx = frnx;
         frcy = frny;
         hlnx = -coll.size.x / 2 * detectorInsideOffsetRatio;
@@ -135,15 +146,22 @@ public class OnFloorDetector : myUpdate
     override public void MyUpdate()
     {
         //下方探测器
-        RaycastHit2D floorLeftCheck = Raycast(floorLeftRay, Vector2.down, detectorLength, groundLayer);
-        RaycastHit2D floorRightCheck = Raycast(floorRightRay, Vector2.down, detectorLength, groundLayer);
+        RaycastHit2D floorLeftCheck = Raycast(floorLeftRay, Vector2.down, floorDetectorLength, groundLayer);
+        RaycastHit2D floorRightCheck = Raycast(floorRightRay, Vector2.down, floorDetectorLength, groundLayer);
         if (floorLeftCheck || floorRightCheck)
         {
-            playerMovementComponent.setOnFloor(gameObject, true);
+            playerMovementComponent.SetOnFloor(gameObject, true);
+            //如果碰到地板而且在下落状态
+            if(playerMovementComponent.GetYSpeed() < 0)
+            {
+                //取hit中最大的那个(如果只有一个探针碰到则另一个distance = 0)进行移动
+                float maxDistance = floorLeftCheck.distance > floorRightCheck.distance ? floorLeftCheck.distance : floorRightCheck.distance;
+                playerMovementComponent.SetFloorOffset(floorDetectorAsecendDistance - maxDistance);
+            }
         }
         else
         {
-            playerMovementComponent.setOnFloor(gameObject, false);
+            playerMovementComponent.SetOnFloor(gameObject, false);
         }
 
 
@@ -152,11 +170,11 @@ public class OnFloorDetector : myUpdate
         RaycastHit2D leftDownCheck = Raycast(leftDownRay, Vector2.left, detectorLength, groundLayer);
         if (leftDownCheck || leftTopCheck)
         {
-            playerMovementComponent.setLeftDetect(gameObject, true);
+            playerMovementComponent.SetLeftDetect(gameObject, true);
         }
         else
         {
-            playerMovementComponent.setLeftDetect(gameObject, false);
+            playerMovementComponent.SetLeftDetect(gameObject, false);
         }
 
         //右方探测器
@@ -164,11 +182,11 @@ public class OnFloorDetector : myUpdate
         RaycastHit2D rightDownCheck = Raycast(rightDownRay, Vector2.right, detectorLength, groundLayer);
         if (rightDownCheck || rightTopCheck)
         {
-            playerMovementComponent.setRightDetect(gameObject, true);
+            playerMovementComponent.SetRightDetect(gameObject, true);
         }
         else
         {
-            playerMovementComponent.setRightDetect(gameObject, false);
+            playerMovementComponent.SetRightDetect(gameObject, false);
         }
 
         //上方探测器
@@ -176,11 +194,11 @@ public class OnFloorDetector : myUpdate
         RaycastHit2D headRightCheck = Raycast(headRightRay, Vector2.up, headDetectorLength, groundLayer);
         if (headLeftCheck || headRightCheck)
         {
-            playerMovementComponent.setDownFloor(gameObject, true);
+            playerMovementComponent.SetDownFloor(gameObject, true);
         }
         else
         {
-            playerMovementComponent.setDownFloor(gameObject, false);
+            playerMovementComponent.SetDownFloor(gameObject, false);
         }
     }
 
@@ -215,7 +233,6 @@ public class OnFloorDetector : myUpdate
     {
         return updateType;
     }
-
 
     private Vector2 floorLeftRay = new Vector2(0, 0);
     private Vector2 floorRightRay = new Vector2(0, 0);

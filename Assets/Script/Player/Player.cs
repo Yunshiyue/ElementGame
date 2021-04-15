@@ -7,6 +7,20 @@
 
  * @Editor: ridger
  * @Edit: 下蹲修改为通过Request实现
+ * 
+
+ * @Eidtor: ridger
+ * @Eidt: 增加了长按短按施法逻辑的控制，元素添加与归还的逻辑、施法中断、打断等逻辑。
+ *        以及当主元素为风属性时，瞄准镜的控制逻辑。
+ *        增加了当前主元素、辅元素等变量
+ *        
+
+ * @Eidtor: ridger
+ * @Eidt: 将辅助技能first改为水盾以便测试
+ * 
+
+ * @Eidtor: ridger
+ * @Eidt: 将辅助技能second改为残影闪回以便测试
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -27,6 +41,7 @@ public class Player : myUpdate
     private MovementPlayer movementComponent;
     private AttackPlayer attackComponent;
     private DefencePlayer defenceComponent;
+    private SightHead sightHead;
 
     private int priorityInType = 0;
     private UpdateType updateType = UpdateType.Player;
@@ -55,6 +70,13 @@ public class Player : myUpdate
             Debug.LogError("在Player中，没有找到DefencePlayer脚本！");
         }
         defenceComponent.Initialize(5);
+
+        sightHead = GameObject.Find("SightHead").GetComponent<SightHead>();
+        if(sightHead == null)
+        {
+            Debug.LogError("没找到SightHead这个风属性瞄准镜");
+        }
+        sightHead.gameObject.SetActive(false);
 
         debugInfoUI = GameObject.Find("PlayerAbilityDebugInfo").GetComponent<Text>();
         if(debugInfoUI == null)
@@ -85,6 +107,52 @@ public class Player : myUpdate
         SetCastDebugInfo();
         MoveControl();
 
+        if (Input.GetButtonDown(FireBallAbility.FIRE_BALL_ABILITY))
+        {
+            Debug.Log("火球");
+            attackComponent.FireBallAbility();
+        }
+
+        if (Input.GetButtonDown(ThunderBall.Thunder_BALL))
+        {
+            Debug.Log("雷球");
+            attackComponent.ThunderBall();
+        }
+
+        if (Input.GetButtonDown(Meteorite.METEORITE))
+        {
+            Debug.Log("陨石");
+            attackComponent.Meteorite();
+        }
+
+        if (Input.GetButtonDown(Lava.LAVA))
+        {
+            Debug.Log("岩浆");
+            attackComponent.Lava();
+        }
+
+        if (Input.GetButtonDown(Hurricane.HURRICANE))
+        {
+            Debug.Log("飓风");
+            attackComponent.Hurricane();
+        }
+
+        if (Input.GetButtonDown(WindArrow.WIND_ARROW))
+        {
+            Debug.Log("风箭");
+            attackComponent.WindArrow();
+        }
+
+        if (Input.GetButtonDown(ProtectiveFireBall.PROTECTIVE_FIRE_BALL))
+        {
+            Debug.Log("保护性火球");
+            attackComponent.ProtectiveFireBall();
+        }
+
+        if (Input.GetButtonDown("Dart"))
+        {
+            attackComponent.Dart();
+        }
 
         //将技能控制的结果输出到控制台
         //temp = AttackControl();
@@ -94,11 +162,11 @@ public class Player : myUpdate
         //}
     }
 
-    private Element mainElement = Element.Fire;
+    private Element mainElement = Element.Wind;
     private Element firstOtherElement = Element.Icy;
     private Element secondOtherElement = Element.Thunder;
-    private int firstOtherElementPoint = 5;
-    private int secondOtherElementPoint = 5;
+    private int firstOtherElementPoint = 999;
+    private int secondOtherElementPoint = 999;
 
     private bool isLastFrameCasting = false;
     private bool isAddFirstElement = false;
@@ -173,8 +241,15 @@ public class Player : myUpdate
                 currentCastingTime += Time.deltaTime;
                 isLastFrameCasting = true;
 
+
                 if(currentCastingTime >= fullyCastTime)
                 {
+                    //出现瞄准镜
+                    if (!sightHead.gameObject.activeSelf)
+                    {
+                        sightHead.gameObject.SetActive(true);
+                        sightHead.SetPosition(transform.position);
+                    }
                     //施法完成动画
                 }
                 else
@@ -194,6 +269,8 @@ public class Player : myUpdate
                     isAddSecondElement = false;
                     isLastFrameCasting = false;
                     currentCastingTime = 0f;
+
+                    sightHead.gameObject.SetActive(false);
                 }
             }
         }
@@ -205,6 +282,7 @@ public class Player : myUpdate
             {
                 if(currentCastingTime >= fullyCastTime)
                 {
+                    //其中调用sightHead的getposition方法
                     CastFullyMainSpell();
                 }
                 else
@@ -217,6 +295,8 @@ public class Player : myUpdate
                 isAddSecondElement = false;
                 isLastFrameCasting = false;
                 currentCastingTime = 0f;
+
+                sightHead.gameObject.SetActive(false);
             }
             //如果上一帧没有施法，则啥也不干
         }
@@ -303,25 +383,36 @@ public class Player : myUpdate
 
     private void CastFullyMainSpell()
     {
-        attackComponent.Dart();
+        attackComponent.Dart(sightHead.GetPosition());
         Debug.Log("释放主要蓄力法术！");
+        //测试雷主长按攻击
+        //attackComponent.ThunderLongMain();
     }
     private void CastShortMainSpell()
     {
-        attackComponent.NormalAttack();
+        //attackComponent.NormalAttack();
         Debug.Log("释放主要短按法术！");
 
         //测试雷火攻击
-        //attackComponent.ThunderAndFire();
+        attackComponent.ThunderAndFire();
+        
     }
     private void CastFirstOtherSpell()
     {
-        attackComponent.dash();
+        //attackComponent.dash();
+
+        //测试水盾
+        //attackComponent.WaterShield();
+
         Debug.Log("释放辅助A元素法术！");
+        //测试空气炮攻击
+        attackComponent.WindShortMain();
     }
     private void CastSecondOtherSpell()
     {
-        attackComponent.blink();
+        //attackComponent.blink();
+        //测试闪回
+        attackComponent.BlinkBack();
         Debug.Log("释放辅助B元素法术！");
     }
     private void MenuCheck()
@@ -336,7 +427,7 @@ public class Player : myUpdate
     private void DefenceCheck()
     {
         defenceComponent.AttackCheck();
-        if (defenceComponent.getRealDamage() > 0)
+        if (defenceComponent.getHpReduction() > 0)
         {
             ChangeHpUI();
         }
@@ -355,7 +446,7 @@ public class Player : myUpdate
     private void MoveControl()
     {
         tempMovement.x = Input.GetAxis("Horizontal");
-        movementComponent.RequestMoveByFrame(tempMovement, MovementPlayer.MovementMode.PlayerControl);
+        movementComponent.RequestMoveByFrame(tempMovement, MovementPlayer.MovementMode.PlayerControl, Space.Self);
 
         if(Input.GetButtonDown("Jump"))
         {
@@ -384,7 +475,7 @@ public class Player : myUpdate
 
     //    if (Input.GetButtonDown(AttackPlayer.NORMAL_ATTACK_NAME))
     //    {
-            
+
     //        attackComponent.NormalAttack();
     //        return AttackPlayer.NORMAL_ATTACK_NAME;
     //    }

@@ -6,15 +6,17 @@ public class SlimerMovement : MovementEnemies
 {
     public Animator slimerAnim;//动画
 
-    private Rigidbody2D rb;
+    
     private CapsuleCollider2D coll;
-    public LayerMask Ground;
 
+    //是否朝右
     public bool faceRight = true;
+    //是否在地面上
+    public bool isOnGround = true;
     [SerializeField]//private在unity可见
     [Header("移动参数")]
-    private float speed = 2f;
-    private float jumpForce = 5f;
+    private float speed = 0.3f;
+    private float jumpForce = 4f;
 
     private float originx, leftx, rightx;
 
@@ -36,6 +38,7 @@ public class SlimerMovement : MovementEnemies
         slimerAnim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<CapsuleCollider2D>();
+
     }
 
     override public void MyUpdate()
@@ -75,7 +78,8 @@ public class SlimerMovement : MovementEnemies
                     //移动代码
                     slimerAnim.SetFloat("yVelocity", rb.velocity.y);
 
-                    if (coll.IsTouchingLayers(Ground))
+                    //coll.IsTouchingLayers(Ground)
+                    if (isOnGround)
                     {
                         if (faceRight)
                         {
@@ -85,7 +89,7 @@ public class SlimerMovement : MovementEnemies
                             }
                             else
                             {
-                                rb.velocity = new Vector2(speed, 0f);
+                                rb.velocity = new Vector2(speed, rb.velocity.y);
                                 if (transform.position.x > rightx)
                                 {
 
@@ -102,7 +106,7 @@ public class SlimerMovement : MovementEnemies
                             }
                             else
                             {
-                                rb.velocity = new Vector2(-speed, 0f);
+                                rb.velocity = new Vector2(-speed, rb.velocity.y);
                                 if (transform.position.x < leftx)
                                 {
                                     transform.localScale = new Vector3(1, 1, 1);
@@ -134,6 +138,7 @@ public class SlimerMovement : MovementEnemies
 
         return false;
     }
+
      
     public override int GetPriorityInType()
     {

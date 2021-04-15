@@ -13,37 +13,20 @@ using UnityEngine;
 public class PlayerAnim : myUpdate
 {
     private Animator anim;
-    //private PlayerMovement movement;
-    //private Rigidbody2D rb;
     private float xVelocity = 0;
     private float yVelocity = 0;
     private bool isOnGround;
     private bool isCrouch;
     private int abilityNum = 999;
+    private int skillType = 0;
     private int status;
+
+    private DefencePlayer defencePlayer;
+    private GameObject waterShield;
 
     private int priorityInType = 15;
     private UpdateType updateType = UpdateType.Player;
 
-    // Start is called before the first frame update
-    //void Start()
-    //{
-    //    anim = GetComponent<Animator>();
-
-    //    //movement = GetComponent<PlayerMovement>();
-    //    //rb = GetComponent<Rigidbody2D>();
-    //}
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-    //    anim.SetFloat("running", Mathf.Abs(xVelocity));
-    //    anim.SetBool("crouching", isCrouch);
-    //    anim.SetBool("isOnGround", isOnGround);
-    //    anim.SetFloat("verticalVelocity", yVelocity);
-    //    anim.SetInteger("status", status);
-    //    anim.SetInteger("abilityNum", abilityNum);
-    //}
 
     /// <summary>
     /// 提供动画机x方向速度
@@ -105,6 +88,10 @@ public class PlayerAnim : myUpdate
     public void SetAbilityNum(int num)
     {
         abilityNum = num;
+    } 
+    public void SetUseSkillType(int num)
+    {
+        skillType = num;
     }
 
     public override void Initialize()
@@ -112,7 +99,31 @@ public class PlayerAnim : myUpdate
         anim = GetComponent<Animator>();
         Debug.Log("abilityNum 999");
         anim.SetInteger("abilityNum", 999);
+
+        GetLengthByName("UseSkillByPush");
+        GetLengthByName("UseSkillBySinging");
+
+        defencePlayer = GetComponent<DefencePlayer>();
+        if(defencePlayer == null)
+        {
+            Debug.Log("在PlayerAnim中没有找到DefencePlayer");
+        }
+
+        waterShield = GameObject.Find("WaterShield");
+        if(waterShield == null)
+        {
+            Debug.Log("在PlayerAnim中没有找到waterShield!");
+        }
     }
+    public void WaterShieldUp()
+    {
+        waterShield.SetActive(true);
+    }
+    public void WaterShieldDown()
+    {
+        waterShield.SetActive(false);
+    }
+
 
     public override void MyUpdate()
     {
@@ -122,6 +133,22 @@ public class PlayerAnim : myUpdate
         anim.SetFloat("verticalVelocity", yVelocity);
         anim.SetInteger("status", status);
         anim.SetInteger("abilityNum", abilityNum);
+        anim.SetInteger("useSkillType", skillType);
+    }
+
+    public void GetLengthByName(string name)
+    {
+        float length = 0;
+        AnimationClip[] clips = anim.runtimeAnimatorController.animationClips;
+        foreach (AnimationClip clip in clips)
+        {
+            if (clip.name.Equals(name))
+            {
+                length = clip.length;
+                break;
+            }
+        }
+        Debug.Log(name+":"+length);
     }
 
     public override int GetPriorityInType()
@@ -133,4 +160,37 @@ public class PlayerAnim : myUpdate
     {
         return updateType;
     }
+
+    //实时检测以显示水盾
+    //private void CheckAndShowShield()
+    //{
+    //    if(defencePlayer.IsSieldUp())
+    //    {
+    //        waterShield.SetActive(true);
+    //    }
+    //    else
+    //    {
+    //        waterShield.SetActive(false);
+    //    }
+    //}
+
+    // Start is called before the first frame update
+    //void Start()
+    //{
+    //    anim = GetComponent<Animator>();
+
+    //    //movement = GetComponent<PlayerMovement>();
+    //    //rb = GetComponent<Rigidbody2D>();
+    //}
+
+    //// Update is called once per frame
+    //void Update()
+    //{
+    //    anim.SetFloat("running", Mathf.Abs(xVelocity));
+    //    anim.SetBool("crouching", isCrouch);
+    //    anim.SetBool("isOnGround", isOnGround);
+    //    anim.SetFloat("verticalVelocity", yVelocity);
+    //    anim.SetInteger("status", status);
+    //    anim.SetInteger("abilityNum", abilityNum);
+    //}
 }

@@ -8,9 +8,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class FlyingProp : MonoBehaviour
+public abstract class FlyingProp : myUpdate
 {
     protected Collider2D coll;
+
+    protected int priorityInType = 0;
+    protected UpdateType updateType = UpdateType.PoolThing;
 
     [Header("时间参数")]
     protected const float MAX_EXIST_TIME = 5f;
@@ -20,6 +23,25 @@ public abstract class FlyingProp : MonoBehaviour
     /// 移动
     /// </summary>
     protected abstract void Movement();
+
+    public override void Initialize()
+    {
+        coll = GetComponent<Collider2D>();
+        if (coll == null)
+        {
+            Debug.LogError("在" + gameObject.name + "中，获取collider错误");
+        }
+    }
+
+    public override int GetPriorityInType()
+    {
+        return priorityInType;
+    }
+
+    public override UpdateType GetUpdateType()
+    {
+        return updateType;
+    }
 
     protected virtual void Start()
     {

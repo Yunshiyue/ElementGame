@@ -62,6 +62,7 @@ abstract public class Defence : MonoBehaviour
     public int getDamageSum() { return damageSum; }
     public AttackInterruptType getMaxInterrupt() { return maxInterrupt; }
     public int getRealDamage() { return realDamage; }
+    public int getHpReduction() { return hpReduction; }
 
     //将下一帧的hasSetStatistic设置为false，并清除CanBeFighted的数据
     public void Clear()
@@ -114,7 +115,6 @@ abstract public class Defence : MonoBehaviour
     //对生命值进行扣除，并计算出hpReduction；如果生命值为0，则isDead设置为true
     protected virtual void SetHealthStatus()
     {
-
         if (hp < realDamage)
         {
             hpReduction = hp;

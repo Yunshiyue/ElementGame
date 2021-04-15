@@ -1,7 +1,208 @@
 fileFormatVersion: 2
 guid: eb9444d478ac4f949b78d6d248b14eda
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -6160985919736144009
+    second: FireBurst_64x64_0
+  - first:
+      213: -9124920051821517718
+    second: FireBurst_64x64_1
+  - first:
+      213: -7508319092637917194
+    second: FireBurst_64x64_2
+  - first:
+      213: 1370019477741761621
+    second: FireBurst_64x64_3
+  - first:
+      213: -8436164582568902219
+    second: FireBurst_64x64_4
+  - first:
+      213: -614824559325061446
+    second: FireBurst_64x64_5
+  - first:
+      213: -4539784053652325182
+    second: FireBurst_64x64_6
+  - first:
+      213: -3952662269753158614
+    second: FireBurst_64x64_7
+  - first:
+      213: 6874171549691856302
+    second: FireBurst_64x64_8
+  - first:
+      213: 2453688631283213580
+    second: FireBurst_64x64_9
+  - first:
+      213: 4917384767674446427
+    second: FireBurst_64x64_10
+  - first:
+      213: 4394117784299675579
+    second: FireBurst_64x64_11
+  - first:
+      213: 5340337964991836067
+    second: FireBurst_64x64_12
+  - first:
+      213: 8695302645086790395
+    second: FireBurst_64x64_13
+  - first:
+      213: 4495837182915268929
+    second: FireBurst_64x64_14
+  - first:
+      213: 3675493522975868041
+    second: FireBurst_64x64_15
+  - first:
+      213: 7264040910607610583
+    second: FireBurst_64x64_16
+  - first:
+      213: 544506741547415445
+    second: FireBurst_64x64_17
+  - first:
+      213: -2567066694628331385
+    second: FireBurst_64x64_18
+  - first:
+      213: -5060014625313687578
+    second: FireBurst_64x64_19
+  - first:
+      213: 8690094293399698137
+    second: FireBurst_64x64_20
+  - first:
+      213: 4508470267272880614
+    second: FireBurst_64x64_21
+  - first:
+      213: 7759041131406245994
+    second: FireBurst_64x64_22
+  - first:
+      213: 8375698638157299721
+    second: FireBurst_64x64_23
+  - first:
+      213: -2972582249949212709
+    second: FireBurst_64x64_24
+  - first:
+      213: -4681264568222648308
+    second: FireBurst_64x64_25
+  - first:
+      213: -7861412292242201522
+    second: FireBurst_64x64_26
+  - first:
+      213: 944518607239298858
+    second: FireBurst_64x64_27
+  - first:
+      213: -5767930197896714774
+    second: FireBurst_64x64_28
+  - first:
+      213: -2908095724204314821
+    second: FireBurst_64x64_29
+  - first:
+      213: -7543367570105631558
+    second: FireBurst_64x64_30
+  - first:
+      213: 3247578837649776610
+    second: FireBurst_64x64_31
+  - first:
+      213: 8701204986057541322
+    second: FireBurst_64x64_32
+  - first:
+      213: -2708425553515064909
+    second: FireBurst_64x64_33
+  - first:
+      213: 7408429963778382787
+    second: FireBurst_64x64_34
+  - first:
+      213: 2083680968349212845
+    second: FireBurst_64x64_35
+  - first:
+      213: -1312508990978506896
+    second: FireBurst_64x64_36
+  - first:
+      213: -274706545741641065
+    second: FireBurst_64x64_37
+  - first:
+      213: -463043788364263888
+    second: FireBurst_64x64_38
+  - first:
+      213: 5097748899895950862
+    second: FireBurst_64x64_39
+  - first:
+      213: 8208547702020276145
+    second: FireBurst_64x64_40
+  - first:
+      213: 7882324065269886025
+    second: FireBurst_64x64_41
+  - first:
+      213: 8037226746275646
+    second: FireBurst_64x64_42
+  - first:
+      213: 8326337593811823528
+    second: FireBurst_64x64_43
+  - first:
+      213: 3531144688027945322
+    second: FireBurst_64x64_44
+  - first:
+      213: 5852652021330144887
+    second: FireBurst_64x64_45
+  - first:
+      213: 7951394860147466861
+    second: FireBurst_64x64_46
+  - first:
+      213: -1140032979533080863
+    second: FireBurst_64x64_47
+  - first:
+      213: -6587796789175132993
+    second: FireBurst_64x64_48
+  - first:
+      213: 5244163635583357694
+    second: FireBurst_64x64_49
+  - first:
+      213: 4131015007783007984
+    second: FireBurst_64x64_50
+  - first:
+      213: 8919696479872103131
+    second: FireBurst_64x64_51
+  - first:
+      213: 8318012880913625358
+    second: FireBurst_64x64_52
+  - first:
+      213: 5723064263979073853
+    second: FireBurst_64x64_53
+  - first:
+      213: -7698775600989137545
+    second: FireBurst_64x64_54
+  - first:
+      213: 1071658915591425980
+    second: FireBurst_64x64_55
+  - first:
+      213: 5823135828464185162
+    second: FireBurst_64x64_56
+  - first:
+      213: -734830573230586896
+    second: FireBurst_64x64_57
+  - first:
+      213: -5129426835102486960
+    second: FireBurst_64x64_58
+  - first:
+      213: -8378669116025266696
+    second: FireBurst_64x64_59
+  - first:
+      213: 6749187117857918814
+    second: FireBurst_64x64_60
+  - first:
+      213: -7915021127304344699
+    second: FireBurst_64x64_61
+  - first:
+      213: -3071558857366967447
+    second: FireBurst_64x64_62
+  - first:
+      213: 6714240272484706505
+    second: FireBurst_64x64_63
+  - first:
+      213: 5522569038257338786
+    second: FireBurst_64x64_64
+  - first:
+      213: -3805220965697700861
+    second: FireBurst_64x64_65
+  - first:
+      213: 1426896616187894553
+    second: FireBurst_64x64_66
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -40,12 +241,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -71,9 +272,1428 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: FireBurst_64x64_0
+      rect:
+        serializedVersion: 2
+        x: 1491
+        y: 55
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77f91f3c2f7cf7aa0800000000000000
+      internalID: -6160985919736144009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_1
+      rect:
+        serializedVersion: 2
+        x: 1554
+        y: 31
+        width: 18
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a64e65b0f85cd5180800000000000000
+      internalID: -9124920051821517718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_2
+      rect:
+        serializedVersion: 2
+        x: 1619
+        y: 58
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ff9807e0971dc790800000000000000
+      internalID: -7508319092637917194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_3
+      rect:
+        serializedVersion: 2
+        x: 1681
+        y: 33
+        width: 32
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 554f922d479430310800000000000000
+      internalID: 1370019477741761621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_4
+      rect:
+        serializedVersion: 2
+        x: 1745
+        y: 41
+        width: 17
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b1cf354209bcea80800000000000000
+      internalID: -8436164582568902219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_5
+      rect:
+        serializedVersion: 2
+        x: 1808
+        y: 35
+        width: 33
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abe5e3e1254b777f0800000000000000
+      internalID: -614824559325061446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_6
+      rect:
+        serializedVersion: 2
+        x: 1300
+        y: 50
+        width: 5
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ccf11db4727ff0c0800000000000000
+      internalID: -4539784053652325182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_7
+      rect:
+        serializedVersion: 2
+        x: 1364
+        y: 52
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2416469b925529c0800000000000000
+      internalID: -3952662269753158614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_8
+      rect:
+        serializedVersion: 2
+        x: 1428
+        y: 53
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea5ca708a96f56f50800000000000000
+      internalID: 6874171549691856302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_9
+      rect:
+        serializedVersion: 2
+        x: 1498
+        y: 30
+        width: 10
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c05ec095fc04d0220800000000000000
+      internalID: 2453688631283213580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_10
+      rect:
+        serializedVersion: 2
+        x: 1617
+        y: 35
+        width: 27
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b52f62d846f0e3440800000000000000
+      internalID: 4917384767674446427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_11
+      rect:
+        serializedVersion: 2
+        x: 1758
+        y: 34
+        width: 19
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbf986208da0bfc30800000000000000
+      internalID: 4394117784299675579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_12
+      rect:
+        serializedVersion: 2
+        x: 1109
+        y: 45
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3afeed7b511bc1a40800000000000000
+      internalID: 5340337964991836067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_13
+      rect:
+        serializedVersion: 2
+        x: 1170
+        y: 25
+        width: 23
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf2a9ee9fabeba870800000000000000
+      internalID: 8695302645086790395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_14
+      rect:
+        serializedVersion: 2
+        x: 1172
+        y: 46
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14158af091c646e30800000000000000
+      internalID: 4495837182915268929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_15
+      rect:
+        serializedVersion: 2
+        x: 1234
+        y: 26
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 984c933b2e9f10330800000000000000
+      internalID: 3675493522975868041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_16
+      rect:
+        serializedVersion: 2
+        x: 1236
+        y: 48
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d2fbaeb8be0fc460800000000000000
+      internalID: 7264040910607610583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_17
+      rect:
+        serializedVersion: 2
+        x: 1298
+        y: 37
+        width: 24
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5973dbb1ff97e8700800000000000000
+      internalID: 544506741547415445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_18
+      rect:
+        serializedVersion: 2
+        x: 1362
+        y: 30
+        width: 25
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78031ff2172ff5cd0800000000000000
+      internalID: -2567066694628331385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_19
+      rect:
+        serializedVersion: 2
+        x: 1426
+        y: 31
+        width: 17
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e775e3e18737c9b0800000000000000
+      internalID: -5060014625313687578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_20
+      rect:
+        serializedVersion: 2
+        x: 1489
+        y: 44
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dafcbeb7ba699870800000000000000
+      internalID: 8690094293399698137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_21
+      rect:
+        serializedVersion: 2
+        x: 1506
+        y: 41
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e1e53932dd419e30800000000000000
+      internalID: 4508470267272880614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_22
+      rect:
+        serializedVersion: 2
+        x: 1570
+        y: 42
+        width: 10
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a604d13ccc6adab60800000000000000
+      internalID: 7759041131406245994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_23
+      rect:
+        serializedVersion: 2
+        x: 854
+        y: 37
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 900c619f8857c3470800000000000000
+      internalID: 8375698638157299721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_24
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 39
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdf452e61344fb6d0800000000000000
+      internalID: -2972582249949212709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_25
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 21
+        width: 27
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0877777daec80fb0800000000000000
+      internalID: -4681264568222648308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_26
+      rect:
+        serializedVersion: 2
+        x: 981
+        y: 41
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e44a308fb27a6e290800000000000000
+      internalID: -7861412292242201522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_27
+      rect:
+        serializedVersion: 2
+        x: 1043
+        y: 22
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2fbe344baa9b1d00800000000000000
+      internalID: 944518607239298858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_28
+      rect:
+        serializedVersion: 2
+        x: 1045
+        y: 43
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae52e197b0234ffa0800000000000000
+      internalID: -5767930197896714774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_29
+      rect:
+        serializedVersion: 2
+        x: 1106
+        y: 23
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3f28f9b85e54a7d0800000000000000
+      internalID: -2908095724204314821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_30
+      rect:
+        serializedVersion: 2
+        x: 1442
+        y: 39
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abcf6a55923905790800000000000000
+      internalID: -7543367570105631558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_31
+      rect:
+        serializedVersion: 2
+        x: 1744
+        y: 37
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2efd0361fb7b11d20800000000000000
+      internalID: 3247578837649776610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_32
+      rect:
+        serializedVersion: 2
+        x: 723
+        y: 16
+        width: 26
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac641d775d3e0c870800000000000000
+      internalID: 8701204986057541322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_33
+      rect:
+        serializedVersion: 2
+        x: 787
+        y: 17
+        width: 27
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b1d4261f4db96ad0800000000000000
+      internalID: -2708425553515064909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_34
+      rect:
+        serializedVersion: 2
+        x: 790
+        y: 36
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3cbde5eecc700d660800000000000000
+      internalID: 7408429963778382787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_35
+      rect:
+        serializedVersion: 2
+        x: 851
+        y: 19
+        width: 27
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da062b70dc8baec10800000000000000
+      internalID: 2083680968349212845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_36
+      rect:
+        serializedVersion: 2
+        x: 915
+        y: 20
+        width: 27
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07f3834d60809cde0800000000000000
+      internalID: -1312508990978506896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_37
+      rect:
+        serializedVersion: 2
+        x: 1190
+        y: 39
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79a48932adb003cf0800000000000000
+      internalID: -274706545741641065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_38
+      rect:
+        serializedVersion: 2
+        x: 1490
+        y: 35
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03ec817b020f299f0800000000000000
+      internalID: -463043788364263888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_39
+      rect:
+        serializedVersion: 2
+        x: 1553
+        y: 33
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0ebf6c8d97deb640800000000000000
+      internalID: 5097748899895950862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_40
+      rect:
+        serializedVersion: 2
+        x: 1617
+        y: 37
+        width: 4
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1bf74cce4ae9ae170800000000000000
+      internalID: 8208547702020276145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_41
+      rect:
+        serializedVersion: 2
+        x: 1630
+        y: 32
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94cacea99f3a36d60800000000000000
+      internalID: 7882324065269886025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_42
+      rect:
+        serializedVersion: 2
+        x: 1699
+        y: 37
+        width: 8
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e37e03da0dd8c1000800000000000000
+      internalID: 8037226746275646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_43
+      rect:
+        serializedVersion: 2
+        x: 596
+        y: 14
+        width: 25
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ab622f3de71d8370800000000000000
+      internalID: 8326337593811823528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_44
+      rect:
+        serializedVersion: 2
+        x: 660
+        y: 15
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a69c96c8265210130800000000000000
+      internalID: 3531144688027945322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_45
+      rect:
+        serializedVersion: 2
+        x: 1298
+        y: 32
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77eea55310cc83150800000000000000
+      internalID: 5852652021330144887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_46
+      rect:
+        serializedVersion: 2
+        x: 1303
+        y: 27
+        width: 18
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d62e4fb3f77095e60800000000000000
+      internalID: 7951394860147466861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_47
+      rect:
+        serializedVersion: 2
+        x: 1362
+        y: 33
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e653b69b0acd20f0800000000000000
+      internalID: -1140032979533080863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_48
+      rect:
+        serializedVersion: 2
+        x: 1366
+        y: 30
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbcd1c059b17394a0800000000000000
+      internalID: -6587796789175132993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_49
+      rect:
+        serializedVersion: 2
+        x: 1388
+        y: 32
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef297f2ba0307c840800000000000000
+      internalID: 5244163635583357694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_50
+      rect:
+        serializedVersion: 2
+        x: 1438
+        y: 29
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f6b6b43340545930800000000000000
+      internalID: 4131015007783007984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_51
+      rect:
+        serializedVersion: 2
+        x: 1495
+        y: 32
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd2341b90b029cb70800000000000000
+      internalID: 8919696479872103131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_52
+      rect:
+        serializedVersion: 2
+        x: 1506
+        y: 33
+        width: 14
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e01fafbf4a48f6370800000000000000
+      internalID: 8318012880913625358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_53
+      rect:
+        serializedVersion: 2
+        x: 1570
+        y: 35
+        width: 14
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d31843140a86c6f40800000000000000
+      internalID: 5723064263979073853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_54
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 10
+        width: 24
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77519997164782590800000000000000
+      internalID: -7698775600989137545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_55
+      rect:
+        serializedVersion: 2
+        x: 468
+        y: 11
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbf05381b1c4fde00800000000000000
+      internalID: 1071658915591425980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_56
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 12
+        width: 25
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4f25760f2fefc050800000000000000
+      internalID: 5823135828464185162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_57
+      rect:
+        serializedVersion: 2
+        x: 1130
+        y: 27
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f38e78ac7b5dc5f0800000000000000
+      internalID: -734830573230586896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_58
+      rect:
+        serializedVersion: 2
+        x: 1194
+        y: 28
+        width: 5
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05e2c58687d90d8b0800000000000000
+      internalID: -5129426835102486960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_59
+      rect:
+        serializedVersion: 2
+        x: 1259
+        y: 29
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fd17c0c4dcf8bb80800000000000000
+      internalID: -8378669116025266696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_60
+      rect:
+        serializedVersion: 2
+        x: 1323
+        y: 30
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5f409accede9ad50800000000000000
+      internalID: 6749187117857918814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_61
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 1
+        width: 21
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58b00556832382290800000000000000
+      internalID: -7915021127304344699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_62
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 2
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96befe73e71af55d0800000000000000
+      internalID: -3071558857366967447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_63
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 4
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c8a21a44f5cd2d50800000000000000
+      internalID: 6714240272484706505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_64
+      rect:
+        serializedVersion: 2
+        x: 213
+        y: 5
+        width: 22
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a936ecc74b14ac40800000000000000
+      internalID: 5522569038257338786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_65
+      rect:
+        serializedVersion: 2
+        x: 277
+        y: 7
+        width: 23
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30c38bf41b3213bc0800000000000000
+      internalID: -3805220965697700861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FireBurst_64x64_66
+      rect:
+        serializedVersion: 2
+        x: 341
+        y: 8
+        width: 23
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91b161399ea5dc310800000000000000
+      internalID: 1426896616187894553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

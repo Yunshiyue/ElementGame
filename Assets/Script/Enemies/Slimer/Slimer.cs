@@ -13,6 +13,12 @@ public class Slimer : Enemies
 
     private bool canCheck = true;//是否可以检测
     private float eyeTime;//目击时间
+
+    //检测是否在地面上
+    RaycastHit2D leftCheck,rightCheck;
+    Vector2 leftV = new Vector2(-0.3f, -0.55f);
+    Vector2 rightV = new Vector2(0.3f, -0.55f);
+
     public override void Initialize()
     {
         base.Initialize();
@@ -33,13 +39,17 @@ public class Slimer : Enemies
         {
             Debug.LogError("在Slimer中，没有找到Defence脚本！");
         }
-        //设置最大生命值
-        defenceComponent.Initialize(3);
+        //设置最大生命值 
+        defenceComponent.Initialize(5);
+
+        
+
     }
 
     public override void MyUpdate()
     {
         DefenceCheck();
+        physicsCheck();
         PlayerCheck();
         MoveControl();
        // AttackControl();
@@ -85,7 +95,20 @@ public class Slimer : Enemies
         }
         defenceComponent.Clear();
     }
-
+    private void physicsCheck()
+    {
+        //地板检测
+        leftCheck = Raycast(leftV, Vector2.down, 0.05f, groundLayer);
+        rightCheck = Raycast(rightV, Vector2.down, 0.05f, groundLayer);
+        if (leftCheck || rightCheck)
+        {
+            movementComponent.isOnGround= true;
+        }
+        else
+        {
+            movementComponent.isOnGround = false;
+        }
+    }
     public override int GetPriorityInType()
     {
         return priorityInType;

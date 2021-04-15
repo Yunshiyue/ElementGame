@@ -49,8 +49,6 @@ public class PlayerMovement : MonoBehaviour
 
     public LayerMask groundLayer;
 
-
-
     public float xVelocity;
 
     //碰撞体尺寸

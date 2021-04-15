@@ -19,6 +19,12 @@
  * @Editor: ridger
  * @Edit: 增加了PoolThing队列，专门用于更新类似飞行道具等从对象池中拿出来的物体，具体逻辑与敌人相同。
  *        更新顺序介于Map和Player之间，目的是在敌人和主角扔出这些道具时，能在下一帧直接对目标造成效果，而不是更多帧以后。
+ *        
+
+ * @Editor: ridger
+ * @Edit: 修复了无法注销的bug，myUpdate类在注册时就会调用Initialize函数，而不是在Start中调用。
+ *        现在取消注册的实现方式改为将一个叫做isActive的bool值设为false，在每次调用update时会检查isActive，
+ *        如果为true则调用，否则不执行myUpdate。重新调用Register将此值置为true。
  */
 
 using System.Collections.Generic;
@@ -26,69 +32,55 @@ using UnityEngine;
 
 public class UpdateManager : MonoBehaviour
 {
-    private void Start()
-    {
-        foreach (KeyValuePair<int, myUpdate> a in GUIUpdates)
-        {
-            a.Value.Initialize();
-        }
-        foreach (KeyValuePair<int, myUpdate> a in MapUpdates)
-        {
-            a.Value.Initialize();
-        }
-        foreach (KeyValuePair<int, SortedList<int, myUpdate>> poolThingList in PoolThingUpdates)
-        {
-            foreach (KeyValuePair<int, myUpdate> poolThing in poolThingList.Value)
-            {
-                poolThing.Value.Initialize();
-            }
-        }
-        foreach (KeyValuePair<int, myUpdate> a in PlayerUpdates)
-        {
-            a.Value.Initialize();
-        }
-        foreach (KeyValuePair<int, SortedList<int, myUpdate>> enemyUpdateList in EnemyUpdates)
-        {
-            foreach (KeyValuePair<int, myUpdate> enemyComponent in enemyUpdateList.Value)
-            {
-                enemyComponent.Value.Initialize();
-            }
-        }
-        print();
-    }
 
     private void Update()
     {
         foreach (KeyValuePair<int, myUpdate> a in GUIUpdates)
         {
-            a.Value.MyUpdate();
+            if(a.Value.IsActive())
+            {
+                a.Value.MyUpdate();
+            }
         }
         foreach (KeyValuePair<int, myUpdate> a in MapUpdates)
         {
-            a.Value.MyUpdate();
+            if (a.Value.IsActive())
+            {
+                a.Value.MyUpdate();
+            }
         }
         foreach (KeyValuePair<int, SortedList<int, myUpdate>> poolThingList in PoolThingUpdates)
         {
             foreach (KeyValuePair<int, myUpdate> poolThing in poolThingList.Value)
             {
-                poolThing.Value.MyUpdate();
+                if (poolThing.Value.IsActive())
+                {
+                    poolThing.Value.MyUpdate();
+                }
             }
         }
         foreach (KeyValuePair<int, myUpdate> a in PlayerUpdates)
         {
-            a.Value.MyUpdate();
+            if (a.Value.IsActive())
+            {
+                a.Value.MyUpdate();
+            }
         }
         foreach (KeyValuePair<int, SortedList<int, myUpdate>> enemyUpdateList in EnemyUpdates)
         {
-            foreach(KeyValuePair<int, myUpdate> enemyComponent in enemyUpdateList.Value)
+            foreach (KeyValuePair<int, myUpdate> enemyComponent in enemyUpdateList.Value)
             {
-                enemyComponent.Value.MyUpdate();
+                if (enemyComponent.Value.IsActive())
+                {
+                    enemyComponent.Value.MyUpdate();
+                }
             }
         }
     }
 
     public bool Register(myUpdate update)
     {
+        update.Initialize();
         switch(update.GetUpdateType())
         {
             case myUpdate.UpdateType.GUI:
@@ -140,6 +132,59 @@ public class UpdateManager : MonoBehaviour
         return false;
     }
 
+    public bool IsRegistered(myUpdate update)
+    {
+        switch (update.GetUpdateType())
+        {
+            case myUpdate.UpdateType.GUI:
+                if (GUIUpdates.ContainsValue(update))
+                    return true;
+                else
+                    return false;
+            case myUpdate.UpdateType.Map:
+                if (MapUpdates.ContainsValue(update))
+                    return true;
+                else
+                    return false;
+            case myUpdate.UpdateType.PoolThing:
+                //储存引用
+                SortedList<int, myUpdate> temp;
+                //看看有没有这个id
+                if (PoolThingUpdates.TryGetValue(update.gameObject.GetInstanceID(), out temp))
+                {
+                    if (temp.ContainsValue(update))
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                {
+                    return false;
+                }
+            case myUpdate.UpdateType.Player:
+                if (PlayerUpdates.ContainsValue(update))
+                    return true;
+                else
+                    return false;
+            case myUpdate.UpdateType.Enemy:
+                //储存引用
+                SortedList<int, myUpdate> temp1;
+                //看看有没有这个id
+                if (EnemyUpdates.TryGetValue(update.gameObject.GetInstanceID(), out temp1))
+                {
+                    if (temp1.ContainsValue(update))
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                {
+                    return false;
+                }
+        }
+        return false;
+    }
+
     public const int MAX_ENEMY_NUMBER = 128;
     private SortedList<int, myUpdate> GUIUpdates = new SortedList<int, myUpdate>();
     private SortedList<int, myUpdate> MapUpdates = new SortedList<int, myUpdate>();
@@ -182,47 +227,146 @@ public class UpdateManager : MonoBehaviour
         }
     }
 
-    public bool LogOut(myUpdate logout)
-    {
-        switch (logout.GetUpdateType())
-        {
-            case myUpdate.UpdateType.GUI:
-                return GUIUpdates.Remove(logout.GetPriorityInType());
-            case myUpdate.UpdateType.Map:
-                return MapUpdates.Remove(logout.GetPriorityInType());
-            case myUpdate.UpdateType.PoolThing:
-                //储存引用
-                SortedList<int, myUpdate> temp;
-                //看看有没有这个id
-                if (PoolThingUpdates.TryGetValue(logout.gameObject.GetInstanceID(), out temp))
-                {
-                    //如果有，则将这个组件从对应敌人的更新队列中去除
-                    return temp.Remove(logout.GetPriorityInType());
-                }
-                else
-                {
-                    //没有id直接false
-                    return false;
-                }
-            case myUpdate.UpdateType.Player:
-                return PlayerUpdates.Remove(logout.GetPriorityInType());
-            case myUpdate.UpdateType.Enemy:
-                //储存引用
-                SortedList<int, myUpdate> temp1;
-                //看看有没有这个id
-                if (EnemyUpdates.TryGetValue(logout.gameObject.GetInstanceID(), out temp1))
-                {
-                    //如果有，则将这个组件从对应敌人的更新队列中去除
-                    return temp1.Remove(logout.GetPriorityInType());
-                }
-                else
-                {
-                    //没有id直接false
-                    return false;
-                }
-        }
-        return false;
-    }
+    //public bool LogOut(myUpdate logout)
+    //{
+    //    switch (logout.GetUpdateType())
+    //    {
+    //        case myUpdate.UpdateType.GUI:
+    //            return GUIUpdates.Remove(logout.GetPriorityInType());
+    //        case myUpdate.UpdateType.Map:
+    //            return MapUpdates.Remove(logout.GetPriorityInType());
+    //        case myUpdate.UpdateType.PoolThing:
+    //            //储存引用
+    //            SortedList<int, myUpdate> temp;
+    //            //看看有没有这个id
+    //            if (PoolThingUpdates.TryGetValue(logout.gameObject.GetInstanceID(), out temp))
+    //            {
+    //                //如果有，则将这个组件从对应敌人的更新队列中去除
+    //                bool result1 = temp.Remove(logout.GetPriorityInType());
+    //                bool result2 = true;
+    //                if(temp.Count == 0)
+    //                {
+    //                    result2 = PoolThingUpdates.Remove(logout.gameObject.GetInstanceID());
+    //                }
+    //                return result1 && result2;
+    //            }
+    //            else
+    //            {
+    //                //没有id直接false
+    //                return false;
+    //            }
+    //        case myUpdate.UpdateType.Player:
+    //            return PlayerUpdates.Remove(logout.GetPriorityInType());
+    //        case myUpdate.UpdateType.Enemy:
+    //            //储存引用
+    //            SortedList<int, myUpdate> temp1;
+    //            //看看有没有这个id
+    //            if (EnemyUpdates.TryGetValue(logout.gameObject.GetInstanceID(), out temp1))
+    //            {
+    //                //如果有，则将这个组件从对应敌人的更新队列中去除
+    //                bool result1 = temp1.Remove(logout.GetPriorityInType());
+    //                bool result2 = true;
+    //                if (temp1.Count == 0)
+    //                {
+    //                    result2 = EnemyUpdates.Remove(logout.gameObject.GetInstanceID());
+    //                }
+    //                return result1 && result2;
+    //            }
+    //            else
+    //            {
+    //                //没有id直接false
+    //                return false;
+    //            }
+    //    }
+    //    return false;
+    //}
+    //private IList<int> listKeys;
+    //private myUpdate temp;
+
+    //private IList<int> objectListKeys;
+    //private SortedList<int, myUpdate> componentList;
+
+    //private void Start()
+    //{
+    //    print();
+    //    Initialize(GUIUpdates);
+    //    Initialize(MapUpdates);
+    //    Initialize(PoolThingUpdates);
+    //    Initialize(PlayerUpdates);
+    //    Initialize(EnemyUpdates);
+    //    //foreach (KeyValuePair<int, myUpdate> a in GUIUpdates)
+    //    //{
+    //    //    a.Value.Initialize();
+    //    //}
+    //    //foreach (KeyValuePair<int, myUpdate> a in MapUpdates)
+    //    //{
+    //    //    a.Value.Initialize();
+    //    //}
+    //    //foreach (KeyValuePair<int, SortedList<int, myUpdate>> poolThingList in PoolThingUpdates)
+    //    //{
+    //    //    foreach (KeyValuePair<int, myUpdate> poolThing in poolThingList.Value)
+    //    //    {
+    //    //        poolThing.Value.Initialize();
+    //    //    }
+    //    //}
+    //    ////for(int i = 0; i < PlayerUpdates.Count; i ++)
+    //    ////{
+    //    ////    PlayerUpdates.
+    //    ////}
+
+
+
+    //    ////foreach (KeyValuePair<int, myUpdate> a in PlayerUpdates)
+    //    ////{
+    //    ////    a.Value.Initialize();
+    //    ////}
+    //    //foreach (KeyValuePair<int, SortedList<int, myUpdate>> enemyUpdateList in EnemyUpdates)
+    //    //{
+    //    //    foreach (KeyValuePair<int, myUpdate> enemyComponent in enemyUpdateList.Value)
+    //    //    {
+    //    //        enemyComponent.Value.Initialize();
+    //    //    }
+    //    //}
+    //}
+
+    //private void UpdateList(SortedList<int, myUpdate> theList)
+    //{
+    //    listKeys = theList.Keys;
+    //    for (int i = 0; i < listKeys.Count; i++)
+    //    {
+    //        if (PlayerUpdates.TryGetValue(listKeys[i], out temp))
+    //        {
+    //            temp.MyUpdate();
+    //        }
+    //    }
+    //}
+    //private void UpdateList(Dictionary<int, SortedList<int, myUpdate>> theObjectList)
+    //{
+    //    foreach (KeyValuePair<int, SortedList<int, myUpdate>> theUpdateList in theObjectList)
+    //    {
+    //        Initialize(theUpdateList.Value);
+    //    }
+    //}
+
+    //private void Initialize(SortedList<int, myUpdate> theList)
+    //{
+    //    listKeys = theList.Keys;
+    //    for (int i = 0; i < listKeys.Count; i++)
+    //    {
+    //        if (PlayerUpdates.TryGetValue(listKeys[i], out temp))
+    //        {
+    //            Debug.Log(temp.gameObject.name + " 调用Initialzize");
+    //            temp.Initialize();
+    //        }
+    //    }
+    //}
+    //private void Initialize(Dictionary<int, SortedList<int, myUpdate>> theObjectList)
+    //{
+    //    foreach (KeyValuePair<int, SortedList<int, myUpdate>> theUpdateList in theObjectList)
+    //    {
+    //        Initialize(theUpdateList.Value);
+    //    }
+    //}
 
     //使用二维数组实现敌人注册，由于涉及注销导致的数组移动问题，换用以链表为基础的字典实现
     //private int[] EnemyIds = new int[MAX_ENEMY_NUMBER];

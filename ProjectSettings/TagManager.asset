@@ -53,3 +53,6 @@ TagManager:
   - name: player
     uniqueID: 4149480577
     locked: 0
+  - name: playerEffect
+    uniqueID: 3173715789
+    locked: 0

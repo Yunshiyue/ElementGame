@@ -6,7 +6,6 @@ public class WitcherMovement : MovementEnemies
 {
     public Animator witcherAnim;//动画
 
-    private Rigidbody2D rb;
     private CapsuleCollider2D coll;
 
     public bool faceRight = true;

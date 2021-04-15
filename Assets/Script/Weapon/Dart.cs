@@ -22,7 +22,7 @@
  *        2.增加print和OnEnable函数
  *        
 
- * @Editor: daddy!
+ * @Editor: ridger
  * @Edit: 1.增加了碰到墙面返回的特性，通过每update一帧调用射线检测实现(尝试过用collider的isTouching但是失败了，原因未知)
  *          当向前飞的时候，碰到墙则返回；当飞回来的时候，碰到墙则消失
  *        2.将一些GetComponent的方法变为了成员变量，比如poolManager、throwerHand
@@ -35,6 +35,10 @@ using UnityEngine;
 
 public class Dart : FlyingProp
 {
+    public const string DART = "Dart";
+
+    protected new int priorityInType = 0;
+
     [Header("旋转参数")]
     float rotateSpeed = 1000f;
 
@@ -103,14 +107,16 @@ public class Dart : FlyingProp
         }
     }
 
-    private void OnEnable()
-    {
-        isRotating = false;
-        isGo = false;
-        isBack = false;
-        existTime = 0f;
-        fought.Clear();
-    }
+    //private void OnEnable()
+    //{
+    //    ground = LayerMask.GetMask("Platform");
+
+    //    isRotating = false;
+    //    isGo = false;
+    //    isBack = false;
+    //    existTime = 0f;
+    //    fought.Clear();
+    //}
 
     /// <summary>
     /// 初始化Dart，包括投掷者、目标位置，在每次生成飞镖时需要调用
@@ -137,15 +143,25 @@ public class Dart : FlyingProp
     /// </summary>
     /// <param name="thrower">投掷者</param>
     /// <param name="tarPosition">目标位置</param>
-    public void Initialize(GameObject thrower, Vector2 tarPosition)
+    public void Init(GameObject thrower, Vector2 tarPosition)
     {
         Debug.Log("thrower:" + thrower.name);
         SetThrower(thrower);
-        SetTargetPosition(tarPosition);       
+        SetTargetPosition(tarPosition);
+
+        ground = LayerMask.GetMask("Platform");
+
+        //将各状态变量设为初值
+        isRotating = false;
+        isGo = false;
+        isBack = false;
+        existTime = 0f;
+        fought.Clear();
+
     }
 
     // Update is called once per frame
-    private void Update()
+    public override void MyUpdate()
     {
         //刚投掷时，把对应bool变量置为true
         if (!isGo && !isBack)
@@ -231,7 +247,7 @@ public class Dart : FlyingProp
                 fought.Add(beFought);
                 Debug.Log("Dart对" + beFought.name + "造成伤害");
             }
-        }       
+        }        
     }
 
     /// <summary>
@@ -247,7 +263,10 @@ public class Dart : FlyingProp
     }
     protected override void Disappear()
     {
-        poolManager.RemoveGameObject(PoolManager.poolType.Dart, gameObject);
+        Debug.Log("Dart:消失");
+        poolManager.RemoveGameObject("Dart", gameObject);
+        LogOut();
+
     }
 
     /// <summary>

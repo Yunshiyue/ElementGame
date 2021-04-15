@@ -5,6 +5,7 @@ using UnityEngine;
 public abstract class  Enemies : myUpdate
 {
     protected LayerMask playerLayer;
+    protected LayerMask groundLayer;
 
     protected DefenceEnemies defenceComponent;//防御组件 包含hpmax hp isdead 且自带canbeFight
                                               
@@ -41,6 +42,8 @@ public abstract class  Enemies : myUpdate
     public override void Initialize()
     {
         playerLayer = LayerMask.GetMask("Player");
+        
+        groundLayer = LayerMask.GetMask("Platform");
     }
 
     public override UpdateType GetUpdateType()

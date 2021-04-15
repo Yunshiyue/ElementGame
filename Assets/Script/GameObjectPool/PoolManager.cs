@@ -15,29 +15,34 @@ using UnityEngine;
 
 public class PoolManager : MonoBehaviour
 {
-    public enum poolType { Dart,FireBall };
-    private int typeCount = 2;
 
     /// <summary>
     /// 存放所有对象池
     /// </summary>
-    private Dictionary<PoolManager.poolType, GameObjectPool> pools = new Dictionary<PoolManager.poolType, GameObjectPool>();
+    private Dictionary<string, GameObjectPool> pools = new Dictionary<string, GameObjectPool>();
 
-    private Transform parentTransform;
+    private Transform managerTransform;
 
     private void Start()
     {
-        parentTransform = GetComponent<Transform>();
+        managerTransform = GetComponent<Transform>();
+        if (managerTransform == null)
+        {
+            Debug.LogError("在" + gameObject.name + "中，找不到transform组件");
+        }
 
-        //初始化对象池
-        DartPool dartPool = new DartPool();
-        dartPool.Init(PoolManager.poolType.Dart, transform);
-        pools.Add(PoolManager.poolType.Dart, dartPool);
+        //根据预设创建所有对象池
+        foreach (Transform poolType in managerTransform)
+        {
+            GameObjectPool gameObjectPool = new GameObjectPool(poolType.gameObject, poolType.gameObject.name, managerTransform);
+            pools.Add(poolType.gameObject.name, gameObjectPool);
+        }
 
-        //初始化火球对象池
-        FireBallPool fireBallPool = new FireBallPool();
-        fireBallPool.Init(PoolManager.poolType.FireBall, transform);
-        pools.Add(PoolManager.poolType.FireBall, fireBallPool);
+        //初始化所有对象池
+        foreach (GameObjectPool pool in pools.Values)
+        {
+            pool.Init();
+        }
     }
 
     /// <summary>
@@ -46,12 +51,24 @@ public class PoolManager : MonoBehaviour
     /// <param name="poolType">对象类型</param>
     /// <param name="position">对象生成位置</param>
     /// <returns>获取到的对象</returns>
-    public GameObject GetGameObject(PoolManager.poolType poolType, Vector3 position)
+    public GameObject GetGameObject(string poolType, Vector3 position)
     {
         //检查是否有该对象池
         if (pools.ContainsKey(poolType))
         {
             return pools[poolType].Get(position);
+        }
+
+        Debug.LogError("获取对象" + poolType + "错误");
+        return null;
+    }
+
+    public GameObject GetGameObject(string poolType)
+    {
+        //检查是否有该对象池
+        if (pools.ContainsKey(poolType))
+        {
+            return pools[poolType].Get();
         }
 
         Debug.LogError("获取对象" + poolType + "错误");
@@ -64,7 +81,7 @@ public class PoolManager : MonoBehaviour
     /// </summary>
     /// <param name="poolType">对象池类型</param>
     /// <param name="obj">要删除的对象</param>
-    public void RemoveGameObject(PoolManager.poolType poolType, GameObject obj)
+    public void RemoveGameObject(string poolType, GameObject obj)
     {
         //检查是否有该对象池
         if (pools.ContainsKey(poolType))

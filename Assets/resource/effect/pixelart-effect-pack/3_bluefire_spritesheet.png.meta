@@ -1,7 +1,241 @@
 fileFormatVersion: 2
 guid: 97e8e498ee3961943902617de143fe89
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 99763682075060722
+    second: 3_bluefire_spritesheet_0
+  - first:
+      213: 40216207289295720
+    second: 3_bluefire_spritesheet_1
+  - first:
+      213: 4102073628285840120
+    second: 3_bluefire_spritesheet_2
+  - first:
+      213: 3318276902205653669
+    second: 3_bluefire_spritesheet_3
+  - first:
+      213: 5375269911966051883
+    second: 3_bluefire_spritesheet_4
+  - first:
+      213: 1829352505776935366
+    second: 3_bluefire_spritesheet_5
+  - first:
+      213: -7969412682082374532
+    second: 3_bluefire_spritesheet_6
+  - first:
+      213: -2680331437740595895
+    second: 3_bluefire_spritesheet_7
+  - first:
+      213: 6243397979307656391
+    second: 3_bluefire_spritesheet_8
+  - first:
+      213: 3846269382593630247
+    second: 3_bluefire_spritesheet_9
+  - first:
+      213: 7049322395128470030
+    second: 3_bluefire_spritesheet_10
+  - first:
+      213: -688380069171875093
+    second: 3_bluefire_spritesheet_11
+  - first:
+      213: 1128199598851970285
+    second: 3_bluefire_spritesheet_12
+  - first:
+      213: -6629323668418059510
+    second: 3_bluefire_spritesheet_13
+  - first:
+      213: 4233476798327807953
+    second: 3_bluefire_spritesheet_14
+  - first:
+      213: -5220202465926666156
+    second: 3_bluefire_spritesheet_15
+  - first:
+      213: -1824357011523797773
+    second: 3_bluefire_spritesheet_16
+  - first:
+      213: -4534649522467726454
+    second: 3_bluefire_spritesheet_17
+  - first:
+      213: -6477618658527622395
+    second: 3_bluefire_spritesheet_18
+  - first:
+      213: 5768385364343493400
+    second: 3_bluefire_spritesheet_19
+  - first:
+      213: -5171614869080197308
+    second: 3_bluefire_spritesheet_20
+  - first:
+      213: -2723362187990409557
+    second: 3_bluefire_spritesheet_21
+  - first:
+      213: -5995267663793503648
+    second: 3_bluefire_spritesheet_22
+  - first:
+      213: 483491577551372189
+    second: 3_bluefire_spritesheet_23
+  - first:
+      213: -8694529479430128357
+    second: 3_bluefire_spritesheet_24
+  - first:
+      213: -5079915215384818564
+    second: 3_bluefire_spritesheet_25
+  - first:
+      213: 4637660850914048380
+    second: 3_bluefire_spritesheet_26
+  - first:
+      213: 1760895940128044405
+    second: 3_bluefire_spritesheet_27
+  - first:
+      213: -8538254756109339961
+    second: 3_bluefire_spritesheet_28
+  - first:
+      213: 4989296436673695396
+    second: 3_bluefire_spritesheet_29
+  - first:
+      213: -367451759357384834
+    second: 3_bluefire_spritesheet_30
+  - first:
+      213: 7135992293352700415
+    second: 3_bluefire_spritesheet_31
+  - first:
+      213: -8979496835829642098
+    second: 3_bluefire_spritesheet_32
+  - first:
+      213: 1734029810729059391
+    second: 3_bluefire_spritesheet_33
+  - first:
+      213: 758420101212995116
+    second: 3_bluefire_spritesheet_34
+  - first:
+      213: -3413443224580320473
+    second: 3_bluefire_spritesheet_35
+  - first:
+      213: -510262214362017481
+    second: 3_bluefire_spritesheet_36
+  - first:
+      213: 733478299328996467
+    second: 3_bluefire_spritesheet_37
+  - first:
+      213: 1836684279857113285
+    second: 3_bluefire_spritesheet_38
+  - first:
+      213: -5165756741199224957
+    second: 3_bluefire_spritesheet_39
+  - first:
+      213: 6349431094980352461
+    second: 3_bluefire_spritesheet_40
+  - first:
+      213: 568540892594955796
+    second: 3_bluefire_spritesheet_41
+  - first:
+      213: 3932631012529076759
+    second: 3_bluefire_spritesheet_42
+  - first:
+      213: -6596906878031582158
+    second: 3_bluefire_spritesheet_43
+  - first:
+      213: -6242132840669783802
+    second: 3_bluefire_spritesheet_44
+  - first:
+      213: -8578284280278524702
+    second: 3_bluefire_spritesheet_45
+  - first:
+      213: 5635667066046620337
+    second: 3_bluefire_spritesheet_46
+  - first:
+      213: -414136872244122594
+    second: 3_bluefire_spritesheet_47
+  - first:
+      213: -7000474941176295971
+    second: 3_bluefire_spritesheet_48
+  - first:
+      213: 3323332555282181255
+    second: 3_bluefire_spritesheet_49
+  - first:
+      213: 4009118098113582162
+    second: 3_bluefire_spritesheet_50
+  - first:
+      213: -8876701447841321292
+    second: 3_bluefire_spritesheet_51
+  - first:
+      213: -1317280683466196660
+    second: 3_bluefire_spritesheet_52
+  - first:
+      213: -8958991288431193339
+    second: 3_bluefire_spritesheet_53
+  - first:
+      213: -7192937701020211609
+    second: 3_bluefire_spritesheet_54
+  - first:
+      213: -5786642597937893950
+    second: 3_bluefire_spritesheet_55
+  - first:
+      213: 3164114025771669872
+    second: 3_bluefire_spritesheet_56
+  - first:
+      213: 5463221194779189428
+    second: 3_bluefire_spritesheet_57
+  - first:
+      213: 7699245913278824403
+    second: 3_bluefire_spritesheet_58
+  - first:
+      213: 2999356076517095416
+    second: 3_bluefire_spritesheet_59
+  - first:
+      213: 4328769985803993122
+    second: 3_bluefire_spritesheet_60
+  - first:
+      213: 111074600491256023
+    second: 3_bluefire_spritesheet_61
+  - first:
+      213: 7473719670134500616
+    second: 3_bluefire_spritesheet_62
+  - first:
+      213: 72569368527395113
+    second: 3_bluefire_spritesheet_63
+  - first:
+      213: -6039572343784612418
+    second: 3_bluefire_spritesheet_64
+  - first:
+      213: -7192807094148683876
+    second: 3_bluefire_spritesheet_65
+  - first:
+      213: 5103197715977768723
+    second: 3_bluefire_spritesheet_66
+  - first:
+      213: 2972879350407335452
+    second: 3_bluefire_spritesheet_67
+  - first:
+      213: 2081355703809712433
+    second: 3_bluefire_spritesheet_68
+  - first:
+      213: 2222460892045257632
+    second: 3_bluefire_spritesheet_69
+  - first:
+      213: 5420481145184643811
+    second: 3_bluefire_spritesheet_70
+  - first:
+      213: -8197507514066834019
+    second: 3_bluefire_spritesheet_71
+  - first:
+      213: 5497704764236850207
+    second: 3_bluefire_spritesheet_72
+  - first:
+      213: 8846696724022921710
+    second: 3_bluefire_spritesheet_73
+  - first:
+      213: -8066983027555142567
+    second: 3_bluefire_spritesheet_74
+  - first:
+      213: -1765472025766242838
+    second: 3_bluefire_spritesheet_75
+  - first:
+      213: 190721197159882109
+    second: 3_bluefire_spritesheet_76
+  - first:
+      213: -1104336722574117375
+    second: 3_bluefire_spritesheet_77
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -40,12 +274,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -71,9 +305,1659 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 707
+        width: 35
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f9a19f4a8e626100800000000000000
+      internalID: 99763682075060722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 707
+        width: 36
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86321bd6d60ee8000800000000000000
+      internalID: 40216207289295720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 707
+        width: 37
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8faa9703b3e7de830800000000000000
+      internalID: 4102073628285840120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 707
+        width: 38
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a20a56f243ec0e20800000000000000
+      internalID: 3318276902205653669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 441
+        y: 707
+        width: 39
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2ee49a618bc89a40800000000000000
+      internalID: 5375269911966051883
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 540
+        y: 707
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c11ec3696a236910800000000000000
+      internalID: 1829352505776935366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 733
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7cacffa365f66190800000000000000
+      internalID: -7969412682082374532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 707
+        width: 40
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 945e82522cc8dcad0800000000000000
+      internalID: -2680331437740595895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 662
+        y: 733
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c4460c126105a650800000000000000
+      internalID: 6243397979307656391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 739
+        y: 707
+        width: 41
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72054f300a1b06530800000000000000
+      internalID: 3846269382593630247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 38
+        y: 607
+        width: 42
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0a96d49e5934d160800000000000000
+      internalID: 7049322395128470030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 142
+        y: 607
+        width: 38
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be23d8a69f16276f0800000000000000
+      internalID: -688380069171875093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 234
+        y: 607
+        width: 46
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de45f45ce8b28af00800000000000000
+      internalID: 1128199598851970285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 607
+        width: 40
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a032ada4f39eff3a0800000000000000
+      internalID: -6629323668418059510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 607
+        width: 41
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1dfdf29d7b450ca30800000000000000
+      internalID: 4233476798327807953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 538
+        y: 607
+        width: 42
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 458a2dad38d1e87b0800000000000000
+      internalID: -5220202465926666156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 637
+        y: 607
+        width: 43
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fc71a0c6f49ea6e0800000000000000
+      internalID: -1824357011523797773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_17
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 624
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8b9a60f840b111c0800000000000000
+      internalID: -4534649522467726454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 607
+        width: 38
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50bc4046620ea16a0800000000000000
+      internalID: -6477618658527622395
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 507
+        width: 45
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81391493deb6d0050800000000000000
+      internalID: 5768385364343493400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 507
+        width: 32
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 447b85d4dabba38b0800000000000000
+      internalID: -5171614869080197308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_21
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 507
+        width: 28
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: baed91ed48ca43ad0800000000000000
+      internalID: -2723362187990409557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_22
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 507
+        width: 29
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 062c336f2d78ccca0800000000000000
+      internalID: -5995267663793503648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_23
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 507
+        width: 42
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9fb7d33705b5b600800000000000000
+      internalID: 483491577551372189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_24
+      rect:
+        serializedVersion: 2
+        x: 549
+        y: 507
+        width: 31
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1db7690183d65780800000000000000
+      internalID: -8694529479430128357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_25
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 507
+        width: 32
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7cc2e1b6048089b0800000000000000
+      internalID: -5079915215384818564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_26
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 507
+        width: 33
+        height: 35
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c79b777f8f74c5040800000000000000
+      internalID: 4637660850914048380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_27
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 407
+        width: 34
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57572c52785ff6810800000000000000
+      internalID: 1760895940128044405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_28
+      rect:
+        serializedVersion: 2
+        x: 145
+        y: 407
+        width: 35
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c230547986028980800000000000000
+      internalID: -8538254756109339961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_29
+      rect:
+        serializedVersion: 2
+        x: 244
+        y: 407
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4aece0bbcaa8d3540800000000000000
+      internalID: 4989296436673695396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_30
+      rect:
+        serializedVersion: 2
+        x: 343
+        y: 425
+        width: 25
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e77296b529c86eaf0800000000000000
+      internalID: -367451759357384834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_31
+      rect:
+        serializedVersion: 2
+        x: 364
+        y: 407
+        width: 15
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff97635ce23280360800000000000000
+      internalID: 7135992293352700415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_32
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 407
+        width: 35
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8c41a6043b626380800000000000000
+      internalID: -8979496835829642098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_33
+      rect:
+        serializedVersion: 2
+        x: 544
+        y: 407
+        width: 36
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f348172fce2801810800000000000000
+      internalID: 1734029810729059391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_34
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 407
+        width: 40
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2ef0535013768a00800000000000000
+      internalID: 758420101212995116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_35
+      rect:
+        serializedVersion: 2
+        x: 742
+        y: 407
+        width: 38
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7231de1f87301a0d0800000000000000
+      internalID: -3413443224580320473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_36
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 307
+        width: 40
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 731d5a2383f2be8f0800000000000000
+      internalID: -510262214362017481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_37
+      rect:
+        serializedVersion: 2
+        x: 139
+        y: 307
+        width: 41
+        height: 38
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37466f980a6dd2a00800000000000000
+      internalID: 733478299328996467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_38
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 307
+        width: 42
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c86d611f963d7910800000000000000
+      internalID: 1836684279857113285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_39
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 307
+        width: 43
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38f9dbcfc9b8f48b0800000000000000
+      internalID: -5165756741199224957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_40
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 307
+        width: 44
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc99f1ea0f5bd1850800000000000000
+      internalID: 6349431094980352461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_41
+      rect:
+        serializedVersion: 2
+        x: 535
+        y: 307
+        width: 45
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 416e767fdecd3e700800000000000000
+      internalID: 568540892594955796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_42
+      rect:
+        serializedVersion: 2
+        x: 634
+        y: 307
+        width: 46
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71afa76e113839630800000000000000
+      internalID: 3932631012529076759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_43
+      rect:
+        serializedVersion: 2
+        x: 746
+        y: 307
+        width: 34
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23ca89675241374a0800000000000000
+      internalID: -6596906878031582158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_44
+      rect:
+        serializedVersion: 2
+        x: 757
+        y: 323
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 609d31fe04d7f59a0800000000000000
+      internalID: -6242132840669783802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_45
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 207
+        width: 35
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ec5ea395efc3f880800000000000000
+      internalID: -8578284280278524702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_46
+      rect:
+        serializedVersion: 2
+        x: 130
+        y: 207
+        width: 50
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b2a3186659e53e40800000000000000
+      internalID: 5635667066046620337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_47
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 207
+        width: 37
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1c6f7975b0b04af0800000000000000
+      internalID: -414136872244122594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_48
+      rect:
+        serializedVersion: 2
+        x: 328
+        y: 207
+        width: 52
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dddc920912159de90800000000000000
+      internalID: -7000474941176295971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_49
+      rect:
+        serializedVersion: 2
+        x: 440
+        y: 207
+        width: 40
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78ce51ce959de1e20800000000000000
+      internalID: 3323332555282181255
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_50
+      rect:
+        serializedVersion: 2
+        x: 539
+        y: 207
+        width: 41
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25456a44baf33a730800000000000000
+      internalID: 4009118098113582162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_51
+      rect:
+        serializedVersion: 2
+        x: 647
+        y: 207
+        width: 33
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bee830601f9fc480800000000000000
+      internalID: -8876701447841321292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_52
+      rect:
+        serializedVersion: 2
+        x: 737
+        y: 230
+        width: 31
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c497388923418bde0800000000000000
+      internalID: -1317280683466196660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_53
+      rect:
+        serializedVersion: 2
+        x: 758
+        y: 207
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5035d33d3e44ba380800000000000000
+      internalID: -8958991288431193339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_54
+      rect:
+        serializedVersion: 2
+        x: 36
+        y: 107
+        width: 44
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 766ec2f454d8d2c90800000000000000
+      internalID: -7192937701020211609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_55
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 131
+        width: 32
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cda4c35737b1bfa0800000000000000
+      internalID: -5786642597937893950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_56
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 132
+        width: 24
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07993f631f039eb20800000000000000
+      internalID: 3164114025771669872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_57
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 135
+        width: 30
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b0e2343bb241db40800000000000000
+      internalID: 5463221194779189428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_58
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 135
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dfbc53ad5739da60800000000000000
+      internalID: 7699245913278824403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_59
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 135
+        width: 30
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f7f5b7d57adf9920800000000000000
+      internalID: 2999356076517095416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_60
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 107
+        width: 29
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 22048360e51e21c30800000000000000
+      internalID: 4328769985803993122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_61
+      rect:
+        serializedVersion: 2
+        x: 750
+        y: 107
+        width: 30
+        height: 36
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d889d9b2cd9a8100800000000000000
+      internalID: 111074600491256023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_62
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 107
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80d6739417cf7b760800000000000000
+      internalID: 7473719670134500616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_63
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 107
+        width: 21
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92956a8c471d10100800000000000000
+      internalID: 72569368527395113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_64
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 107
+        width: 22
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebdd17dc3f02f2ca0800000000000000
+      internalID: -6039572343784612418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_65
+      rect:
+        serializedVersion: 2
+        x: 457
+        y: 107
+        width: 23
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c97ab579e040e2c90800000000000000
+      internalID: -7192807094148683876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_66
+      rect:
+        serializedVersion: 2
+        x: 556
+        y: 107
+        width: 24
+        height: 28
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31f8077e84332d640800000000000000
+      internalID: 5103197715977768723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_67
+      rect:
+        serializedVersion: 2
+        x: 49
+        y: 30
+        width: 19
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1e8f19a40ac14920800000000000000
+      internalID: 2972879350407335452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_68
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 7
+        width: 21
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 131afc03cf572ec10800000000000000
+      internalID: 2081355703809712433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_69
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 30
+        width: 20
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ab2e8df764c7de10800000000000000
+      internalID: 2222460892045257632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_70
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 7
+        width: 22
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3eaee62f1ea693b40800000000000000
+      internalID: 5420481145184643811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_71
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 30
+        width: 20
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9d6374295a9c3e80800000000000000
+      internalID: -8197507514066834019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_72
+      rect:
+        serializedVersion: 2
+        x: 259
+        y: 7
+        width: 21
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f146f40ea55cb4c40800000000000000
+      internalID: 5497704764236850207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_73
+      rect:
+        serializedVersion: 2
+        x: 346
+        y: 30
+        width: 20
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee98ff67cc7c5ca70800000000000000
+      internalID: 8846696724022921710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_74
+      rect:
+        serializedVersion: 2
+        x: 359
+        y: 7
+        width: 21
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95478795da15c0090800000000000000
+      internalID: -8066983027555142567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_75
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 30
+        width: 20
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae55053eb88cf77e0800000000000000
+      internalID: -1765472025766242838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_76
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 22
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7d1ad71be395a200800000000000000
+      internalID: 190721197159882109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 3_bluefire_spritesheet_77
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 7
+        width: 15
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 106fc821a9b9ca0f0800000000000000
+      internalID: -1104336722574117375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

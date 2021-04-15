@@ -21,7 +21,23 @@
  *          
 
  * @Editor: ridger
- * @Edit: 
+ * @Edit: 1.修改了y轴速度计算逻辑，只有当状态为Normal时，才会受到重力作用，同时y轴速度才会不进行更新。
+ *          当状态位其他时，y轴速度计算方法与x轴速度一致，每帧清空为0，有多少速度改变量就为多少，同时不受重力作用。
+ *          
+
+ * @Editor: ridger
+ * @Edit: 修正了异常转身的bug，只有在normal\crouch态下才回转身，后坐力和挨打动画不会导致转身了
+ * 
+
+ * @Editor: ridger
+ * @Edit: 改变了申请传送的接口RequestMoveByFrame，增加了一个参数Space，用于说明传送的坐标系是世界坐标还是local坐标：
+ *          a.如果是世界坐标，则直接传送到指定地点
+ *          b.如果是local坐标，则传送到当前朝向下的相对位置，比如朝左就会相对向左传送，朝右就会向右传送
+ *          
+
+ * @Editor: ridger
+ * @Edit: 1. 增加了SetYFloorOffset方法，让探测器调用来实现陷入地板的调整
+ *        2. 在update逻辑中增加了调整陷入地板的逻辑，如果这一帧需要进行调整，而且当前状态为normal则进行距离补偿
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -40,7 +56,7 @@ public class MovementPlayer : myUpdate
     //计算下一次跳跃时的速度，详见引用处
     private float jumpOriRatio = 0.15f;
     //下蹲后减速系数(除法)
-    private float crouchDivision = 3.0f;
+    private float crouchDivision = 2f;
     //+1 = 2次
     private int jumpNumberMax = 1;
     //X轴速度倍数(乘法)
@@ -136,8 +152,9 @@ public class MovementPlayer : myUpdate
                     }
                     else
                     {
-                        abilityMovement = - movement;
-                        abilityMovementSpeed = - movement / time;
+                        abilityMovement.x = - movement.x;
+                        abilityMovement.y = movement.y;
+                        abilityMovementSpeed = abilityMovement / time;
                     }
                     abilityMovementTotalTime = time;
                     abilityMovementCurTime = 0f;
@@ -162,26 +179,8 @@ public class MovementPlayer : myUpdate
 
     //请求在这一帧中进行position的跳跃，movement为相对位移改变量
     //同理，技能控制会根据当前主角朝向改变方向，而被动传送则不会
-    public bool RequestMoveByFrame(Vector2 movement, MovementMode mode)
+    public bool RequestMoveByFrame(Vector2 movement, MovementMode mode, Space space)
     {
-        if(mode == MovementMode.Ability || mode == MovementMode.Attacked)
-        {
-            LayerMask ground = LayerMask.GetMask("Platform");
-            float detectWidth = 0.8f;
-            Vector2 detectPoint1 = movement;
-            Vector2 detectPoint2 = movement;
-            detectPoint1.x -= detectWidth / 2;
-            detectPoint2.y -= detectWidth / 2;
-            while (Raycast(detectPoint1, Vector2.right, detectWidth, ground) || 
-                   Raycast(detectPoint2, Vector2.up, detectWidth, ground))
-            {
-                movement = Vector2.MoveTowards(movement, Vector2.zero, transportStuckDetectionSnap);
-                detectPoint1 = movement;
-                detectPoint1.x -= detectWidth / 2;
-                detectPoint2 = movement;
-                detectPoint2.y -= detectWidth / 2;
-            }
-        }
         switch (mode)
         {
             case MovementMode.PlayerControl:
@@ -194,26 +193,53 @@ public class MovementPlayer : myUpdate
                 return false;
 
             case MovementMode.Ability:
+                TpSpace = space;
                 if (canActiveTransport)
                 {
                     isActiveTransport = true;
-                    if(isFacingLeft)
+                    if(space == Space.Self)
                     {
-                        activeTransportPosition = - movement;
+                        if (isFacingLeft)
+                        {
+                            activeTransportPosition.x = -movement.x;
+                            activeTransportPosition.y = movement.y;
+                        }
+                        else
+                        {
+                            activeTransportPosition = movement;
+                        }
                     }
-                    else
+                    else if(space == Space.World)
                     {
                         activeTransportPosition = movement;
                     }
+
                     return true;
                 }
                 return false;
 
             case MovementMode.Attacked:
+                TpSpace = space;
                 if (canPassiveTransport)
                 {
                     isPassiveTransport = true;
-                    passiveTransportPosition = movement;
+                    if (space == Space.Self)
+                    {
+                        if (isFacingLeft)
+                        {
+                            passiveTransportPosition.x = -movement.x;
+                            passiveTransportPosition.y = movement.y;
+                        }
+                        else
+                        {
+                            passiveTransportPosition = movement;
+                        }
+                    }
+                    else if (space == Space.World)
+                    {
+                        passiveTransportPosition = movement;
+                    }
+
                     return true;
                 }
                 return false;
@@ -222,6 +248,27 @@ public class MovementPlayer : myUpdate
         return false;
     }
 
+    public void SetGravity(float gravity)
+    {
+        this.gravity = gravity;
+    }
+
+    public void RequestJump()
+    {
+        isRequestJump = true;
+    }
+    public bool IsOnFloor()
+    {
+        return isOnFloor;
+    }
+
+    public float GetYSpeed()
+    {
+        return ySpeed;
+    }
+
+
+    //内部逻辑部分
     //下蹲相关
     private OnFloorDetector detector;
     //在这一帧中是否请求下蹲
@@ -232,21 +279,12 @@ public class MovementPlayer : myUpdate
     private Vector2 colliderNormalOffset;
     private Vector2 colliderCrouchSize;
     private Vector2 colliderCrouchOffset;
-    //public void RequestCrouch()
-    //{
-    //    isRequestCrouch = true;
-    //}
 
     //起跳相关
     //在这一帧中是否请求跳跃
     private bool isRequestJump = false;
     private int jumpNumberCur = 0;
-    public void RequestJump()
-    {
-        isRequestJump = true;
-    }
 
-    //内部逻辑部分
 
     //与状态控制相关的整个类所用到的变量
     public enum PlayerControlStatus { Normal, Crouch, Casting, AbilityWithMovement, AbilityNeedControl, Interrupt, Stun}
@@ -378,6 +416,8 @@ public class MovementPlayer : myUpdate
 
         //下面是debugInfo2的信息**************************
 
+        debugInfoText.Append("TpSpace: ");
+        debugInfoText.AppendLine(TpSpace.ToString());
         debugInfoText.AppendLine("被动传送");
         debugInfoText.Append("canPassiveTransport: ");
         debugInfoText.AppendLine(canPassiveTransport.ToString());
@@ -491,12 +531,28 @@ public class MovementPlayer : myUpdate
         xMovementPerFrame = 0f;
         yMovementPerFrame = 0f;
         xSpeed = 0f;
+
+        needYFloorOffset = false;
+
+        if(controlStatus != PlayerControlStatus.Normal)
+        {
+            ySpeed = 0;
+            isGravity = false;
+        }
+        else
+        {
+            isGravity = true;
+        }
     }
 
-    
+
     //记录当前帧的运动记录参数
 
-    //传送统一使用local坐标系
+    //传送使用local坐标系、World坐标系混合
+    private Space TpSpace;
+    //防止陷入地板的y轴offset
+    private float yFloorOffset = 0f;
+    private bool needYFloorOffset = false;
     //被动传送 = 被动以帧为结算的位移
     private Vector2 passiveTransportPosition;
     private bool canPassiveTransport = false;
@@ -649,7 +705,7 @@ public class MovementPlayer : myUpdate
 
     //子物体需要对该物体进行的实时更新函数
     //比如检测器告诉player是否在地面上，头顶是否有东西等
-    public void setOnFloor(GameObject sender, bool isOnFloor)
+    public void SetOnFloor(GameObject sender, bool isOnFloor)
     {
         if (sender.transform.IsChildOf(transform))
         {
@@ -660,7 +716,7 @@ public class MovementPlayer : myUpdate
             Debug.LogError("在" + gameObject.name + "中，非探测器物体调用了setOnFloor函数！");
         }
     }
-    public void setDownFloor(GameObject sender, bool isDownFloor)
+    public void SetDownFloor(GameObject sender, bool isDownFloor)
     {
         if (sender.transform.IsChildOf(transform))
         {
@@ -671,7 +727,7 @@ public class MovementPlayer : myUpdate
             Debug.LogError("在" + gameObject.name + "中，非探测器物体调用了setDownFloor函数！");
         }
     }
-    public void setLeftDetect(GameObject sender, bool flag)
+    public void SetLeftDetect(GameObject sender, bool flag)
     {
         if (sender.transform.IsChildOf(transform))
         {
@@ -682,7 +738,7 @@ public class MovementPlayer : myUpdate
             Debug.LogError("在" + gameObject.name + "中，非探测器物体调用了setDownFloor函数！");
         }
     }
-    public void setRightDetect(GameObject sender, bool flag)
+    public void SetRightDetect(GameObject sender, bool flag)
     {
         if (sender.transform.IsChildOf(transform))
         {
@@ -692,6 +748,11 @@ public class MovementPlayer : myUpdate
         {
             Debug.LogError("在" + gameObject.name + "中，非探测器物体调用了setDownFloor函数！");
         }
+    }
+    public void SetFloorOffset(float offset)
+    {
+        this.yFloorOffset = offset;
+        needYFloorOffset = true;
     }
 
     //MyUpdate相关的属性及方法
@@ -766,13 +827,31 @@ public class MovementPlayer : myUpdate
         //结算运动情况
         if (isPassiveTransport)
         {
-            xMovementPerFrame += passiveTransportPosition.x;
-            yMovementPerFrame += passiveTransportPosition.y;
+            if(TpSpace == Space.Self)
+            {
+                xMovementPerFrame = passiveTransportPosition.x;
+                yMovementPerFrame = passiveTransportPosition.y;
+            }
+            else if(TpSpace == Space.World)
+            {
+                Vector2 targetPosition = transform.InverseTransformPoint(passiveTransportPosition);
+                xMovementPerFrame = isFacingLeft ? - targetPosition.x : targetPosition.x;
+                yMovementPerFrame = targetPosition.y;
+            }
         }
         else if (isActiveTransport)
         {
-            xMovementPerFrame += activeTransportPosition.x;
-            yMovementPerFrame += activeTransportPosition.y;
+            if (TpSpace == Space.Self)
+            {
+                xMovementPerFrame = activeTransportPosition.x;
+                yMovementPerFrame = activeTransportPosition.y;
+            }
+            else if (TpSpace == Space.World)
+            {
+                Vector2 targetPosition = transform.InverseTransformPoint(activeTransportPosition);
+                xMovementPerFrame = isFacingLeft ? - targetPosition.x : targetPosition.x;
+                yMovementPerFrame = targetPosition.y;
+            }
         }
         else if (isAbilityMovement)
         {
@@ -833,19 +912,26 @@ public class MovementPlayer : myUpdate
             xSpeed = 0f;
         }
 
-        xMovementPerFrame += xSpeed * Time.deltaTime;
-        yMovementPerFrame += ySpeed * Time.deltaTime;
-
-        //转身
-        if (xMovementPerFrame < 0)
+        //如果没有tp则计算速度
+        if(!isActiveTransport && !isPassiveTransport)
         {
-            isFacingLeft = true;
-            transform.localScale = leftLocalScale;
+            xMovementPerFrame += xSpeed * Time.deltaTime;
+            yMovementPerFrame += ySpeed * Time.deltaTime;
         }
-        else if (xMovementPerFrame > 0)
+
+        //转身: 只有在Normal or Crouch状态下才回转身，其他状态不会转身
+        if(!isInAbnormalStatus)
         {
-            isFacingLeft = false;
-            transform.localScale = rightLocalScale;
+            if (xMovementPerFrame < 0)
+            {
+                isFacingLeft = true;
+                transform.localScale = leftLocalScale;
+            }
+            else if (xMovementPerFrame > 0)
+            {
+                isFacingLeft = false;
+                transform.localScale = rightLocalScale;
+            }
         }
 
         ////控制y轴速度绝对值在最大值以内
@@ -854,16 +940,16 @@ public class MovementPlayer : myUpdate
 
         transform.Translate(xMovementPerFrame, yMovementPerFrame, 0, Space.Self);
 
-        //newPosition.x = transform.position.x + xMovementPerFrame;
-        //newPosition.y = transform.position.y + yMovementPerFrame;
-        //transform.position = newPosition;
+        //如果探测器感知这一帧y轴速度为负，且探测到了地板，则进行y轴位置调整
+        if(needYFloorOffset && controlStatus == PlayerControlStatus.Normal)
+        {
+            transform.Translate(0, yFloorOffset, 0, Space.Self);
+        }
 
         SetAnimStatus();
 
         //Debug.Log("3Player当前的状态是" + controlStatus.ToString());
-
         SetDebugInfo();
-        //update结束，清理状态位以供下一帧重新使用
         Clear();
     }
     //所在update队列为Player
@@ -890,8 +976,5 @@ public class MovementPlayer : myUpdate
 
         return hit;
     }
-    public bool IsOnFloor()
-    {
-        return isOnFloor;
-    }
+
 }

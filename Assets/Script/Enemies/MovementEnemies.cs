@@ -5,6 +5,8 @@ using UnityEngine;
 
 public abstract class MovementEnemies : myUpdate
 {
+    protected Rigidbody2D rb;
+
     private UpdateType updateType = UpdateType.Enemy;
     //当前怪物处于何种状态：普通，技能释放，被控制
     public enum EnemyStatus { Normal, AbilityWithMovement, AbilityNeedControl, Stun }
@@ -79,8 +81,8 @@ public abstract class MovementEnemies : myUpdate
                 if (canPassiveMovement)
                 {
                     //被击移动
-                    Debug.Log("move");
-                    transform.DOMove(movement, time);
+                    //transform.DOMove(movement, time);
+                    rb.AddForce(movement, ForceMode2D.Impulse);
                     isPassiveMovement = true;
                     
                     return true;

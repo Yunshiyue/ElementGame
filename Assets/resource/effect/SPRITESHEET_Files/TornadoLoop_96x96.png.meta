@@ -1,7 +1,292 @@
 fileFormatVersion: 2
 guid: 878afe4c5e54d7c4289286647119603c
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -335655729282078961
+    second: TornadoLoop_96x96_0
+  - first:
+      213: -2840391032721379332
+    second: TornadoLoop_96x96_1
+  - first:
+      213: -2122394633323315386
+    second: TornadoLoop_96x96_2
+  - first:
+      213: 8677506303113187984
+    second: TornadoLoop_96x96_3
+  - first:
+      213: -597921188504910142
+    second: TornadoLoop_96x96_4
+  - first:
+      213: -1789722535658029843
+    second: TornadoLoop_96x96_5
+  - first:
+      213: -4548211984305232773
+    second: TornadoLoop_96x96_6
+  - first:
+      213: 8096458089360790019
+    second: TornadoLoop_96x96_7
+  - first:
+      213: 1292872661322150798
+    second: TornadoLoop_96x96_8
+  - first:
+      213: 527548878250598600
+    second: TornadoLoop_96x96_9
+  - first:
+      213: 445358084411796457
+    second: TornadoLoop_96x96_10
+  - first:
+      213: -2933937183064640846
+    second: TornadoLoop_96x96_11
+  - first:
+      213: -7652807365032367342
+    second: TornadoLoop_96x96_12
+  - first:
+      213: 8226786789888412802
+    second: TornadoLoop_96x96_13
+  - first:
+      213: -5534540929695551530
+    second: TornadoLoop_96x96_14
+  - first:
+      213: 2384555134297945713
+    second: TornadoLoop_96x96_15
+  - first:
+      213: -6884717492495222282
+    second: TornadoLoop_96x96_16
+  - first:
+      213: 4452280235745249196
+    second: TornadoLoop_96x96_17
+  - first:
+      213: -4757414816970964103
+    second: TornadoLoop_96x96_18
+  - first:
+      213: -1787353902967434330
+    second: TornadoLoop_96x96_19
+  - first:
+      213: 2224697690685938460
+    second: TornadoLoop_96x96_20
+  - first:
+      213: -6832223014204725149
+    second: TornadoLoop_96x96_21
+  - first:
+      213: -6567080673109636825
+    second: TornadoLoop_96x96_22
+  - first:
+      213: 7758439472832449497
+    second: TornadoLoop_96x96_23
+  - first:
+      213: -6020424552050834966
+    second: TornadoLoop_96x96_24
+  - first:
+      213: -7858328469774658747
+    second: TornadoLoop_96x96_25
+  - first:
+      213: -1196044477412621262
+    second: TornadoLoop_96x96_26
+  - first:
+      213: 4021580779702112957
+    second: TornadoLoop_96x96_27
+  - first:
+      213: -2707292617641350552
+    second: TornadoLoop_96x96_28
+  - first:
+      213: -6721776540246533446
+    second: TornadoLoop_96x96_29
+  - first:
+      213: -7111545050175646237
+    second: TornadoLoop_96x96_30
+  - first:
+      213: 4972068307454932207
+    second: TornadoLoop_96x96_31
+  - first:
+      213: 7695548102878922204
+    second: TornadoLoop_96x96_32
+  - first:
+      213: -6314526862900689488
+    second: TornadoLoop_96x96_33
+  - first:
+      213: 8962304632901610135
+    second: TornadoLoop_96x96_34
+  - first:
+      213: 4866202867092920029
+    second: TornadoLoop_96x96_35
+  - first:
+      213: 8537236171186164270
+    second: TornadoLoop_96x96_36
+  - first:
+      213: 532702769009111781
+    second: TornadoLoop_96x96_37
+  - first:
+      213: -633134534763274581
+    second: TornadoLoop_96x96_38
+  - first:
+      213: -6658382521920030059
+    second: TornadoLoop_96x96_39
+  - first:
+      213: 3265431435150510779
+    second: TornadoLoop_96x96_40
+  - first:
+      213: -702234182546297638
+    second: TornadoLoop_96x96_41
+  - first:
+      213: 2596839752312062235
+    second: TornadoLoop_96x96_42
+  - first:
+      213: -3524958265811867108
+    second: TornadoLoop_96x96_43
+  - first:
+      213: 5031900249523634055
+    second: TornadoLoop_96x96_44
+  - first:
+      213: -6472756104818100117
+    second: TornadoLoop_96x96_45
+  - first:
+      213: 3960816311014704759
+    second: TornadoLoop_96x96_46
+  - first:
+      213: 1080411029126178762
+    second: TornadoLoop_96x96_47
+  - first:
+      213: 6641428912570264301
+    second: TornadoLoop_96x96_48
+  - first:
+      213: 5091563147676177772
+    second: TornadoLoop_96x96_49
+  - first:
+      213: 6170465607586416325
+    second: TornadoLoop_96x96_50
+  - first:
+      213: 376454011324601784
+    second: TornadoLoop_96x96_51
+  - first:
+      213: -6712565932630848967
+    second: TornadoLoop_96x96_52
+  - first:
+      213: 8730096397312785455
+    second: TornadoLoop_96x96_53
+  - first:
+      213: -5611884844026859706
+    second: TornadoLoop_96x96_54
+  - first:
+      213: -3091253052603940459
+    second: TornadoLoop_96x96_55
+  - first:
+      213: 7535535118766094072
+    second: TornadoLoop_96x96_56
+  - first:
+      213: 4129225942326751665
+    second: TornadoLoop_96x96_57
+  - first:
+      213: 470953011400837041
+    second: TornadoLoop_96x96_58
+  - first:
+      213: 6760476508201828942
+    second: TornadoLoop_96x96_59
+  - first:
+      213: 5052495768034653064
+    second: TornadoLoop_96x96_60
+  - first:
+      213: -8676678232440372288
+    second: TornadoLoop_96x96_61
+  - first:
+      213: -3252030750332396658
+    second: TornadoLoop_96x96_62
+  - first:
+      213: 2303285240950502339
+    second: TornadoLoop_96x96_63
+  - first:
+      213: 7589636462556997901
+    second: TornadoLoop_96x96_64
+  - first:
+      213: 947900401757912822
+    second: TornadoLoop_96x96_65
+  - first:
+      213: -8283517793526735044
+    second: TornadoLoop_96x96_66
+  - first:
+      213: -5443309059417250589
+    second: TornadoLoop_96x96_67
+  - first:
+      213: -5740928033331219995
+    second: TornadoLoop_96x96_68
+  - first:
+      213: 6678396149630340878
+    second: TornadoLoop_96x96_69
+  - first:
+      213: 7585567247232648586
+    second: TornadoLoop_96x96_70
+  - first:
+      213: 5907694082416743031
+    second: TornadoLoop_96x96_71
+  - first:
+      213: 8439083584820701108
+    second: TornadoLoop_96x96_72
+  - first:
+      213: 8337090319765405319
+    second: TornadoLoop_96x96_73
+  - first:
+      213: 5685690766022953083
+    second: TornadoLoop_96x96_74
+  - first:
+      213: 1678202218620371531
+    second: TornadoLoop_96x96_75
+  - first:
+      213: 5471759699052149660
+    second: TornadoLoop_96x96_76
+  - first:
+      213: -6782732874749252391
+    second: TornadoLoop_96x96_77
+  - first:
+      213: 6554128985115892535
+    second: TornadoLoop_96x96_78
+  - first:
+      213: -8329389491048912119
+    second: TornadoLoop_96x96_79
+  - first:
+      213: 5068591543113471896
+    second: TornadoLoop_96x96_80
+  - first:
+      213: -5443385536675514208
+    second: TornadoLoop_96x96_81
+  - first:
+      213: -3243334275190001214
+    second: TornadoLoop_96x96_82
+  - first:
+      213: 8359088817203676621
+    second: TornadoLoop_96x96_83
+  - first:
+      213: 6936337340223798704
+    second: TornadoLoop_96x96_84
+  - first:
+      213: 2717941367967872983
+    second: TornadoLoop_96x96_85
+  - first:
+      213: 1560747117654320697
+    second: TornadoLoop_96x96_86
+  - first:
+      213: -5006304378735685610
+    second: TornadoLoop_96x96_87
+  - first:
+      213: 4722096291811093787
+    second: TornadoLoop_96x96_88
+  - first:
+      213: -4668400961812929989
+    second: TornadoLoop_96x96_89
+  - first:
+      213: -8231633582121173220
+    second: TornadoLoop_96x96_90
+  - first:
+      213: 8584767345616310318
+    second: TornadoLoop_96x96_91
+  - first:
+      213: -9103779697445784322
+    second: TornadoLoop_96x96_92
+  - first:
+      213: 6531590897119373657
+    second: TornadoLoop_96x96_93
+  - first:
+      213: 5101290004685677507
+    second: TornadoLoop_96x96_94
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -31,7 +316,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -40,12 +325,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -71,9 +356,2016 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_0
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 85
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f07215184e2875bf0800000000000000
+      internalID: -335655729282078961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_1
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 14
+        width: 53
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cffef6f9767e498d0800000000000000
+      internalID: -2840391032721379332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_2
+      rect:
+        serializedVersion: 2
+        x: 217
+        y: 11
+        width: 50
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64f719f635dbb82e0800000000000000
+      internalID: -2122394633323315386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_3
+      rect:
+        serializedVersion: 2
+        x: 312
+        y: 14
+        width: 45
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 092564dd102bc6870800000000000000
+      internalID: 8677506303113187984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_4
+      rect:
+        serializedVersion: 2
+        x: 442
+        y: 82
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c64c73d8d1c3b7f0800000000000000
+      internalID: -597921188504910142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_5
+      rect:
+        serializedVersion: 2
+        x: 503
+        y: 11
+        width: 48
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dec779f06d0a927e0800000000000000
+      internalID: -1789722535658029843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_6
+      rect:
+        serializedVersion: 2
+        x: 647
+        y: 85
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b74ef483c4181e0c0800000000000000
+      internalID: -4548211984305232773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_7
+      rect:
+        serializedVersion: 2
+        x: 796
+        y: 14
+        width: 45
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30210334cb56c5070800000000000000
+      internalID: 8096458089360790019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_8
+      rect:
+        serializedVersion: 2
+        x: 894
+        y: 14
+        width: 45
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e83bbe5e5d431f110800000000000000
+      internalID: 1292872661322150798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_9
+      rect:
+        serializedVersion: 2
+        x: 1010
+        y: 85
+        width: 8
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c068c1e8ea325700800000000000000
+      internalID: 527548878250598600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_10
+      rect:
+        serializedVersion: 2
+        x: 1105
+        y: 88
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9eba63371da3e2600800000000000000
+      internalID: 445358084411796457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_11
+      rect:
+        serializedVersion: 2
+        x: 1277
+        y: 14
+        width: 45
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b23f1a3daf8847d0800000000000000
+      internalID: -2933937183064640846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_12
+      rect:
+        serializedVersion: 2
+        x: 1370
+        y: 11
+        width: 48
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21ba0c07f34cbc590800000000000000
+      internalID: -7652807365032367342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_13
+      rect:
+        serializedVersion: 2
+        x: 1465
+        y: 14
+        width: 45
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28ccc2e7ffa6b2270800000000000000
+      internalID: 8226786789888412802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_14
+      rect:
+        serializedVersion: 2
+        x: 1561
+        y: 14
+        width: 51
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dfe2a2095c5133b0800000000000000
+      internalID: -5534540929695551530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_15
+      rect:
+        serializedVersion: 2
+        x: 1586
+        y: 85
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 176b92fb244a71120800000000000000
+      internalID: 2384555134297945713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_16
+      rect:
+        serializedVersion: 2
+        x: 1657
+        y: 11
+        width: 47
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f977e8dae19470a0800000000000000
+      internalID: -6884717492495222282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_17
+      rect:
+        serializedVersion: 2
+        x: 1752
+        y: 11
+        width: 48
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca78614094da9cd30800000000000000
+      internalID: 4452280235745249196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_18
+      rect:
+        serializedVersion: 2
+        x: 1882
+        y: 76
+        width: 19
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97304490e644afdb0800000000000000
+      internalID: -4757414816970964103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_19
+      rect:
+        serializedVersion: 2
+        x: 1977
+        y: 79
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a3d7b5581b0237e0800000000000000
+      internalID: -1787353902967434330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_20
+      rect:
+        serializedVersion: 2
+        x: 1991
+        y: 85
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1b97f143c6bfde10800000000000000
+      internalID: 2224697690685938460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_21
+      rect:
+        serializedVersion: 2
+        x: 2039
+        y: 14
+        width: 54
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36824140e511f21a0800000000000000
+      internalID: -6832223014204725149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_22
+      rect:
+        serializedVersion: 2
+        x: 2076
+        y: 82
+        width: 5
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72987f3fbea0dd4a0800000000000000
+      internalID: -6567080673109636825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_23
+      rect:
+        serializedVersion: 2
+        x: 2171
+        y: 82
+        width: 9
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9db0c8538938bab60800000000000000
+      internalID: 7758439472832449497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_24
+      rect:
+        serializedVersion: 2
+        x: 2430
+        y: 14
+        width: 45
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae148f974c7237ca0800000000000000
+      internalID: -6020424552050834966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_25
+      rect:
+        serializedVersion: 2
+        x: 2523
+        y: 14
+        width: 48
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5431eb654eb91f290800000000000000
+      internalID: -7858328469774658747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_26
+      rect:
+        serializedVersion: 2
+        x: 2621
+        y: 14
+        width: 48
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 234c04c72ebc66fe0800000000000000
+      internalID: -1196044477412621262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_27
+      rect:
+        serializedVersion: 2
+        x: 2714
+        y: 14
+        width: 51
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db2dea179668fc730800000000000000
+      internalID: 4021580779702112957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_28
+      rect:
+        serializedVersion: 2
+        x: 2818
+        y: 82
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86a237645b3cd6ad0800000000000000
+      internalID: -2707292617641350552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_29
+      rect:
+        serializedVersion: 2
+        x: 2922
+        y: 85
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aba1d03a9d377b2a0800000000000000
+      internalID: -6721776540246533446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_30
+      rect:
+        serializedVersion: 2
+        x: 3001
+        y: 11
+        width: 53
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e5d7189477be4d90800000000000000
+      internalID: -7111545050175646237
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_31
+      rect:
+        serializedVersion: 2
+        x: 3097
+        y: 14
+        width: 50
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe434d058c5500540800000000000000
+      internalID: 4972068307454932207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_32
+      rect:
+        serializedVersion: 2
+        x: 3192
+        y: 14
+        width: 45
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd587001a341cca60800000000000000
+      internalID: 7695548102878922204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_33
+      rect:
+        serializedVersion: 2
+        x: 3322
+        y: 82
+        width: 8
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b58424264b4e58a0800000000000000
+      internalID: -6314526862900689488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_34
+      rect:
+        serializedVersion: 2
+        x: 3383
+        y: 14
+        width: 48
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79a20fc4490806c70800000000000000
+      internalID: 8962304632901610135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_35
+      rect:
+        serializedVersion: 2
+        x: 3527
+        y: 85
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd69f02b9b9388340800000000000000
+      internalID: 4866202867092920029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_36
+      rect:
+        serializedVersion: 2
+        x: 3676
+        y: 11
+        width: 45
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e22da23c01b5a7670800000000000000
+      internalID: 8537236171186164270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_37
+      rect:
+        serializedVersion: 2
+        x: 3772
+        y: 14
+        width: 47
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e2b7a5985a846700800000000000000
+      internalID: 532702769009111781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_38
+      rect:
+        serializedVersion: 2
+        x: 3867
+        y: 14
+        width: 45
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bae1760ce77a637f0800000000000000
+      internalID: -633134534763274581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_39
+      rect:
+        serializedVersion: 2
+        x: 3960
+        y: 14
+        width: 48
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59a794abf5ca893a0800000000000000
+      internalID: -6658382521920030059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_40
+      rect:
+        serializedVersion: 2
+        x: 4056
+        y: 11
+        width: 47
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bba4a8ad694215d20800000000000000
+      internalID: 3265431435150510779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_41
+      rect:
+        serializedVersion: 2
+        x: 4174
+        y: 85
+        width: 11
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adce0384bb92146f0800000000000000
+      internalID: -702234182546297638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_42
+      rect:
+        serializedVersion: 2
+        x: 4247
+        y: 14
+        width: 51
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b118c2ffef3d90420800000000000000
+      internalID: 2596839752312062235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_43
+      rect:
+        serializedVersion: 2
+        x: 4269
+        y: 88
+        width: 12
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1ae43e1225d41fc0800000000000000
+      internalID: -3524958265811867108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_44
+      rect:
+        serializedVersion: 2
+        x: 4441
+        y: 11
+        width: 51
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78f3e06ed96e4d540800000000000000
+      internalID: 5031900249523634055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_45
+      rect:
+        serializedVersion: 2
+        x: 4537
+        y: 14
+        width: 47
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b687396ed962c26a0800000000000000
+      internalID: -6472756104818100117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_46
+      rect:
+        serializedVersion: 2
+        x: 4632
+        y: 14
+        width: 48
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 776ca961375a7f630800000000000000
+      internalID: 3960816311014704759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_47
+      rect:
+        serializedVersion: 2
+        x: 4728
+        y: 14
+        width: 48
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac7ea725b146efe00800000000000000
+      internalID: 1080411029126178762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_48
+      rect:
+        serializedVersion: 2
+        x: 4823
+        y: 14
+        width: 51
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dea62ce78681b2c50800000000000000
+      internalID: 6641428912570264301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_49
+      rect:
+        serializedVersion: 2
+        x: 4919
+        y: 85
+        width: 9
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6555b0e4bdd8a640800000000000000
+      internalID: 5091563147676177772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_50
+      rect:
+        serializedVersion: 2
+        x: 4942
+        y: 88
+        width: 5
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c604fe07c5e1a550800000000000000
+      internalID: 6170465607586416325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_51
+      rect:
+        serializedVersion: 2
+        x: 5116
+        y: 11
+        width: 48
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b51643cdee693500800000000000000
+      internalID: 376454011324601784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_52
+      rect:
+        serializedVersion: 2
+        x: 5209
+        y: 11
+        width: 50
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93a462659dc28d2a0800000000000000
+      internalID: -6712565932630848967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_53
+      rect:
+        serializedVersion: 2
+        x: 5234
+        y: 82
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2cfeb85b68872970800000000000000
+      internalID: 8730096397312785455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_54
+      rect:
+        serializedVersion: 2
+        x: 5307
+        y: 11
+        width: 51
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64f6167a7749e12b0800000000000000
+      internalID: -5611884844026859706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_55
+      rect:
+        serializedVersion: 2
+        x: 5330
+        y: 85
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59143b01ab9a915d0800000000000000
+      internalID: -3091253052603940459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_56
+      rect:
+        serializedVersion: 2
+        x: 5406
+        y: 14
+        width: 47
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f6b88af349939860800000000000000
+      internalID: 7535535118766094072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_57
+      rect:
+        serializedVersion: 2
+        x: 5501
+        y: 14
+        width: 48
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b1b6b1fd15fd4930800000000000000
+      internalID: 4129225942326751665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_58
+      rect:
+        serializedVersion: 2
+        x: 5594
+        y: 11
+        width: 54
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b78276c449298600800000000000000
+      internalID: 470953011400837041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_59
+      rect:
+        serializedVersion: 2
+        x: 5690
+        y: 14
+        width: 53
+        height: 76
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e424ebfc09902dd50800000000000000
+      internalID: 6760476508201828942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_60
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 14
+        width: 54
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 883bedab1221e1640800000000000000
+      internalID: 5052495768034653064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_61
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 76
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c3070d5e1f369780800000000000000
+      internalID: -8676678232440372288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_62
+      rect:
+        serializedVersion: 2
+        x: 408
+        y: 14
+        width: 45
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8b5ac733477ed2d0800000000000000
+      internalID: -3252030750332396658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_63
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 79
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c3314b29b9e6ff10800000000000000
+      internalID: 2303285240950502339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_64
+      rect:
+        serializedVersion: 2
+        x: 548
+        y: 82
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d09ef0da62ec35960800000000000000
+      internalID: 7589636462556997901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_65
+      rect:
+        serializedVersion: 2
+        x: 599
+        y: 11
+        width: 48
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fefa39a46e972d00800000000000000
+      internalID: 947900401757912822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_66
+      rect:
+        serializedVersion: 2
+        x: 695
+        y: 11
+        width: 50
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3f163a64780b0d80800000000000000
+      internalID: -8283517793526735044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_67
+      rect:
+        serializedVersion: 2
+        x: 1027
+        y: 82
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e4e4c6104b7574b0800000000000000
+      internalID: -5443309059417250589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_68
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 14
+        width: 42
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e1f534de502450b0800000000000000
+      internalID: -5740928033331219995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_69
+      rect:
+        serializedVersion: 2
+        x: 1181
+        y: 14
+        width: 45
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0f8d081aed6eac50800000000000000
+      internalID: 6678396149630340878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_70
+      rect:
+        serializedVersion: 2
+        x: 1505
+        y: 71
+        width: 11
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a85c327a839554960800000000000000
+      internalID: 7585567247232648586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_71
+      rect:
+        serializedVersion: 2
+        x: 1797
+        y: 79
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7729028b7785cf150800000000000000
+      internalID: 5907694082416743031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_72
+      rect:
+        serializedVersion: 2
+        x: 1845
+        y: 14
+        width: 53
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b76117eec5ad1570800000000000000
+      internalID: 8439083584820701108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_73
+      rect:
+        serializedVersion: 2
+        x: 1943
+        y: 14
+        width: 51
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78ef6f9597b43b370800000000000000
+      internalID: 8337090319765405319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_74
+      rect:
+        serializedVersion: 2
+        x: 2143
+        y: 11
+        width: 45
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b78448ba0a1a7ee40800000000000000
+      internalID: 5685690766022953083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_75
+      rect:
+        serializedVersion: 2
+        x: 2239
+        y: 14
+        width: 45
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b42c32eb60c2a4710800000000000000
+      internalID: 1678202218620371531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_76
+      rect:
+        serializedVersion: 2
+        x: 2334
+        y: 14
+        width: 43
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9b3d46a4789feb40800000000000000
+      internalID: 5471759699052149660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_77
+      rect:
+        serializedVersion: 2
+        x: 2368
+        y: 73
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dce43a0364eed1a0800000000000000
+      internalID: -6782732874749252391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_78
+      rect:
+        serializedVersion: 2
+        x: 2469
+        y: 79
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73b9ce13691f4fa50800000000000000
+      internalID: 6554128985115892535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_79
+      rect:
+        serializedVersion: 2
+        x: 2810
+        y: 11
+        width: 50
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90b682e8360186c80800000000000000
+      internalID: -8329389491048912119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_80
+      rect:
+        serializedVersion: 2
+        x: 2905
+        y: 11
+        width: 54
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 897d3d66721475640800000000000000
+      internalID: 5068591543113471896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_81
+      rect:
+        serializedVersion: 2
+        x: 3237
+        y: 76
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a8f4f6d1b53574b0800000000000000
+      internalID: -5443385536675514208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_82
+      rect:
+        serializedVersion: 2
+        x: 3288
+        y: 14
+        width: 45
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c1737f19ac5df2d0800000000000000
+      internalID: -3243334275190001214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_83
+      rect:
+        serializedVersion: 2
+        x: 3333
+        y: 79
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc58d5badf2710470800000000000000
+      internalID: 8359088817203676621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_84
+      rect:
+        serializedVersion: 2
+        x: 3428
+        y: 82
+        width: 9
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bd31568f02d24060800000000000000
+      internalID: 6936337340223798704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_85
+      rect:
+        serializedVersion: 2
+        x: 3479
+        y: 14
+        width: 48
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d7701e164118b520800000000000000
+      internalID: 2717941367967872983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_86
+      rect:
+        serializedVersion: 2
+        x: 3575
+        y: 14
+        width: 50
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 936200cfb33e8a510800000000000000
+      internalID: 1560747117654320697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_87
+      rect:
+        serializedVersion: 2
+        x: 3907
+        y: 82
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6101afb21b8068ab0800000000000000
+      internalID: -5006304378735685610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_88
+      rect:
+        serializedVersion: 2
+        x: 4151
+        y: 11
+        width: 51
+        height: 77
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1de6940f81488140800000000000000
+      internalID: 4722096291811093787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_89
+      rect:
+        serializedVersion: 2
+        x: 4343
+        y: 14
+        width: 50
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b326c0a3f02863fb0800000000000000
+      internalID: -4668400961812929989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_90
+      rect:
+        serializedVersion: 2
+        x: 4573
+        y: 76
+        width: 14
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1fbd70cedc53cd80800000000000000
+      internalID: -8231633582121173220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_91
+      rect:
+        serializedVersion: 2
+        x: 4925
+        y: 14
+        width: 45
+        height: 71
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2055d2ba68332770800000000000000
+      internalID: 8584767345616310318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_92
+      rect:
+        serializedVersion: 2
+        x: 5020
+        y: 14
+        width: 48
+        height: 74
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef4b45c5990e8a180800000000000000
+      internalID: -9103779697445784322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_93
+      rect:
+        serializedVersion: 2
+        x: 990
+        y: 14
+        width: 42
+        height: 68
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 959a9f8a05fd4aa50800000000000000
+      internalID: 6531590897119373657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TornadoLoop_96x96_94
+      rect:
+        serializedVersion: 2
+        x: 1702
+        y: 76
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c36a814b3c6bc640800000000000000
+      internalID: 5101290004685677507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

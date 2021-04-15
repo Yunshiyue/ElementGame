@@ -1,7 +1,253 @@
 fileFormatVersion: 2
 guid: dcfcf3d98862e654d9345b31b9f2187a
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -7765738970057808670
+    second: MagicBarrier_64x64_0
+  - first:
+      213: -97592351832849629
+    second: MagicBarrier_64x64_1
+  - first:
+      213: 5274123120062410615
+    second: MagicBarrier_64x64_2
+  - first:
+      213: -1800917208695974954
+    second: MagicBarrier_64x64_3
+  - first:
+      213: 2134209186666754850
+    second: MagicBarrier_64x64_4
+  - first:
+      213: 2656862970193654418
+    second: MagicBarrier_64x64_5
+  - first:
+      213: -1976163518193525218
+    second: MagicBarrier_64x64_6
+  - first:
+      213: 5920256266728841880
+    second: MagicBarrier_64x64_7
+  - first:
+      213: -326498517912723012
+    second: MagicBarrier_64x64_8
+  - first:
+      213: 969381627320102297
+    second: MagicBarrier_64x64_9
+  - first:
+      213: 7623630520134510745
+    second: MagicBarrier_64x64_10
+  - first:
+      213: 2546732174728836585
+    second: MagicBarrier_64x64_11
+  - first:
+      213: -8556412257962914614
+    second: MagicBarrier_64x64_12
+  - first:
+      213: 5685018394843330033
+    second: MagicBarrier_64x64_13
+  - first:
+      213: -7556426071074408001
+    second: MagicBarrier_64x64_14
+  - first:
+      213: -4284124299059767565
+    second: MagicBarrier_64x64_15
+  - first:
+      213: 3598041504026483301
+    second: MagicBarrier_64x64_16
+  - first:
+      213: 380515254259084112
+    second: MagicBarrier_64x64_17
+  - first:
+      213: 2983923918747329868
+    second: MagicBarrier_64x64_18
+  - first:
+      213: 4778607355982868226
+    second: MagicBarrier_64x64_19
+  - first:
+      213: 5627004417067117632
+    second: MagicBarrier_64x64_20
+  - first:
+      213: -5880589216601468583
+    second: MagicBarrier_64x64_21
+  - first:
+      213: -4720217261969858
+    second: MagicBarrier_64x64_22
+  - first:
+      213: 2649617682103319534
+    second: MagicBarrier_64x64_23
+  - first:
+      213: 6040830775662996284
+    second: MagicBarrier_64x64_24
+  - first:
+      213: 8226408832798497677
+    second: MagicBarrier_64x64_25
+  - first:
+      213: -896736231854937202
+    second: MagicBarrier_64x64_26
+  - first:
+      213: -6073897255495085236
+    second: MagicBarrier_64x64_27
+  - first:
+      213: 5366978417568198576
+    second: MagicBarrier_64x64_28
+  - first:
+      213: -3297781457806806489
+    second: MagicBarrier_64x64_29
+  - first:
+      213: -7454205302871707336
+    second: MagicBarrier_64x64_30
+  - first:
+      213: -624935657246939018
+    second: MagicBarrier_64x64_31
+  - first:
+      213: -4206571916565214895
+    second: MagicBarrier_64x64_32
+  - first:
+      213: -2212495680288008055
+    second: MagicBarrier_64x64_33
+  - first:
+      213: -9116756562713727185
+    second: MagicBarrier_64x64_34
+  - first:
+      213: -4127072447365515615
+    second: MagicBarrier_64x64_35
+  - first:
+      213: -2518875768019221355
+    second: MagicBarrier_64x64_36
+  - first:
+      213: -2060681420581571236
+    second: MagicBarrier_64x64_37
+  - first:
+      213: 6225219785954524277
+    second: MagicBarrier_64x64_38
+  - first:
+      213: 9095711869097894033
+    second: MagicBarrier_64x64_39
+  - first:
+      213: -3503672272709971484
+    second: MagicBarrier_64x64_40
+  - first:
+      213: 208030561162166964
+    second: MagicBarrier_64x64_41
+  - first:
+      213: 5074741447524251934
+    second: MagicBarrier_64x64_42
+  - first:
+      213: -588453837835062874
+    second: MagicBarrier_64x64_43
+  - first:
+      213: -6472750819252836428
+    second: MagicBarrier_64x64_44
+  - first:
+      213: -3005520012319642347
+    second: MagicBarrier_64x64_45
+  - first:
+      213: 2285000319214932677
+    second: MagicBarrier_64x64_46
+  - first:
+      213: -1249535788422423349
+    second: MagicBarrier_64x64_47
+  - first:
+      213: 3523239379297423761
+    second: MagicBarrier_64x64_48
+  - first:
+      213: 2691137141084870873
+    second: MagicBarrier_64x64_49
+  - first:
+      213: 3977877683476003890
+    second: MagicBarrier_64x64_50
+  - first:
+      213: -3279793305094194579
+    second: MagicBarrier_64x64_51
+  - first:
+      213: 5337320980467088369
+    second: MagicBarrier_64x64_52
+  - first:
+      213: -8337663138369020281
+    second: MagicBarrier_64x64_53
+  - first:
+      213: 3189022677518071335
+    second: MagicBarrier_64x64_54
+  - first:
+      213: -3896120664900388467
+    second: MagicBarrier_64x64_55
+  - first:
+      213: -6219420667490645455
+    second: MagicBarrier_64x64_56
+  - first:
+      213: 9163353731259968710
+    second: MagicBarrier_64x64_57
+  - first:
+      213: 3708589167612769425
+    second: MagicBarrier_64x64_58
+  - first:
+      213: 2585876749654625662
+    second: MagicBarrier_64x64_59
+  - first:
+      213: 5571444298709115017
+    second: MagicBarrier_64x64_60
+  - first:
+      213: 7157266407304353327
+    second: MagicBarrier_64x64_61
+  - first:
+      213: -8851706703247847651
+    second: MagicBarrier_64x64_62
+  - first:
+      213: 4649184099396242725
+    second: MagicBarrier_64x64_63
+  - first:
+      213: 7835971014995497747
+    second: MagicBarrier_64x64_64
+  - first:
+      213: 1304296738832206669
+    second: MagicBarrier_64x64_65
+  - first:
+      213: 5859604810878862082
+    second: MagicBarrier_64x64_66
+  - first:
+      213: -287327134333846796
+    second: MagicBarrier_64x64_67
+  - first:
+      213: -3020797441396038535
+    second: MagicBarrier_64x64_68
+  - first:
+      213: 4487491079299672327
+    second: MagicBarrier_64x64_69
+  - first:
+      213: -7840566199101004123
+    second: MagicBarrier_64x64_70
+  - first:
+      213: -2295297153245233485
+    second: MagicBarrier_64x64_71
+  - first:
+      213: 3894441679013236850
+    second: MagicBarrier_64x64_72
+  - first:
+      213: 1865783311887487336
+    second: MagicBarrier_64x64_73
+  - first:
+      213: 7068004619962629517
+    second: MagicBarrier_64x64_74
+  - first:
+      213: -3562100668116757101
+    second: MagicBarrier_64x64_75
+  - first:
+      213: 4697386477768542852
+    second: MagicBarrier_64x64_76
+  - first:
+      213: 4819779239881383845
+    second: MagicBarrier_64x64_77
+  - first:
+      213: -5075256790278427323
+    second: MagicBarrier_64x64_78
+  - first:
+      213: -3358000778757340684
+    second: MagicBarrier_64x64_79
+  - first:
+      213: -7503894846514658612
+    second: MagicBarrier_64x64_80
+  - first:
+      213: 5275406076310022503
+    second: MagicBarrier_64x64_81
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -31,7 +277,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
+    filterMode: 0
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -40,12 +286,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 32
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -71,9 +317,1743 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_0
+      rect:
+        serializedVersion: 2
+        x: 463
+        y: 12
+        width: 36
+        height: 37
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e4eb472d8d8a3490800000000000000
+      internalID: -7765738970057808670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_1
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 11
+        width: 38
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3234538e54845aef0800000000000000
+      internalID: -97592351832849629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_2
+      rect:
+        serializedVersion: 2
+        x: 589
+        y: 11
+        width: 40
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77faef0c803713940800000000000000
+      internalID: 5274123120062410615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_3
+      rect:
+        serializedVersion: 2
+        x: 653
+        y: 10
+        width: 41
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d3d9c1275bd107e0800000000000000
+      internalID: -1800917208695974954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_4
+      rect:
+        serializedVersion: 2
+        x: 718
+        y: 11
+        width: 39
+        height: 39
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 223b5af92fb3e9d10800000000000000
+      internalID: 2134209186666754850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_5
+      rect:
+        serializedVersion: 2
+        x: 781
+        y: 10
+        width: 41
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29238437bc21fd420800000000000000
+      internalID: 2656862970193654418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_6
+      rect:
+        serializedVersion: 2
+        x: 844
+        y: 9
+        width: 43
+        height: 43
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1e1df710c14394e0800000000000000
+      internalID: -1976163518193525218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_7
+      rect:
+        serializedVersion: 2
+        x: 921
+        y: 43
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89227ad25b9f82250800000000000000
+      internalID: 5920256266728841880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_8
+      rect:
+        serializedVersion: 2
+        x: 985
+        y: 44
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb1ee1ce35b087bf0800000000000000
+      internalID: -326498517912723012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_9
+      rect:
+        serializedVersion: 2
+        x: 1049
+        y: 45
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99d643c347fe37d00800000000000000
+      internalID: 969381627320102297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_10
+      rect:
+        serializedVersion: 2
+        x: 1113
+        y: 45
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 998a17bf0939cc960800000000000000
+      internalID: 7623630520134510745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_11
+      rect:
+        serializedVersion: 2
+        x: 1177
+        y: 45
+        width: 18
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e535c47b6fc75320800000000000000
+      internalID: 2546732174728836585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_12
+      rect:
+        serializedVersion: 2
+        x: 1241
+        y: 45
+        width: 18
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acc825c9264814980800000000000000
+      internalID: -8556412257962914614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_13
+      rect:
+        serializedVersion: 2
+        x: 1305
+        y: 45
+        width: 19
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f5b23e0c1e35ee40800000000000000
+      internalID: 5685018394843330033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_14
+      rect:
+        serializedVersion: 2
+        x: 1368
+        y: 46
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb9fb16268e222790800000000000000
+      internalID: -7556426071074408001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_15
+      rect:
+        serializedVersion: 2
+        x: 1374
+        y: 46
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f65ce4f5abbb84c0800000000000000
+      internalID: -4284124299059767565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_16
+      rect:
+        serializedVersion: 2
+        x: 1433
+        y: 46
+        width: 19
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56a5c964fafcee130800000000000000
+      internalID: 3598041504026483301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_17
+      rect:
+        serializedVersion: 2
+        x: 1485
+        y: 36
+        width: 31
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05beab19b9cd74500800000000000000
+      internalID: 380515254259084112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_18
+      rect:
+        serializedVersion: 2
+        x: 1546
+        y: 9
+        width: 45
+        height: 45
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c45e9bd9ef6096920800000000000000
+      internalID: 2983923918747329868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_19
+      rect:
+        serializedVersion: 2
+        x: 1611
+        y: 9
+        width: 44
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20f6d667216015240800000000000000
+      internalID: 4778607355982868226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_20
+      rect:
+        serializedVersion: 2
+        x: 1678
+        y: 9
+        width: 42
+        height: 44
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04ce6d444b2271e40800000000000000
+      internalID: 5627004417067117632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_21
+      rect:
+        serializedVersion: 2
+        x: 1742
+        y: 11
+        width: 41
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9511a72a343f36ea0800000000000000
+      internalID: -5880589216601468583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_22
+      rect:
+        serializedVersion: 2
+        x: 1826
+        y: 11
+        width: 21
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3e66d6ccfa3feff0800000000000000
+      internalID: -4720217261969858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_23
+      rect:
+        serializedVersion: 2
+        x: 1893
+        y: 47
+        width: 131
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eebbc5c5e3555c420800000000000000
+      internalID: 2649617682103319534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_24
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 21
+        width: 20
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3be3a3b59755d350800000000000000
+      internalID: 6040830775662996284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_25
+      rect:
+        serializedVersion: 2
+        x: 86
+        y: 20
+        width: 22
+        height: 21
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8b17108f331a2270800000000000000
+      internalID: 8226408832798497677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_26
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 19
+        width: 25
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8b6013f5272e83f0800000000000000
+      internalID: -896736231854937202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_27
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 18
+        width: 27
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c43def380ae25bba0800000000000000
+      internalID: -6073897255495085236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_28
+      rect:
+        serializedVersion: 2
+        x: 274
+        y: 17
+        width: 29
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bf27507f665b7a40800000000000000
+      internalID: 5366978417568198576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_29
+      rect:
+        serializedVersion: 2
+        x: 337
+        y: 15
+        width: 31
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7223e8c8c3deb32d0800000000000000
+      internalID: -3297781457806806489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_30
+      rect:
+        serializedVersion: 2
+        x: 400
+        y: 14
+        width: 34
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 831bf7765c75d8890800000000000000
+      internalID: -7454205302871707336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_31
+      rect:
+        serializedVersion: 2
+        x: 911
+        y: 35
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 678225ea458c357f0800000000000000
+      internalID: -624935657246939018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_32
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 21
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1590ff611214f95c0800000000000000
+      internalID: -4206571916565214895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_33
+      rect:
+        serializedVersion: 2
+        x: 975
+        y: 35
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 988d85da6e2ab41e0800000000000000
+      internalID: -2212495680288008055
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_34
+      rect:
+        serializedVersion: 2
+        x: 1003
+        y: 20
+        width: 12
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2facb77536ca7180800000000000000
+      internalID: -9116756562713727185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_35
+      rect:
+        serializedVersion: 2
+        x: 1037
+        y: 35
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a6f97ca971b9b6c0800000000000000
+      internalID: -4127072447365515615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_36
+      rect:
+        serializedVersion: 2
+        x: 1070
+        y: 31
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59400e5a5d72b0dd0800000000000000
+      internalID: -2518875768019221355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_37
+      rect:
+        serializedVersion: 2
+        x: 1101
+        y: 36
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c55fcfa7a2df663e0800000000000000
+      internalID: -2060681420581571236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_38
+      rect:
+        serializedVersion: 2
+        x: 1135
+        y: 32
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 57c7d86a96c646650800000000000000
+      internalID: 6225219785954524277
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_39
+      rect:
+        serializedVersion: 2
+        x: 1164
+        y: 36
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19062e8f0c57a3e70800000000000000
+      internalID: 9095711869097894033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_40
+      rect:
+        serializedVersion: 2
+        x: 1199
+        y: 32
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e19cb791a4706fc0800000000000000
+      internalID: -3503672272709971484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_41
+      rect:
+        serializedVersion: 2
+        x: 1228
+        y: 36
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b20f7471b213e200800000000000000
+      internalID: 208030561162166964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_42
+      rect:
+        serializedVersion: 2
+        x: 1263
+        y: 32
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1972aa957a1d6640800000000000000
+      internalID: 5074741447524251934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_43
+      rect:
+        serializedVersion: 2
+        x: 1292
+        y: 36
+        width: 7
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a1302d2a5465d7f0800000000000000
+      internalID: -588453837835062874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_44
+      rect:
+        serializedVersion: 2
+        x: 1327
+        y: 32
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b7e0da8c6b2c26a0800000000000000
+      internalID: -6472750819252836428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_45
+      rect:
+        serializedVersion: 2
+        x: 1356
+        y: 36
+        width: 7
+        height: 11
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51d2c54097f3a46d0800000000000000
+      internalID: -3005520012319642347
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_46
+      rect:
+        serializedVersion: 2
+        x: 1391
+        y: 32
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c2d5721fa3f5bf10800000000000000
+      internalID: 2285000319214932677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_47
+      rect:
+        serializedVersion: 2
+        x: 1421
+        y: 36
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcc91fc12d1c8aee0800000000000000
+      internalID: -1249535788422423349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_48
+      rect:
+        serializedVersion: 2
+        x: 1453
+        y: 20
+        width: 10
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 191d0bd6c8f05e030800000000000000
+      internalID: 3523239379297423761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_49
+      rect:
+        serializedVersion: 2
+        x: 1517
+        y: 20
+        width: 10
+        height: 19
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d85938b8f6d85520800000000000000
+      internalID: 2691137141084870873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_50
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 18
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23c7a8b6da2443730800000000000000
+      internalID: 3977877683476003890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_51
+      rect:
+        serializedVersion: 2
+        x: 925
+        y: 10
+        width: 14
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6af729bd55db72d0800000000000000
+      internalID: -3279793305094194579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_52
+      rect:
+        serializedVersion: 2
+        x: 971
+        y: 22
+        width: 8
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fbfaf44729f11a40800000000000000
+      internalID: 5337320980467088369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_53
+      rect:
+        serializedVersion: 2
+        x: 979
+        y: 17
+        width: 4
+        height: 4
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78e55acec8baa4c80800000000000000
+      internalID: -8337663138369020281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_54
+      rect:
+        serializedVersion: 2
+        x: 989
+        y: 10
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7263122aa3fa14c20800000000000000
+      internalID: 3189022677518071335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_55
+      rect:
+        serializedVersion: 2
+        x: 1034
+        y: 17
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d89bd86d5e23ee9c0800000000000000
+      internalID: -3896120664900388467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_56
+      rect:
+        serializedVersion: 2
+        x: 1068
+        y: 20
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13a4f75dadd20b9a0800000000000000
+      internalID: -6219420667490645455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_57
+      rect:
+        serializedVersion: 2
+        x: 1098
+        y: 17
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cc20074ba5ca2f70800000000000000
+      internalID: 9163353731259968710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_58
+      rect:
+        serializedVersion: 2
+        x: 1132
+        y: 20
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 194bb61f23e877330800000000000000
+      internalID: 3708589167612769425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_59
+      rect:
+        serializedVersion: 2
+        x: 1162
+        y: 17
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7d0b180431e2e320800000000000000
+      internalID: 2585876749654625662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_60
+      rect:
+        serializedVersion: 2
+        x: 1196
+        y: 20
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 980ae66221fb15d40800000000000000
+      internalID: 5571444298709115017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_61
+      rect:
+        serializedVersion: 2
+        x: 1226
+        y: 17
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f26563a60e7b35360800000000000000
+      internalID: 7157266407304353327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_62
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 20
+        width: 12
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1fc7f8d6ab682580800000000000000
+      internalID: -8851706703247847651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_63
+      rect:
+        serializedVersion: 2
+        x: 1289
+        y: 17
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52d48e35e48358040800000000000000
+      internalID: 4649184099396242725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_64
+      rect:
+        serializedVersion: 2
+        x: 1324
+        y: 20
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31350131f16febc60800000000000000
+      internalID: 7835971014995497747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_65
+      rect:
+        serializedVersion: 2
+        x: 1353
+        y: 17
+        width: 12
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4b4bc739fac91210800000000000000
+      internalID: 1304296738832206669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_66
+      rect:
+        serializedVersion: 2
+        x: 1389
+        y: 20
+        width: 11
+        height: 10
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 203ca9ca78f715150800000000000000
+      internalID: 5859604810878862082
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_67
+      rect:
+        serializedVersion: 2
+        x: 1418
+        y: 17
+        width: 11
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fa33bf5e75330cf0800000000000000
+      internalID: -287327134333846796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_68
+      rect:
+        serializedVersion: 2
+        x: 1482
+        y: 17
+        width: 10
+        height: 12
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9742e2f5bb8f316d0800000000000000
+      internalID: -3020797441396038535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_69
+      rect:
+        serializedVersion: 2
+        x: 1053
+        y: 9
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70924626c55c64e30800000000000000
+      internalID: 4487491079299672327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_70
+      rect:
+        serializedVersion: 2
+        x: 1117
+        y: 9
+        width: 14
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a666a04596b03390800000000000000
+      internalID: -7840566199101004123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_71
+      rect:
+        serializedVersion: 2
+        x: 1182
+        y: 8
+        width: 13
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3be3ade66677520e0800000000000000
+      internalID: -2295297153245233485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_72
+      rect:
+        serializedVersion: 2
+        x: 1247
+        y: 12
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2705f0cc216db0630800000000000000
+      internalID: 3894441679013236850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_73
+      rect:
+        serializedVersion: 2
+        x: 1253
+        y: 8
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 861d7ec690894e910800000000000000
+      internalID: 1865783311887487336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_74
+      rect:
+        serializedVersion: 2
+        x: 1311
+        y: 12
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8d31b301c8961260800000000000000
+      internalID: 7068004619962629517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_75
+      rect:
+        serializedVersion: 2
+        x: 1317
+        y: 8
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39518bea050e09ec0800000000000000
+      internalID: -3562100668116757101
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_76
+      rect:
+        serializedVersion: 2
+        x: 1375
+        y: 12
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48a0e1c1d18703140800000000000000
+      internalID: 4697386477768542852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_77
+      rect:
+        serializedVersion: 2
+        x: 1381
+        y: 9
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5af9ee0beab43e240800000000000000
+      internalID: 4819779239881383845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_78
+      rect:
+        serializedVersion: 2
+        x: 1439
+        y: 12
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54da09fc6d01199b0800000000000000
+      internalID: -5075256790278427323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_79
+      rect:
+        serializedVersion: 2
+        x: 1447
+        y: 9
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f10faa451cf561d0800000000000000
+      internalID: -3358000778757340684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_80
+      rect:
+        serializedVersion: 2
+        x: 1503
+        y: 12
+        width: 6
+        height: 5
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc20c99f46fccd790800000000000000
+      internalID: -7503894846514658612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: MagicBarrier_64x64_81
+      rect:
+        serializedVersion: 2
+        x: 1511
+        y: 9
+        width: 5
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 769656840e1063940800000000000000
+      internalID: 5275406076310022503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

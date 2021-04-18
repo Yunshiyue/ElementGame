@@ -14,12 +14,6 @@ public class WitcherAttack : MonoBehaviour
     private Vector2 fireBallTargetPosition = new Vector2(0, 0);
     private int fireBallDistance = 10;
 
-    //当前可使用技能情况
-    private int blinkNum = 0;
-    private bool canBlink = false;
-    private bool canFire = true;
-    private float fireCD;
-
     void Start()
     {
         canFight = GetComponent<CanFight>();

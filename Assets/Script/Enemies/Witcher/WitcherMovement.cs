@@ -9,6 +9,7 @@ public class WitcherMovement : MovementEnemies
     private CapsuleCollider2D coll;
 
     public bool faceRight = true;
+    GameObject player;
 
     [SerializeField]//private在unity可见
     [Header("移动参数")]
@@ -21,11 +22,13 @@ public class WitcherMovement : MovementEnemies
 
     public override void Initialize()
     {
+        base.Initialize();
+
         originx = transform.position.x;
         leftx = originx - 1f;
         rightx = originx + 1f;
 
-        //player= GameObject.Find("Player");
+        player = GameObject.Find("Player");
 
         witcherAnim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
@@ -58,6 +61,7 @@ public class WitcherMovement : MovementEnemies
     //同理，技能控制会根据当前主角朝向改变方向，而被动传送则不会
     public override bool RequestMoveByFrame( MovementMode mode)
     {
+        PlayerCheck();
         Vector2 movement = new Vector2(1, 0);//
         switch (mode)
         {
@@ -131,6 +135,24 @@ public class WitcherMovement : MovementEnemies
         witcherAnim.SetBool("blinking", false);
     }
 
+    private void PlayerCheck()
+    {
+        if (!isSeePlayer)//如果没看到player时检测
+        {
+            //Debug.Log("no seePlayer");
+            int face = faceRight ? 1 : -1;
+            RaycastHit2D eyeCheck = Raycast(new Vector2(0f, 0f), new Vector2(face, 0), 7f, playerLayer);
+            isSeePlayer = eyeCheck;
+        }
+        else if (Mathf.Abs(transform.position.x - player.transform.position.x) > 10f)//失去对player的追踪
+        {
+            isSeePlayer = false;
+        }
+    }
+    public bool getIsSeePlayer()
+    {
+        return isSeePlayer;
+    }
     public override int GetPriorityInType()
     {
         return priorityInType;

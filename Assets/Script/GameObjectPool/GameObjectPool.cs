@@ -184,8 +184,12 @@ public class GameObjectPool
     /// <summary>
     /// 销毁对象池
     /// </summary>
-    public virtual void Destroy()
+    public virtual void ClearPool()
     {
+        foreach (GameObject gameObject in pool)
+        {
+            GameObject.Destroy(gameObject);
+        }
         pool.Clear();
     }
 }

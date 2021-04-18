@@ -45,6 +45,10 @@ abstract public class Defence : MonoBehaviour
             Debug.LogError("在" + gameObject.name + "中，Defence组件没有找到所依赖的CanBeFighted组件");
         }
     }
+    public void SetImmune(bool isImmune)
+    {
+        attackedCheck.SetImmune(isImmune);
+    }
     public virtual void Initialize(int hpMax)
     {
         hasBeenInitialized = true;

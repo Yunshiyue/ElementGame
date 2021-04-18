@@ -7,6 +7,10 @@
  * @Description: 在对象池中添加了poolType-FireBall 火球 typeCount = 2
  * @Author:夜里猛
 
+ * 
+
+ * @Editor: CuteRed
+ * @Edit: 新增了指定对象池的清空函数ClearPool
 */
 
 using System.Collections;
@@ -15,7 +19,6 @@ using UnityEngine;
 
 public class PoolManager : MonoBehaviour
 {
-
     /// <summary>
     /// 存放所有对象池
     /// </summary>
@@ -87,6 +90,19 @@ public class PoolManager : MonoBehaviour
         if (pools.ContainsKey(poolType))
         {
             pools[poolType].Recycle(obj);
+        }
+    }
+
+    /// <summary>
+    /// 清空指定的对象池
+    /// </summary>
+    /// <param name="poolType"></param>
+    public void ClearPool(string poolType)
+    {
+        //检查是否有该对象池
+        if (pools.ContainsKey(poolType))
+        {
+            pools[poolType].ClearPool();
         }
     }
 

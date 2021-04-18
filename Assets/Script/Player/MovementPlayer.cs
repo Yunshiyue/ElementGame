@@ -266,6 +266,10 @@ public class MovementPlayer : myUpdate
     {
         return ySpeed;
     }
+    public float GetXSpeed()
+    {
+        return xSpeed;
+    }
 
 
     //内部逻辑部分
@@ -304,7 +308,7 @@ public class MovementPlayer : myUpdate
     private bool isFacingLeft = false;
     private Vector3 leftLocalScale = new Vector3(-1, 1, 0);
     private Vector3 rightLocalScale = new Vector3(1, 1, 0);
-    //public bool IsFacingLeft() { return isFacingLeft; }
+    public bool IsFacingLeft() { return isFacingLeft; }
 
 
     //主角是否处于下坠状态，当主角在空中受到interrupt类型的攻击时，该状态位为true；当处于该状态且着地时，该状态为恢复为false
@@ -483,7 +487,7 @@ public class MovementPlayer : myUpdate
         playerAnim.SetXvelocity(xSpeed);
         playerAnim.SetYvelocity(ySpeed);
         playerAnim.SetIsOnGround(isOnFloor);
-        playerAnim.SetStatus(controlStatus);
+        //playerAnim.SetStatus(controlStatus);
     }
 
     //下蹲动作：改变状态、改变collider、改变探测器位置
@@ -533,6 +537,7 @@ public class MovementPlayer : myUpdate
         xSpeed = 0f;
 
         needYFloorOffset = false;
+        needXFlootOffset = false;
 
         if(controlStatus != PlayerControlStatus.Normal)
         {
@@ -552,7 +557,9 @@ public class MovementPlayer : myUpdate
     private Space TpSpace;
     //防止陷入地板的y轴offset
     private float yFloorOffset = 0f;
+    private float xFloorOffset = 0f;
     private bool needYFloorOffset = false;
+    private bool needXFlootOffset = false;
     //被动传送 = 被动以帧为结算的位移
     private Vector2 passiveTransportPosition;
     private bool canPassiveTransport = false;
@@ -619,8 +626,11 @@ public class MovementPlayer : myUpdate
             controlStatusTotalTime = 0f;
             controlStatusCurTime = 0f;
         }
-        controlStatus = status;
 
+        controlStatus = status;
+        //只有状态改变时才告诉动画机转换状态
+        playerAnim.SetStatus(controlStatus);
+        
         switch (status)
         {
             case PlayerControlStatus.Normal:
@@ -755,6 +765,7 @@ public class MovementPlayer : myUpdate
         needYFloorOffset = true;
     }
 
+
     //MyUpdate相关的属性及方法
 
     //update函数，处理异常状态计时与恢复、下蹲逻辑、起跳逻辑、根据这一帧的运动记录结算运动情况、结算减速
@@ -784,7 +795,7 @@ public class MovementPlayer : myUpdate
             if (controlStatusCurTime >= controlStatusTotalTime)
             {
                 ChangeControlStatus(0f, PlayerControlStatus.Normal);
-                playerAnim.SetAbilityNum(999);
+                //playerAnim.SetAbilityNum(999);
             }
         }
         //在处理正常状态
@@ -945,6 +956,10 @@ public class MovementPlayer : myUpdate
         {
             transform.Translate(0, yFloorOffset, 0, Space.Self);
         }
+        if(needXFlootOffset)
+        {
+            transform.Translate(xFloorOffset, 0, 0, Space.Self);
+        }
 
         SetAnimStatus();
 
@@ -955,7 +970,7 @@ public class MovementPlayer : myUpdate
     //所在update队列为Player
     public UpdateType updateType = UpdateType.Player;
     //player中优先级等级为5
-    private int priorityInType = 5;
+    private int priorityInType = 8;
     public override UpdateType GetUpdateType()
     {
         return updateType;

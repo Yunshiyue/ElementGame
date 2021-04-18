@@ -17,16 +17,12 @@ public class PlayerAnim : myUpdate
     private float yVelocity = 0;
     private bool isOnGround;
     private bool isCrouch;
-    private int abilityNum = 999;
+    
     private int skillType = 0;
     private int status;
 
-    private DefencePlayer defencePlayer;
-    private GameObject waterShield;
-
-    private int priorityInType = 15;
+    private int priorityInType = 10;
     private UpdateType updateType = UpdateType.Player;
-
 
     /// <summary>
     /// 提供动画机x方向速度
@@ -79,51 +75,25 @@ public class PlayerAnim : myUpdate
                 status = 4;
                 break;
         }
+
+        anim.SetInteger("status", status);
     }
 
-    /// <summary>
-    /// 提供动画机：技能序号
-    /// </summary>
-    /// <param name="x"></param>
-    public void SetAbilityNum(int num)
+
+    public void SetUseSkillType(int type)
     {
-        abilityNum = num;
-    } 
-    public void SetUseSkillType(int num)
-    {
-        skillType = num;
+        skillType = type;
+        anim.SetInteger("useSkillType", skillType);
     }
 
     public override void Initialize()
     {
         anim = GetComponent<Animator>();
-        Debug.Log("abilityNum 999");
-        anim.SetInteger("abilityNum", 999);
+       
+        //GetLengthByName("UseSkillByPush");
+        //GetLengthByName("UseSkillBySinging");
 
-        GetLengthByName("UseSkillByPush");
-        GetLengthByName("UseSkillBySinging");
-
-        defencePlayer = GetComponent<DefencePlayer>();
-        if(defencePlayer == null)
-        {
-            Debug.Log("在PlayerAnim中没有找到DefencePlayer");
-        }
-
-        waterShield = GameObject.Find("WaterShield");
-        if(waterShield == null)
-        {
-            Debug.Log("在PlayerAnim中没有找到waterShield!");
-        }
     }
-    public void WaterShieldUp()
-    {
-        waterShield.SetActive(true);
-    }
-    public void WaterShieldDown()
-    {
-        waterShield.SetActive(false);
-    }
-
 
     public override void MyUpdate()
     {
@@ -131,9 +101,9 @@ public class PlayerAnim : myUpdate
         anim.SetBool("crouching", isCrouch);
         anim.SetBool("isOnGround", isOnGround);
         anim.SetFloat("verticalVelocity", yVelocity);
-        anim.SetInteger("status", status);
-        anim.SetInteger("abilityNum", abilityNum);
-        anim.SetInteger("useSkillType", skillType);
+        //anim.SetInteger("status", status);
+        //anim.SetInteger("abilityNum", abilityNum);
+        //anim.SetInteger("useSkillType", skillType);
     }
 
     public void GetLengthByName(string name)

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2382180253110117246}
   - component: {fileID: 5279397799062629494}
-  - component: {fileID: 8209614314275940904}
   - component: {fileID: 1859805226346081644}
+  - component: {fileID: 8209614314275940904}
   - component: {fileID: 8909219671333051866}
   m_Layer: 0
   m_Name: Dart
@@ -85,18 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8209614314275940904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7043980701643363047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f01167e2cc13474b9459dd7c0669a68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!58 &1859805226346081644
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -113,6 +101,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1
+--- !u!114 &8209614314275940904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7043980701643363047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f01167e2cc13474b9459dd7c0669a68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8909219671333051866
 MonoBehaviour:
   m_ObjectHideFlags: 0

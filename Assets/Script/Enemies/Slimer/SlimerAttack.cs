@@ -10,7 +10,7 @@ public class SlimerAttack : MonoBehaviour
     SlimerMovement movementComponent;
     private string targetLayerName = "Player";
     //攻击打断
-    private float interruptTime = 0.2f;
+    private float interruptTime = 0.3f;
     private Vector2 interruptVector = new Vector2(0.5f, 0);
     void Start()
     {
@@ -37,19 +37,10 @@ public class SlimerAttack : MonoBehaviour
         if (player.gameObject.name == "Player")
         {
             //Debug.Log("碰到了主角！");
-            canFight.Attack(collision.transform.GetComponent<CanBeFighted>(), 2, AttackInterruptType.WEAK);
-            MovementPlayer movement = player.GetComponent<MovementPlayer>();
-            if (movement.RequestChangeControlStatus(interruptTime, MovementPlayer.PlayerControlStatus.Interrupt))
-            {
-                if (player.position.x > transform.position.x)
-                {
-                    movement.RequestMoveByTime(interruptVector, interruptTime, MovementPlayer.MovementMode.Attacked);
-                }
-                else
-                {
-                    movement.RequestMoveByTime(-interruptVector, interruptTime, MovementPlayer.MovementMode.Attacked);
-                }
-            }
+            canFight.Attack(player.GetComponent<CanBeFighted>(), 2, AttackInterruptType.WEAK);
+            player.GetComponent<CanBeFighted>().BeatBack(transform, interruptTime, interruptVector);
+
+
         }
     }
 

@@ -32,18 +32,14 @@ public class DefencePlayer : Defence
     private bool isShieldUp = false;
     private int shieldPoint = 0;
 
-    private PlayerAnim playerAnim;
-
     public void ShieldUp(int localShieldPoint)
     {
-        playerAnim.WaterShieldUp();
         isShieldUp = true;
         shieldPoint = shieldPoint > localShieldPoint ? shieldPoint : localShieldPoint;
     }
 
     public void ShieldDown()
     {
-        playerAnim.WaterShieldDown();
         shieldPoint = 0;
         isShieldUp = false;
     }
@@ -58,7 +54,7 @@ public class DefencePlayer : Defence
         hp += healPoint;
         hp = hp > hpMax ? hpMax : hp;
     }
-
+    
     //实现了抽象方法，在这个方法中包含你想通过这个组件做到的全部事情，在Player控制脚本中逐帧调用该方法
     public override void AttackCheck()
     {
@@ -69,12 +65,6 @@ public class DefencePlayer : Defence
     public override void Initialize(int hpMax)
     {
         base.Initialize(hpMax);
-
-        playerAnim = GetComponent<PlayerAnim>();
-        if (playerAnim == null)
-        {
-            Debug.LogError("在" + gameObject.name + "中，找不到playerAnim组件！");
-        }
     }
 
 

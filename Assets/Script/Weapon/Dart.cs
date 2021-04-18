@@ -37,8 +37,6 @@ public class Dart : FlyingProp
 {
     public const string DART = "Dart";
 
-    protected new int priorityInType = 0;
-
     [Header("旋转参数")]
     float rotateSpeed = 1000f;
 
@@ -212,7 +210,6 @@ public class Dart : FlyingProp
             }
         }
 
-
         //武器回到投掷者手中
         if (Vector2.Distance(transform.position, thrower.transform.position) < 0.2f && isBack)
         {
@@ -265,8 +262,6 @@ public class Dart : FlyingProp
     {
         Debug.Log("Dart:消失");
         poolManager.RemoveGameObject("Dart", gameObject);
-        LogOut();
-
     }
 
     /// <summary>

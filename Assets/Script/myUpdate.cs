@@ -19,6 +19,14 @@
  * @Edit: 修复了无法注销的bug，myUpdate类在注册时就会调用Initialize函数，而不是在Start中调用。
  *        现在取消注册的实现方式改为将一个叫做isActive的bool值设为false，在每次调用update时会检查isActive，
  *        如果为true则调用，否则不执行myUpdate。重新调用Register将此值置为true。
+ *        
+
+ * @Editor: ridger
+ * @Edit: UpdateManager重写，该类的接口也随之微调：
+ *          1.注册和注销移动到MonoBehavior的OnEnable和OnDisable中，无需手动调用，故不在设置此public方法
+ *          2.取消了isActive成员变量，由于现在可以从根本上实现动态注销和注册，无需设置改变量以表示是否关闭
+ *          3.UpdateManager新的数据结构要求MyUpdate类的Priority为正，尽可能的小，
+ *            同时同一物体/层中的不同Priority尽量紧密排列
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -28,33 +36,20 @@ abstract public class myUpdate : MonoBehaviour
 {
     public enum UpdateType { GUI, Map, PoolThing, Player, Enemy }
 
-    private UpdateManager manager;
-    private bool isActive = true;
+    public bool hasInitialize = false;
 
-    public void LogOut()
-    {
-        isActive = false;
-    }
-    public void Register()
-    {
-        manager.Register(this);
-    }
-    private void OnEnable()
+    private UpdateManager manager;
+
+    protected virtual void OnEnable()
     {
         manager = GameObject.Find("UpdateManager").GetComponent<UpdateManager>();
-
-        if(!manager.IsRegistered(this))
-            manager.Register(this);
-
-        isActive = true;
+        manager.Register(this);
     }
 
-    private void OnDisable()
+    protected virtual void OnDisable()
     {
-        isActive = false;
+        manager.LogOut(this);
     }
-
-    public bool IsActive() { return isActive; }
 
     abstract public void Initialize();
 

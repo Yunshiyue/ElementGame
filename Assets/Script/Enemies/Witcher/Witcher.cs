@@ -18,7 +18,7 @@ public class Witcher : Enemies
     private bool canBlink = false;
     public override void Initialize()
     {
-        base.Initialize();
+        
         priorityInType = 1;
 
         player = GameObject.Find("Player");
@@ -45,51 +45,39 @@ public class Witcher : Enemies
 
     public override void MyUpdate()
     {
-        DefenceCheck();
-        PlayerCheck();
+        //为了测试暂关闭防御组件
+        //DefenceCheck();
+        
         MoveControl();
     }
-    private void PlayerCheck()
-    {
-        if (!isSeePlayer)//如果没看到player时检测
-        {
-            //Debug.Log("no seePlayer");
-            int face = movementComponent.faceRight ? 1 : -1;
-            RaycastHit2D eyeCheck = Raycast(new Vector2(0f, 0f), new Vector2(face, 0), 7f, playerLayer);
-            isSeePlayer = eyeCheck;
-        }
-        else if(Mathf.Abs(transform.position.x-player.transform.position.x)>10f)//失去对player的追踪
-        {
-            isSeePlayer = false;
-        }
-        
-    }
+    
     //移动流程
     private void MoveControl()
     {   
         //没看到player时在初始位置来回移动
-        //movementComponent.RequestMoveByFrame(WitcherMovement.MovementMode.Normal);
+        movementComponent.RequestMoveByFrame(WitcherMovement.MovementMode.Normal);
 
-        if (isSeePlayer)//看到player后进入攻击状态
+        if (movementComponent.getIsSeePlayer())//看到player后进入攻击状态
         {     
             //Debug.Log("blink!");
             //movementComponent.RequestMoveByFrame(WitcherMovemet.MovementMode.Ability);
             //isSeePlayer = false;
-            attackComponent.PushFire();
+            //attackComponent.PushFire();
 
-            //改变移动范围
-            //movementComponent.ChangeRange(player.transform.position.x + 2, player.transform.position.x - 2);
-            //AttackControl();
+            //改变移动范围 
+            movementComponent.ChangeRange(player.transform.position.x + 2, player.transform.position.x - 2);
+            AttackControl();
         }
     }
+
     private void DefenceCheck()
     {
-        //defenceComponent.AttackCheck();
-        //if (defenceComponent.getIsDead())
-        //{
-        //    gameObject.SetActive(false);
-        //}
-        //defenceComponent.Clear();
+        defenceComponent.AttackCheck();
+        if (defenceComponent.getIsDead())
+        {
+            gameObject.SetActive(false);
+        }
+        defenceComponent.Clear();
     }
 
     //攻击流程

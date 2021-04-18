@@ -34,7 +34,9 @@ public class OnFloorDetector : myUpdate
     private static float floorDetectorAsecendDistance = 0.25f;
     private static float floorDetectorLength = floorOutOfBodyDistance + floorDetectorAsecendDistance;
     //其他探测器长度
-    private float detectorLength = 0.02f;
+    private static float LRDetectorInsideLength = 0.2f;
+    private static float LRDetectorOutsideLength = 0.05f;
+    private static float LRDetectorTotalLength = LRDetectorInsideLength + LRDetectorOutsideLength;
     //脚下探测器x轴向缩放比例
     private float detectorInsideOffsetRatio = 0.6f;
     //获得地面层
@@ -58,19 +60,19 @@ public class OnFloorDetector : myUpdate
         groundLayer = LayerMask.GetMask("Platform");
 
         //给探测器固定位置
-        ldnx = -coll.size.x / 2 + detectorLength;
+        ldnx = -coll.size.x / 2 + LRDetectorInsideLength;
         ldny = -coll.size.y / 2 * detectorInsideOffsetRatio;
         ldcx = ldnx;
         ldcy = ldny;
-        ltnx = -coll.size.x / 2 + detectorLength;
+        ltnx = -coll.size.x / 2 + LRDetectorInsideLength;
         ltny = coll.size.y / 2;
         ltcx = ltnx;
         ltcy = ltny - descentDistance;
-        rdnx = coll.size.x / 2 - detectorLength;
+        rdnx = coll.size.x / 2 - LRDetectorInsideLength;
         rdny = -coll.size.y / 2 * detectorInsideOffsetRatio;
         rdcx = rdnx;
         rdcy = rdny;
-        rtnx = coll.size.x / 2 - detectorLength;
+        rtnx = coll.size.x / 2 - LRDetectorInsideLength;
         rtny = coll.size.y / 2;
         rtcx = rtnx;
         rtcy = rtny - descentDistance;
@@ -164,13 +166,18 @@ public class OnFloorDetector : myUpdate
             playerMovementComponent.SetOnFloor(gameObject, false);
         }
 
-
         //左方探测器
-        RaycastHit2D leftTopCheck = Raycast(leftTopRay, Vector2.left, detectorLength, groundLayer);
-        RaycastHit2D leftDownCheck = Raycast(leftDownRay, Vector2.left, detectorLength, groundLayer);
+        RaycastHit2D leftTopCheck = Raycast(leftTopRay, Vector2.left, LRDetectorTotalLength, groundLayer);
+        RaycastHit2D leftDownCheck = Raycast(leftDownRay, Vector2.left, LRDetectorTotalLength, groundLayer);
         if (leftDownCheck || leftTopCheck)
         {
             playerMovementComponent.SetLeftDetect(gameObject, true);
+            if(playerMovementComponent.GetXSpeed() < 0)
+            {
+                //取hit中最大的那个(如果只有一个探针碰到则另一个distance = 0)进行移动
+                float maxDistance = leftTopCheck.distance > leftDownCheck.distance ? leftTopCheck.distance : leftDownCheck.distance;
+                playerMovementComponent.SetFloorOffset(detectorInsideOffsetRatio - maxDistance);
+            }
         }
         else
         {
@@ -178,11 +185,17 @@ public class OnFloorDetector : myUpdate
         }
 
         //右方探测器
-        RaycastHit2D rightTopCheck = Raycast(rightTopRay, Vector2.right, detectorLength, groundLayer);
-        RaycastHit2D rightDownCheck = Raycast(rightDownRay, Vector2.right, detectorLength, groundLayer);
+        RaycastHit2D rightTopCheck = Raycast(rightTopRay, Vector2.right, LRDetectorTotalLength, groundLayer);
+        RaycastHit2D rightDownCheck = Raycast(rightDownRay, Vector2.right, LRDetectorTotalLength, groundLayer);
         if (rightDownCheck || rightTopCheck)
         {
             playerMovementComponent.SetRightDetect(gameObject, true);
+            if (playerMovementComponent.GetXSpeed() > 0)
+            {
+                //取hit中最大的那个(如果只有一个探针碰到则另一个distance = 0)进行移动
+                float maxDistance = rightTopCheck.distance > rightDownCheck.distance ? rightTopCheck.distance : rightDownCheck.distance;
+                playerMovementComponent.SetFloorOffset(detectorInsideOffsetRatio - maxDistance);
+            }
         }
         else
         {

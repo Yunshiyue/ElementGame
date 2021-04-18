@@ -43,7 +43,7 @@ public abstract class FlyingAbility : myUpdate
 
     [Header("优先级")]
     protected UpdateType updateType = UpdateType.PoolThing;
-    protected int priorityInType;
+    protected int priorityInType = 0;
 
     [Header("消失检测参数")]
     protected bool isTimeOut = false;

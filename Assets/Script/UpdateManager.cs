@@ -25,6 +25,19 @@
  * @Edit: 修复了无法注销的bug，myUpdate类在注册时就会调用Initialize函数，而不是在Start中调用。
  *        现在取消注册的实现方式改为将一个叫做isActive的bool值设为false，在每次调用update时会检查isActive，
  *        如果为true则调用，否则不执行myUpdate。重新调用Register将此值置为true。
+ *        
+
+ * @Editor: ridger
+ * @Edit: 1.重写了此类的内部逻辑，接口不变
+ *        2.采用独立的数据结构替换了原先的SortedList，从根本上解决了update中不能动态增删物体的问题，同时update效率
+ *          也有提高
+ *        3.现在使用update数组+valid数组+maxIndex来组成一个更新队列，如果有myUpdate进行注册，则将udpate数组对应priority
+ *          位置赋值为myUpdate，同时valid数组的相同位置设为true，进行更新。注销则相反。
+ *        4.使用List+3中的更新队列来组成物体+物体下的组件的逻辑
+ *        
+
+ * @Editor: ridger
+ * @Edit: 改写了Initialize的逻辑，使用硬补丁，使得Initialize只被调用一次
  */
 
 using System.Collections.Generic;
@@ -32,361 +45,281 @@ using UnityEngine;
 
 public class UpdateManager : MonoBehaviour
 {
-
+    GameObjectUpdate temp;
     private void Update()
     {
-        foreach (KeyValuePair<int, myUpdate> a in GUIUpdates)
+        for(int i = 0; i <= GUIMaxIndex; i++)
         {
-            if(a.Value.IsActive())
+            if(GUIValid[i])
             {
-                a.Value.MyUpdate();
+                GUIUpdate[i].MyUpdate();
             }
         }
-        foreach (KeyValuePair<int, myUpdate> a in MapUpdates)
+        for (int i = 0; i <= MapMaxIndex; i++)
         {
-            if (a.Value.IsActive())
+            if (MapValid[i])
             {
-                a.Value.MyUpdate();
+                MapUpdate[i].MyUpdate();
             }
         }
-        foreach (KeyValuePair<int, SortedList<int, myUpdate>> poolThingList in PoolThingUpdates)
+        for(int i = 0; i < PoolThingUpdate.Count; i++)
         {
-            foreach (KeyValuePair<int, myUpdate> poolThing in poolThingList.Value)
+            temp = PoolThingUpdate[i];
+            for (int j = 0; j <= temp.maxArrayIndex; j++)
             {
-                if (poolThing.Value.IsActive())
+                if(temp.isValid[j])
                 {
-                    poolThing.Value.MyUpdate();
+                    temp.components[j].MyUpdate();
                 }
             }
         }
-        foreach (KeyValuePair<int, myUpdate> a in PlayerUpdates)
+        for (int i = 0; i <= PlayerMaxIndex; i++)
         {
-            if (a.Value.IsActive())
+            if (PlayerValid[i])
             {
-                a.Value.MyUpdate();
+                PlayerUpdate[i].MyUpdate();
             }
         }
-        foreach (KeyValuePair<int, SortedList<int, myUpdate>> enemyUpdateList in EnemyUpdates)
+        for (int i = 0; i < EnemyUpdate.Count; i++)
         {
-            foreach (KeyValuePair<int, myUpdate> enemyComponent in enemyUpdateList.Value)
+            temp = EnemyUpdate[i];
+            for (int j = 0; j <= temp.maxArrayIndex; j++)
             {
-                if (enemyComponent.Value.IsActive())
+                if (temp.isValid[j])
                 {
-                    enemyComponent.Value.MyUpdate();
+                    temp.components[j].MyUpdate();
                 }
             }
         }
+    }
+
+
+
+    public const int MAX_UPDATE_NUMBER = 32;
+
+    //GUI、Map、PlayerUpdate:只需要注册一次，之后一般不进行变动，但是需要频繁调度，考虑使用数组+最大Priority进行组织
+    //Enemy、PoolThing：涉及反复添加、注销，而且是基于物体的两级update，使用链表+数组进行组织
+
+    private myUpdate[] GUIUpdate = new myUpdate[MAX_UPDATE_NUMBER];
+    private bool[] GUIValid = new bool[MAX_UPDATE_NUMBER];
+    private int GUIMaxIndex = -1;
+    private myUpdate[] MapUpdate = new myUpdate[MAX_UPDATE_NUMBER];
+    private bool[] MapValid = new bool[MAX_UPDATE_NUMBER];
+    private int MapMaxIndex = -1;
+    private List<GameObjectUpdate> PoolThingUpdate = new List<GameObjectUpdate>(MAX_UPDATE_NUMBER);
+    private myUpdate[] PlayerUpdate = new myUpdate[MAX_UPDATE_NUMBER];
+    private bool[] PlayerValid = new bool[MAX_UPDATE_NUMBER];
+    private int PlayerMaxIndex = -1;
+    private List<GameObjectUpdate> EnemyUpdate = new List<GameObjectUpdate>(MAX_UPDATE_NUMBER);
+
+    //向给定数组中注册
+    private bool RegisterIntoArray(myUpdate update, myUpdate[] updateList, bool[] isValidList, in int maxIndex, out int newMaxIndex)
+    {
+        int updatePriority = update.GetPriorityInType();
+
+        if (updatePriority >= MAX_UPDATE_NUMBER)
+        {
+            newMaxIndex = maxIndex;
+            Debug.LogError(update.gameObject.name + "注册失败，优先级太大超过了最大值" + MAX_UPDATE_NUMBER);
+            return false;
+        }
+
+        if(isValidList[updatePriority])
+        {
+            Debug.LogError(update.gameObject.name + "注册失败，优先级重复" + updatePriority);
+            newMaxIndex = maxIndex;
+            return false;
+        }
+        else
+        {
+            isValidList[updatePriority] = true;
+            updateList[updatePriority] = update;
+            newMaxIndex = maxIndex > updatePriority ? maxIndex : updatePriority;
+            return true;
+        }
+    }
+
+    private bool RegisterIntoList(myUpdate update, List<GameObjectUpdate> theList)
+    {
+        GameObjectUpdate objectUpdate = null;
+        for(int i = 0; i < theList.Count; i++)
+        {
+            if(theList[i].GameObjectID == update.GetInstanceID()) {
+                objectUpdate = theList[i];
+                return RegisterIntoArray(update, objectUpdate.components, objectUpdate.isValid,
+                                            objectUpdate.maxArrayIndex, out objectUpdate.maxArrayIndex);
+            }
+        }
+        objectUpdate = new GameObjectUpdate(update.GetInstanceID());
+        theList.Add(objectUpdate);
+        return RegisterIntoArray(update, objectUpdate.components, objectUpdate.isValid,
+                                            objectUpdate.maxArrayIndex, out objectUpdate.maxArrayIndex);
     }
 
     public bool Register(myUpdate update)
     {
-        update.Initialize();
-        switch(update.GetUpdateType())
+        if(!update.hasInitialize)
+        {
+            update.Initialize();
+            update.hasInitialize = true;
+        }
+
+        switch (update.GetUpdateType())
         {
             case myUpdate.UpdateType.GUI:
-                GUIUpdates.Add(update.GetPriorityInType(), update);
-                return true;
+                return RegisterIntoArray(update, GUIUpdate, GUIValid, GUIMaxIndex, out GUIMaxIndex);
             case myUpdate.UpdateType.Map:
-                MapUpdates.Add(update.GetPriorityInType(), update);
-                return true;
+                return RegisterIntoArray(update, MapUpdate, MapValid, MapMaxIndex, out MapMaxIndex);
             case myUpdate.UpdateType.PoolThing:
-                //储存引用
-                SortedList<int, myUpdate> temp;
-                //看看有没有这个id
-                if (PoolThingUpdates.TryGetValue(update.gameObject.GetInstanceID(), out temp))
-                {
-                    //如果有，则将这个组件加入到对应敌人的更新队列中去
-                    temp.Add(update.GetPriorityInType(), update);
-                }
-                else
-                {
-                    //如果没有，增加这个敌人的队列，并且把这个组件加入进去
-                    temp = new SortedList<int, myUpdate>();
-                    temp.Add(update.GetPriorityInType(), update);
-                    PoolThingUpdates.Add(update.gameObject.GetInstanceID(), temp);
-                }
-
-                return true;
+                return RegisterIntoList(update, PoolThingUpdate);
             case myUpdate.UpdateType.Player:
-                PlayerUpdates.Add(update.GetPriorityInType(), update);
-                return true;
+                return RegisterIntoArray(update, PlayerUpdate, PlayerValid, PlayerMaxIndex, out PlayerMaxIndex);
             case myUpdate.UpdateType.Enemy:
-                //储存引用
-                SortedList<int, myUpdate> temp1;
-                //看看有没有这个id
-                if(EnemyUpdates.TryGetValue(update.gameObject.GetInstanceID(), out temp1))
-                {
-                    //如果有，则将这个组件加入到对应敌人的更新队列中去
-                    temp1.Add(update.GetPriorityInType(), update);
-                }
-                else
-                {
-                    //如果没有，增加这个敌人的队列，并且把这个组件加入进去
-                    temp1 = new SortedList<int, myUpdate>();
-                    temp1.Add(update.GetPriorityInType(), update);
-                    EnemyUpdates.Add(update.gameObject.GetInstanceID(), temp1);
-                }
-
-                return true;
+                return RegisterIntoList(update, EnemyUpdate);
         }
         return false;
     }
 
-    public bool IsRegistered(myUpdate update)
+    private bool LogOutFromArray(myUpdate update, myUpdate[] updateList, bool[] isValidList, in int maxIndex, out int newMaxIndex)
+    {
+        int updatePriority = update.GetPriorityInType();
+        if(!isValidList[updatePriority])
+        {
+            newMaxIndex = maxIndex;
+            Debug.LogError(update.gameObject.name + "注销失败，没有注册过该优先级" + updatePriority);
+            return false;
+        }
+        else
+        {
+            isValidList[updatePriority] = false;
+            updateList[updatePriority] = null;
+            newMaxIndex = maxIndex;
+            if(updatePriority == maxIndex)
+            {
+                int i = maxIndex - 1;
+                for (; i >= 0; i--)
+                {
+                    if(isValidList[i])
+                    {
+                        break;
+                    }
+                }
+                newMaxIndex = i;
+            }
+            return true;
+        }
+    }
+    private bool LogOutFromList(myUpdate update, List<GameObjectUpdate> theList)
+    {
+        GameObjectUpdate objectUpdate = null;
+        for(int i = 0; i < theList.Count; i++)
+        {
+            if(theList[i].GameObjectID == update.GetInstanceID())
+            {
+                objectUpdate = theList[i];
+                if(LogOutFromArray(update, objectUpdate.components, objectUpdate.isValid,
+                                        objectUpdate.maxArrayIndex, out objectUpdate.maxArrayIndex))
+                {
+                    if(objectUpdate.maxArrayIndex == -1)
+                    {
+                        theList.Remove(objectUpdate);
+                    }
+                    return true;
+                }
+                else
+                {
+                    Debug.LogError(update.gameObject.name + "注销失败，没有注册过该优先级" + update.GetPriorityInType());
+                    return false;
+                }
+            }
+        }
+        Debug.LogError(update.gameObject.name + "注销失败，没有注册过物体" + update.GetInstanceID());
+        //如果没有这个ID，返回false
+        return false;
+    }
+
+    public bool LogOut(myUpdate update)
     {
         switch (update.GetUpdateType())
         {
             case myUpdate.UpdateType.GUI:
-                if (GUIUpdates.ContainsValue(update))
-                    return true;
-                else
-                    return false;
+                return LogOutFromArray(update, GUIUpdate, GUIValid, GUIMaxIndex, out GUIMaxIndex);
             case myUpdate.UpdateType.Map:
-                if (MapUpdates.ContainsValue(update))
-                    return true;
-                else
-                    return false;
+                return LogOutFromArray(update, MapUpdate, MapValid, MapMaxIndex, out MapMaxIndex);
             case myUpdate.UpdateType.PoolThing:
-                //储存引用
-                SortedList<int, myUpdate> temp;
-                //看看有没有这个id
-                if (PoolThingUpdates.TryGetValue(update.gameObject.GetInstanceID(), out temp))
-                {
-                    if (temp.ContainsValue(update))
-                        return true;
-                    else
-                        return false;
-                }
-                else
-                {
-                    return false;
-                }
+                return LogOutFromList(update, PoolThingUpdate);
             case myUpdate.UpdateType.Player:
-                if (PlayerUpdates.ContainsValue(update))
-                    return true;
-                else
-                    return false;
+                return LogOutFromArray(update, PlayerUpdate, PlayerValid, PlayerMaxIndex, out PlayerMaxIndex);
             case myUpdate.UpdateType.Enemy:
-                //储存引用
-                SortedList<int, myUpdate> temp1;
-                //看看有没有这个id
-                if (EnemyUpdates.TryGetValue(update.gameObject.GetInstanceID(), out temp1))
-                {
-                    if (temp1.ContainsValue(update))
-                        return true;
-                    else
-                        return false;
-                }
-                else
-                {
-                    return false;
-                }
+                return LogOutFromList(update, EnemyUpdate);
         }
         return false;
     }
 
-    public const int MAX_ENEMY_NUMBER = 128;
-    private SortedList<int, myUpdate> GUIUpdates = new SortedList<int, myUpdate>();
-    private SortedList<int, myUpdate> MapUpdates = new SortedList<int, myUpdate>();
-    private Dictionary<int, SortedList<int, myUpdate>> PoolThingUpdates = new Dictionary<int, SortedList<int, myUpdate>>();
-    private SortedList<int, myUpdate> PlayerUpdates = new SortedList<int, myUpdate>();
-    private Dictionary<int, SortedList<int, myUpdate>> EnemyUpdates = new Dictionary<int, SortedList<int, myUpdate>>();
+
+    private class GameObjectUpdate
+    {
+        public static int MAX_COMPONENT_NUMBER = 32;
+        public int GameObjectID;
+        public myUpdate[] components = new myUpdate[MAX_COMPONENT_NUMBER];
+        public bool[] isValid = new bool[MAX_COMPONENT_NUMBER];
+        public int maxArrayIndex = -1;
+
+        public GameObjectUpdate()
+        {
+            GameObjectID = -1;
+        }
+        public GameObjectUpdate(int GameObjectID)
+        {
+            this.GameObjectID = GameObjectID;
+        }
+    }
 
 
     public void print()
     {
-        foreach (KeyValuePair<int, myUpdate> a in GUIUpdates)
+        for (int i = 0; i <= GUIMaxIndex; i++)
         {
-            Debug.Log("在updatemanager的GUI队列里，存在" + a.Value.name);
-        }
-        foreach (KeyValuePair<int, myUpdate> a in MapUpdates)
-        {
-            Debug.Log("在updatemanager的Map队列里，存在" + a.Value.name);
-        }
-        foreach (KeyValuePair<int, SortedList<int, myUpdate>> poolThingList in PoolThingUpdates)
-        {
-            var i = poolThingList.Value.GetEnumerator();
-            if (i.MoveNext())
+            if (GUIValid[i])
             {
-                //string enemyName = i.Current.Value.gameObject.name;
-                Debug.Log("在updatemanager的PoolThing队列里，存在" + i.Current.Value.gameObject.name);
+                Debug.Log("在GUI列表里，存在" + GUIUpdate[i].gameObject.name);
             }
         }
-        foreach (KeyValuePair<int, myUpdate> a in PlayerUpdates)
+        for (int i = 0; i <= MapMaxIndex; i++)
         {
-            Debug.Log("在updatemanager的Player队列里，存在" + a.Value.name);
-        }
-        foreach (KeyValuePair<int, SortedList<int, myUpdate>> enemyUpdateList in EnemyUpdates)
-        {
-            var i = enemyUpdateList.Value.GetEnumerator();
-            if(i.MoveNext())
+            if (MapValid[i])
             {
-                //string enemyName = i.Current.Value.gameObject.name;
-                Debug.Log("在updatemanager的Enemy队列里，存在" + i.Current.Value.gameObject.name + "这些敌人");
+                Debug.Log("在Map列表里，存在" + MapUpdate[i].gameObject.name);
+            }
+        }
+        for (int i = 0; i < PoolThingUpdate.Count; i++)
+        {
+            temp = PoolThingUpdate[i];
+            for (int j = 0; j <= temp.maxArrayIndex; j++)
+            {
+                if (temp.isValid[j])
+                {
+                    Debug.Log("在PoolThing列表里，存在" + temp.components[i].gameObject.name);
+                }
+            }
+        }
+        for (int i = 0; i <= PlayerMaxIndex; i++)
+        {
+            if (PlayerValid[i])
+            {
+                Debug.Log("在Player列表里，存在" + PlayerUpdate[i].gameObject.name);
+            }
+        }
+        for (int i = 0; i < EnemyUpdate.Count; i++)
+        {
+            temp = EnemyUpdate[i];
+            for (int j = 0; j <= temp.maxArrayIndex; j++)
+            {
+                if (temp.isValid[j])
+                {
+                    Debug.Log("在Enemy列表里，存在" + temp.components[i].gameObject.name);
+                }
             }
         }
     }
-
-    //public bool LogOut(myUpdate logout)
-    //{
-    //    switch (logout.GetUpdateType())
-    //    {
-    //        case myUpdate.UpdateType.GUI:
-    //            return GUIUpdates.Remove(logout.GetPriorityInType());
-    //        case myUpdate.UpdateType.Map:
-    //            return MapUpdates.Remove(logout.GetPriorityInType());
-    //        case myUpdate.UpdateType.PoolThing:
-    //            //储存引用
-    //            SortedList<int, myUpdate> temp;
-    //            //看看有没有这个id
-    //            if (PoolThingUpdates.TryGetValue(logout.gameObject.GetInstanceID(), out temp))
-    //            {
-    //                //如果有，则将这个组件从对应敌人的更新队列中去除
-    //                bool result1 = temp.Remove(logout.GetPriorityInType());
-    //                bool result2 = true;
-    //                if(temp.Count == 0)
-    //                {
-    //                    result2 = PoolThingUpdates.Remove(logout.gameObject.GetInstanceID());
-    //                }
-    //                return result1 && result2;
-    //            }
-    //            else
-    //            {
-    //                //没有id直接false
-    //                return false;
-    //            }
-    //        case myUpdate.UpdateType.Player:
-    //            return PlayerUpdates.Remove(logout.GetPriorityInType());
-    //        case myUpdate.UpdateType.Enemy:
-    //            //储存引用
-    //            SortedList<int, myUpdate> temp1;
-    //            //看看有没有这个id
-    //            if (EnemyUpdates.TryGetValue(logout.gameObject.GetInstanceID(), out temp1))
-    //            {
-    //                //如果有，则将这个组件从对应敌人的更新队列中去除
-    //                bool result1 = temp1.Remove(logout.GetPriorityInType());
-    //                bool result2 = true;
-    //                if (temp1.Count == 0)
-    //                {
-    //                    result2 = EnemyUpdates.Remove(logout.gameObject.GetInstanceID());
-    //                }
-    //                return result1 && result2;
-    //            }
-    //            else
-    //            {
-    //                //没有id直接false
-    //                return false;
-    //            }
-    //    }
-    //    return false;
-    //}
-    //private IList<int> listKeys;
-    //private myUpdate temp;
-
-    //private IList<int> objectListKeys;
-    //private SortedList<int, myUpdate> componentList;
-
-    //private void Start()
-    //{
-    //    print();
-    //    Initialize(GUIUpdates);
-    //    Initialize(MapUpdates);
-    //    Initialize(PoolThingUpdates);
-    //    Initialize(PlayerUpdates);
-    //    Initialize(EnemyUpdates);
-    //    //foreach (KeyValuePair<int, myUpdate> a in GUIUpdates)
-    //    //{
-    //    //    a.Value.Initialize();
-    //    //}
-    //    //foreach (KeyValuePair<int, myUpdate> a in MapUpdates)
-    //    //{
-    //    //    a.Value.Initialize();
-    //    //}
-    //    //foreach (KeyValuePair<int, SortedList<int, myUpdate>> poolThingList in PoolThingUpdates)
-    //    //{
-    //    //    foreach (KeyValuePair<int, myUpdate> poolThing in poolThingList.Value)
-    //    //    {
-    //    //        poolThing.Value.Initialize();
-    //    //    }
-    //    //}
-    //    ////for(int i = 0; i < PlayerUpdates.Count; i ++)
-    //    ////{
-    //    ////    PlayerUpdates.
-    //    ////}
-
-
-
-    //    ////foreach (KeyValuePair<int, myUpdate> a in PlayerUpdates)
-    //    ////{
-    //    ////    a.Value.Initialize();
-    //    ////}
-    //    //foreach (KeyValuePair<int, SortedList<int, myUpdate>> enemyUpdateList in EnemyUpdates)
-    //    //{
-    //    //    foreach (KeyValuePair<int, myUpdate> enemyComponent in enemyUpdateList.Value)
-    //    //    {
-    //    //        enemyComponent.Value.Initialize();
-    //    //    }
-    //    //}
-    //}
-
-    //private void UpdateList(SortedList<int, myUpdate> theList)
-    //{
-    //    listKeys = theList.Keys;
-    //    for (int i = 0; i < listKeys.Count; i++)
-    //    {
-    //        if (PlayerUpdates.TryGetValue(listKeys[i], out temp))
-    //        {
-    //            temp.MyUpdate();
-    //        }
-    //    }
-    //}
-    //private void UpdateList(Dictionary<int, SortedList<int, myUpdate>> theObjectList)
-    //{
-    //    foreach (KeyValuePair<int, SortedList<int, myUpdate>> theUpdateList in theObjectList)
-    //    {
-    //        Initialize(theUpdateList.Value);
-    //    }
-    //}
-
-    //private void Initialize(SortedList<int, myUpdate> theList)
-    //{
-    //    listKeys = theList.Keys;
-    //    for (int i = 0; i < listKeys.Count; i++)
-    //    {
-    //        if (PlayerUpdates.TryGetValue(listKeys[i], out temp))
-    //        {
-    //            Debug.Log(temp.gameObject.name + " 调用Initialzize");
-    //            temp.Initialize();
-    //        }
-    //    }
-    //}
-    //private void Initialize(Dictionary<int, SortedList<int, myUpdate>> theObjectList)
-    //{
-    //    foreach (KeyValuePair<int, SortedList<int, myUpdate>> theUpdateList in theObjectList)
-    //    {
-    //        Initialize(theUpdateList.Value);
-    //    }
-    //}
-
-    //使用二维数组实现敌人注册，由于涉及注销导致的数组移动问题，换用以链表为基础的字典实现
-    //private int[] EnemyIds = new int[MAX_ENEMY_NUMBER];
-    //private myUpdate[][] EnemyUpdates = new myUpdate[MAX_ENEMY_NUMBER][];
-    //private int[] enemyUpdatesPointer = new int[MAX_ENEMY_NUMBER];
-    //private int enemyPointer = 0;
-
-    //private bool IsEnemyRegistered(int enemyId)
-    //{
-    //    for(int i = 0; i < enemyPointer; i ++)
-    //    {
-    //        if(EnemyIds[i] == enemyId)
-    //        {
-    //            return true;
-    //        }
-    //    }
-    //    return false;
-    //}
-    //private bool AddEnemy()
-    //{
-
-    //}
 }

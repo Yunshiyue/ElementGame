@@ -7,6 +7,11 @@ public abstract class MovementEnemies : myUpdate
 {
     protected Rigidbody2D rb;
 
+    //移动组件中包含检测
+    protected LayerMask playerLayer;
+    protected LayerMask groundLayer;
+    protected bool isSeePlayer = false;
+
     private UpdateType updateType = UpdateType.Enemy;
     //当前怪物处于何种状态：普通，技能释放，被控制
     public enum EnemyStatus { Normal, AbilityWithMovement, AbilityNeedControl, Stun }
@@ -16,6 +21,11 @@ public abstract class MovementEnemies : myUpdate
 
     public enum MovementMode { Normal, Ability, Attacked }
 
+    public override void Initialize()
+    {
+        playerLayer = LayerMask.GetMask("Player");
+        groundLayer = LayerMask.GetMask("Platform");
+    }
     public bool RequestChangeControlStatus(float statusTime, EnemyStatus status)
     {
         switch (currentStatus)
@@ -144,17 +154,6 @@ public abstract class MovementEnemies : myUpdate
     //主角是否处于下坠状态，当主角在空中受到interrupt类型的攻击时，该状态位为true；当处于该状态且着地时，该状态为恢复为false
     protected bool isAttackedFalling = false;
 
-    //update函数，处理异常状态计时与恢复、下蹲逻辑、起跳逻辑、根据这一帧的运动记录结算运动情况、结算减速
-
-    protected void SetAnimStatus()
-    {
-        //playerAnim.SetXvelocity(xSpeed);
-        //playerAnim.SetYvelocity(ySpeed);
-        //playerAnim.SetIsOnGround(isOnFloor);
-        //playerAnim.SetStatus(controlStatus);
-    }
-
-
 
     //清除该帧统计信息
     protected void Clear()
@@ -278,6 +277,19 @@ public abstract class MovementEnemies : myUpdate
                 isInAbnormalStatus = true;
                 break;
         }
+    }
+
+    protected RaycastHit2D Raycast(Vector2 offset, Vector2 rayDiraction, float length, LayerMask layer)
+    {
+        Vector2 pos = transform.position;//人物位置
+
+        RaycastHit2D hit = Physics2D.Raycast(pos + offset, rayDiraction, length, layer);
+
+        Color color = hit ? Color.red : Color.green; //射线颜色 触碰layerr变red;不触碰则为green
+
+        Debug.DrawRay(pos + offset, rayDiraction * length, color);//显示射线
+
+        return hit;
     }
 }
 

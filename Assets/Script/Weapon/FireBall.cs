@@ -134,14 +134,12 @@ public class FireBall : FlyingProp
         if (transform.position.Equals(targetPosition))
         {
             GameObject.Find("PoolManager").GetComponent<PoolManager>().RemoveGameObject("FireBall", gameObject);
-            LogOut();
         }
     }
 
     protected override void Disappear()
     {
         GameObject.Find("PoolManager").GetComponent<PoolManager>().RemoveGameObject("FireBall", gameObject);
-        LogOut();
     }
 
     

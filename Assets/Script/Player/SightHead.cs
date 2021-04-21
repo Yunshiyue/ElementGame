@@ -6,7 +6,9 @@
  */
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SightHead : myUpdate
 {
@@ -15,6 +17,8 @@ public class SightHead : myUpdate
 
     private int priorityInType = 1;
     private UpdateType type = UpdateType.Player;
+    private Text debugInfoUI;
+    private StringBuilder debugInfo = new StringBuilder(512);
 
     public Vector2 GetPosition()
     {
@@ -32,12 +36,22 @@ public class SightHead : myUpdate
     }
     public override void Initialize()
     {
-        return;
+        debugInfoUI= GameObject.Find("SightHeadDebugInfo").GetComponent<Text>();
+        //return;
     }
 
     public override void MyUpdate()
     {
         Movement();
+        SetDebugInfo();
+    }
+    private void SetDebugInfo()
+    {
+        debugInfo.AppendLine("准星位置");
+        debugInfo.Append(transform.position);
+
+        debugInfoUI.text = debugInfo.ToString();
+        debugInfo.Clear();
     }
     private Vector2 movementVector = new Vector2();
     private void Movement()

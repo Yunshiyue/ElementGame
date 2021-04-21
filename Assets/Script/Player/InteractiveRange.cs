@@ -5,7 +5,7 @@ using UnityEngine;
 public class InteractiveRange : MonoBehaviour
 {
     private InteractivePlayer interactivePlayer;
-    private void Start()
+    private void Awake()
     {
         interactivePlayer = GameObject.Find("Player").GetComponent<InteractivePlayer>();
     }

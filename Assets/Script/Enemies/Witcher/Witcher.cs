@@ -13,9 +13,10 @@ public class Witcher : Enemies
 
     GameObject player;
 
-    private float actionCD = 1.5f;
+    private float actionCD = 0f;
     private bool canFire = true;
     private bool canBlink = false;
+    private bool canBack = true;
     public override void Initialize()
     {
         
@@ -46,7 +47,7 @@ public class Witcher : Enemies
     public override void MyUpdate()
     {
         //为了测试暂关闭防御组件
-        //DefenceCheck();
+        DefenceCheck();
         
         MoveControl();
     }
@@ -56,7 +57,12 @@ public class Witcher : Enemies
     {   
         //没看到player时在初始位置来回移动
         movementComponent.RequestMoveByFrame(WitcherMovement.MovementMode.Normal);
+        movementComponent.setIsGravity(true);
 
+        if (actionCD > 0)
+        {
+            actionCD -= Time.deltaTime;
+        }
         if (movementComponent.getIsSeePlayer())//看到player后进入攻击状态
         {     
             //Debug.Log("blink!");
@@ -65,8 +71,17 @@ public class Witcher : Enemies
             //attackComponent.PushFire();
 
             //改变移动范围 
-            movementComponent.ChangeRange(player.transform.position.x + 2, player.transform.position.x - 2);
+            movementComponent.ChangeRange(player.transform.position.x + 1, player.transform.position.x - 1);
             AttackControl();
+        }
+        else
+        {
+            if (canBack)
+            { 
+                Invoke("RangeMoveBack", 2f);
+                canBack = false;
+            }
+           
         }
     }
 
@@ -80,27 +95,37 @@ public class Witcher : Enemies
         defenceComponent.Clear();
     }
 
+    private void RangeMoveBack()
+    {
+        movementComponent.ChangeRange(movementComponent.GetOriginX() + 0.5f, movementComponent.GetOriginX() - 0.5f);
+        canBack = true;
+    }
     //攻击流程
     private void AttackControl()
     {
-        if (actionCD > 0)
-        {
-            actionCD -= Time.deltaTime;
+        //if (actionCD > 0)
+        //{
+        //    actionCD -= Time.deltaTime;
+        //}
+        if (actionCD <= 0) {
+            if (canFire)
+            {
+                attackComponent.PushFire();
+                movementComponent.setIsGravity(false);
+                //canFire = false;
+                //canBlink = true;
+                actionCD = 1f;
+            }
         }
-        else if (canFire)
-        {
-            attackComponent.PushFire();
-            canFire = false;
-            canBlink = true;
-            actionCD = 1.5f;
-        }
-        else if (canBlink)
-        {
-            movementComponent.RequestMoveByFrame(WitcherMovement.MovementMode.Ability);
-            canFire = true;
-            canBlink = false;
-            actionCD = 1.5f;
-        }
+         
+        //else if (canBlink)
+        //{
+        //    movementComponent.RequestMoveByFrame(WitcherMovement.MovementMode.Ability);
+        //    movementComponent.setIsGravity(true);
+        //    canFire = true;
+        //    canBlink = false;
+        //    actionCD = 1.5f;
+        //}
     }
 
     public override int GetPriorityInType()

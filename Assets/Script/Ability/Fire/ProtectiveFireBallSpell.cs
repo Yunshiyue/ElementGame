@@ -9,13 +9,14 @@ public class ProtectiveFireBallSpell : FlyingSpell
     {
         base.Initialize();
         spellName = ProtectiveFireBall.PROTECTIVE_FIRE_BALL;
+        playerAnim.SetSpell(this, SkillType.ProtectiveFireBall);
     }
     public override void Cast()
-    {            
-
+    {
+        playerAnim.SetUseSkillType(SkillType.ProtectiveFireBall);
     }
 
-    public void ReleaseSpell()
+    public override void ReleaseSpell()
     {
         /**第1个**/
         GameObject protectiveFireBall1 = poolManager.GetGameObject("ProtectiveFireBall");

@@ -18,12 +18,37 @@ public class PlayerAnim : myUpdate
     private bool isOnGround;
     private bool isCrouch;
     
-    private int skillType = 0;
+    private int skillTypeToInt = 0;
+    private Spell.SkillType skillType = Spell.SkillType.Null;
     private int status;
 
     private int priorityInType = 10;
     private UpdateType updateType = UpdateType.Player;
 
+    //特效物体
+    private GameObject fireThunderEffect;
+    private GameObject leftIceThunder;
+    private GameObject rightIceThunder;
+    private GameObject thunderIceSpecial;
+    private GameObject iceShield;
+    private GameObject windThunder;
+    private GameObject windShort;
+    private Cinemachine.CinemachineImpulseSource MyInpulse;
+
+    private void Awake()
+    {
+        fireThunderEffect = GameObject.Find("FireThunder");
+        leftIceThunder = GameObject.Find("LeftIceThunder");
+        rightIceThunder = GameObject.Find("RightIceThunder");
+        thunderIceSpecial = GameObject.Find("ThunderIceSpecial");
+        iceShield = GameObject.Find("IceShield");
+        windThunder = GameObject.Find("WindThunder");
+        windShort = GameObject.Find("WindShortMain");
+
+        //相机抖动
+        //MyInpulse = GetComponent<Cinemachine.CinemachineImpulseSource>();
+
+    }
     /// <summary>
     /// 提供动画机x方向速度
     /// </summary>
@@ -80,10 +105,151 @@ public class PlayerAnim : myUpdate
     }
 
 
-    public void SetUseSkillType(int type)
+    public void SetUseSkillType(Spell.SkillType type)
     {
         skillType = type;
-        anim.SetInteger("useSkillType", skillType);
+        skillTypeToInt = (int)type;
+        Debug.Log("skilType:" + skillTypeToInt);
+        anim.SetInteger("useSkillType", skillTypeToInt);
+    }
+    public void EffectActive()
+    {
+        //MyInpulse.GenerateImpulse();
+        //MyInpulse.
+        switch (skillType)
+        {
+            case Spell.SkillType.FireBall:
+                fireBall.ReleaseSpell();
+                break;
+            case Spell.SkillType.Meteorite:
+                meteorite.ReleaseSpell();
+                break;
+            case Spell.SkillType.FireThunder:
+                fireThunderEffect.SetActive(true);
+                break;
+            case Spell.SkillType.ProtectiveFireBall:
+                protectiveFireBall.ReleaseSpell();
+                break;
+            case Spell.SkillType.Lava:
+                lava.ReleaseSpell();
+                break;
+            case Spell.SkillType.ThunderBall:
+                thunderBall.ReleaseSpell();
+                break;
+            case Spell.SkillType.ThunderLong:
+                thunderLong.ReleaseSpell();
+                break;
+            case Spell.SkillType.ThunderFire:
+                thunderFire.ReleaseSpell();
+                break;
+            case Spell.SkillType.ThunderIce:
+                thunderIceSpecial.SetActive(true);
+                break;
+            case Spell.SkillType.ThunderWind:
+                //thunderIceSpecial.SetActive(true);
+                break;
+            case Spell.SkillType.IceSword:
+                //thunderIceSpecial.SetActive(true);
+                break;
+            case Spell.SkillType.IceArrow:
+                //thunderIceSpecial.SetActive(true);
+                break;
+            case Spell.SkillType.IceHammer:
+                //thunderIceSpecial.SetActive(true);
+                break;
+            case Spell.SkillType.IceShield:
+                iceShield.SetActive(true);
+                break;
+           case Spell.SkillType.IceFire:
+                iceFire.ReleaseSpell();
+                break;
+            case Spell.SkillType.IceThunder:
+                leftIceThunder.SetActive(true);
+                rightIceThunder.SetActive(true);
+                break;
+            case Spell.SkillType.IceWind:
+                iceWind.ReleaseSpell();
+                break;
+            case Spell.SkillType.WindShort:
+                windShort.SetActive(true);
+                break;
+            case Spell.SkillType.Hurricane:
+                hurricane.ReleaseSpell();
+                break;
+            case Spell.SkillType.WindFire:
+                windFire.ReleaseSpell();
+                break;      
+            case Spell.SkillType.WindThunder:
+                windThunder.SetActive(true);
+                break;
+            case Spell.SkillType.WindIce:
+                windIce.ReleaseSpell();
+                break;
+        }
+        anim.SetInteger("useSkillType", 0);
+    }
+    private Spell fireBall;
+    private Spell meteorite;
+    private Spell thunderLong;
+    private Spell protectiveFireBall;
+    private Spell lava;
+    private Spell thunderBall;
+    private Spell thunderFire;
+    private Spell thunderWind;
+    private Spell iceArrow;
+    private Spell iceFire;
+    private Spell iceWind;
+    private Spell hurricane;
+    private Spell windFire;
+    private Spell windIce;
+    
+    public void SetSpell(Spell spell, Spell.SkillType type)
+    {
+        switch (type)
+        {
+            case Spell.SkillType.FireBall:
+                fireBall = spell;
+                break;
+            case Spell.SkillType.Meteorite:
+                meteorite = spell;
+                break;
+            case Spell.SkillType.FireThunder:
+                break;
+            case Spell.SkillType.ProtectiveFireBall:
+                protectiveFireBall = spell;
+                break;
+            case Spell.SkillType.Lava:
+                lava = spell;
+                break;
+            case Spell.SkillType.ThunderLong:
+                thunderLong = spell;
+                break;
+            case Spell.SkillType.ThunderBall:
+                thunderBall = spell;
+                break;
+            case Spell.SkillType.ThunderFire:
+                thunderFire = spell;
+                break;
+            case Spell.SkillType.IceArrow:
+                iceArrow = spell;
+                break;
+            case Spell.SkillType.IceFire:
+                iceFire = spell;
+                break;
+            case Spell.SkillType.IceWind:
+                iceWind = spell;
+                break;
+            case Spell.SkillType.Hurricane:
+                hurricane = spell;
+                break;
+            case Spell.SkillType.WindFire:
+                windFire = spell;
+                break;
+            case Spell.SkillType.WindIce:
+                windIce = spell;
+                break;
+              
+        }
     }
 
     public override void Initialize()

@@ -8,7 +8,7 @@ public class IceEnergy : MonoBehaviour
     private RectTransform energyTransform;
     private bool iceUse;
     private bool iceRecover;
-    void Start()
+    void Awake()
     {
         energyTransform = GetComponent<RectTransform>();
     }

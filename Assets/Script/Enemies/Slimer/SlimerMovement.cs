@@ -46,30 +46,18 @@ public class SlimerMovement : MovementEnemies
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<CapsuleCollider2D>();
 
-    }
-
-    override public void MyUpdate()
-    {
-        //如果当前状态不是Normal，则时间++，
-        if (isInAbnormalStatus)
+        if (transform.localScale.x > 0)
         {
-            //状态时间++
-            controlStatusCurTime += Time.deltaTime;
-            //状态到期发生的事情
-            if (controlStatusCurTime >= controlStatusTotalTime)
-            {
-                ChangeControlStatus(0f, EnemyStatus.Normal);
-                //playerAnim.SetAbilityNum(999);
-            }
+            faceRight = true;
         }
-        //在处理正常状态
         else
         {
+            faceRight = false;
         }
-        Clear();
+
     }
 
-    
+     
     //请求在这一帧中进行position的跳跃，movement为相对位移改变量
     //同理，技能控制会根据当前主角朝向改变方向，而被动传送则不会
     public override bool RequestMoveByFrame(MovementMode mode)
@@ -127,6 +115,7 @@ public class SlimerMovement : MovementEnemies
                         return true;
                     }
                 }
+                
                 return false;
 
             case MovementMode.Ability:

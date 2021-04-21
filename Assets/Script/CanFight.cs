@@ -71,13 +71,13 @@ public class CanFight : MonoBehaviour
     /// <param name="damage">造成输入数值的伤害</param>
     /// <param name="interruptType">攻击打断类型，默认为无打断</param>
     /// <returns>返回造成了多少伤害，具体用法有待进一步讨论</returns>
-    public int Attack(CanBeFighted target, int damage, AttackInterruptType interruptType = AttackInterruptType.NONE)
+    public int Attack(CanBeFighted target, int damage, AttackInterruptType interruptType = AttackInterruptType.NONE, ElementAbilityManager.Element element = ElementAbilityManager.Element.NULL)
     {
         if(!isInitialized)
         {
             Debug.LogError("在" + gameObject.name + "物体中，CanFight组件未初始化！");
         }
-        return target.BeAttacked(gameObject, damage, interruptType);
+        return target.BeAttacked(gameObject, damage, interruptType, element);
     }
 
     /// <summary>
@@ -87,7 +87,7 @@ public class CanFight : MonoBehaviour
     /// <param name="damage">该次范围攻击造成了多少伤害</param>
     /// <param name="interruptType">该次攻击为何种打断类型</param>
     /// <returns>返回攻击到的敌人对象的CanBeFighted组件的数组</returns>
-    public CanBeFighted[] AttackArea(Collider2D area, int damage, AttackInterruptType interruptType = AttackInterruptType.NONE)
+    public CanBeFighted[] AttackArea(Collider2D area, int damage, AttackInterruptType interruptType = AttackInterruptType.NONE, ElementAbilityManager.Element element = ElementAbilityManager.Element.NULL)
     {
         //输入范围需要Trigger才行
         if(!area.isTrigger)
@@ -112,7 +112,7 @@ public class CanFight : MonoBehaviour
 
                 if (enemies[i].TryGetComponent<CanBeFighted>(out enemyBody))
                 {
-                    Attack(enemyBody, damage, AttackInterruptType.NONE);
+                    Attack(enemyBody, damage, AttackInterruptType.NONE, element);
                     enemiesAttacked[i] = enemyBody;
                 }
                 else
@@ -127,7 +127,7 @@ public class CanFight : MonoBehaviour
         return null;
     }
 
-    public CanBeFighted[] AttackArea(Collider2D area, int damage, CanBeFighted[] hasAttacked, AttackInterruptType interruptType = AttackInterruptType.NONE)
+    public CanBeFighted[] AttackArea(Collider2D area, int damage, CanBeFighted[] hasAttacked, AttackInterruptType interruptType = AttackInterruptType.NONE, ElementAbilityManager.Element element = ElementAbilityManager.Element.NULL)
     {
         //输入范围需要Trigger才行
         if (!area.isTrigger)
@@ -151,7 +151,7 @@ public class CanFight : MonoBehaviour
             {
                 if (enemies[i].TryGetComponent<CanBeFighted>(out enemyBody))
                 {
-                    Attack(enemyBody, damage, AttackInterruptType.NONE);
+                    Attack(enemyBody, damage, AttackInterruptType.NONE, element);
                     enemiesAttacked[i] = enemyBody;
                 }
                 else

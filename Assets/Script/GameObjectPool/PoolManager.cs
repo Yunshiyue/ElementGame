@@ -26,7 +26,7 @@ public class PoolManager : MonoBehaviour
 
     private Transform managerTransform;
 
-    private void Start()
+    private void Awake()
     {
         managerTransform = GetComponent<Transform>();
         if (managerTransform == null)

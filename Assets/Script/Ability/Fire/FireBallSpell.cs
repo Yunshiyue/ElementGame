@@ -9,18 +9,20 @@ public class FireBallSpell : FlyingSpell
     {
         base.Initialize();
         base.spellName = FireBallAbility.FIRE_BALL_ABILITY;
+        playerAnim.SetSpell(this, SkillType.FireBall);
     }
 
 
     public override void Cast()
     {
-
+        playerAnim.SetUseSkillType(SkillType.FireBall);
     }
-    public void ReleaseSpell()
+    public override void ReleaseSpell()
     {
         GameObject fireBallAbility = poolManager.GetGameObject("FireBallAbility");
         FireBallAbility a = fireBallAbility.GetComponent<FireBallAbility>();
         a.SetThrower(player);
+        a.SetTargetLayerName("Enemy");
         a.SetStartPosition(player.transform.position);
 
         if (movementComponent.IsFacingLeft())

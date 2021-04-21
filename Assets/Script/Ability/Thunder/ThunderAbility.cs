@@ -22,6 +22,11 @@ public class ThunderAbility : myUpdate, Ability
     private ThunderLinkSpell thunderLinkSpell;
     //雷球
     private ThunderBallSpell thunderBallSpell;
+    //雷长按
+    private ThunderLongSpell thunderLongSpell;
+    //雷冰
+    private ThunderIceSpell thunderIceSpell;
+
 
     //激活该主元素，同时制定两个辅助元素
     public void Activate(ElementAbilityManager.Element aElement, ElementAbilityManager.Element bElement)
@@ -34,10 +39,16 @@ public class ThunderAbility : myUpdate, Ability
         //雷球
         thunderBallSpell.Enable();
 
+        thunderLongSpell.Enable();
+
         //激活闪电链
         if(aElement == ElementAbilityManager.Element.Fire || bElement == ElementAbilityManager.Element.Fire)
         {
             thunderLinkSpell.Enable();
+        }
+        else if (aElement == ElementAbilityManager.Element.Ice || bElement == ElementAbilityManager.Element.Ice)
+        {
+            thunderIceSpell.Enable();
         }
     }
     //休眠该主元素
@@ -49,6 +60,9 @@ public class ThunderAbility : myUpdate, Ability
         //雷球
         thunderBallSpell.Disable();
         thunderLinkSpell.Disable();
+
+        thunderLongSpell.Disable();
+        thunderIceSpell.Disable();
 
         this.enabled = false;
     }
@@ -71,6 +85,12 @@ public class ThunderAbility : myUpdate, Ability
 
         thunderBallSpell = new ThunderBallSpell();
         thunderBallSpell.Initialize();
+
+        thunderLongSpell = new ThunderLongSpell();
+        thunderLongSpell.Initialize();
+
+        thunderIceSpell = new ThunderIceSpell();
+        thunderIceSpell.Initialize();
     }
 
     public override void MyUpdate()
@@ -91,7 +111,8 @@ public class ThunderAbility : myUpdate, Ability
         {
             if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
             {
-                Debug.Log("雷击还未做好！");
+                Debug.Log("雷击做好！");
+                thunderLongSpell.Cast();
             }
         }
         else if (aElement == ElementAbilityManager.Element.Fire && bElement == ElementAbilityManager.Element.NULL ||
@@ -107,7 +128,8 @@ public class ThunderAbility : myUpdate, Ability
         {
             if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
             {
-                Debug.Log("雷冰还未做好！");
+                Debug.Log("雷冰做好！");
+                thunderIceSpell.Cast();
             }
         }
         else if (aElement == ElementAbilityManager.Element.Wind && bElement == ElementAbilityManager.Element.NULL ||
@@ -119,7 +141,22 @@ public class ThunderAbility : myUpdate, Ability
             }
         }
     }
-
+    public GameObject GetClosestTargetInList(List<GameObject> gameObjects)
+    {
+        float minDistance = float.MaxValue;
+        float tempDistance;
+        GameObject cloestTarget = null;
+        foreach (GameObject target in gameObjects)
+        {
+            tempDistance = Vector2.Distance(target.transform.position, transform.position);
+            if (tempDistance < minDistance)
+            {
+                minDistance = tempDistance;
+                cloestTarget = target;
+            }
+        }
+        return cloestTarget;
+    }
 
     //雷圈相关的函数
     public List<GameObject> GetTargetInThunderCircle()

@@ -10,14 +10,15 @@ public class MeteoriteSpell : FlyingSpell
     {
         base.Initialize();
         spellName = Meteorite.METEORITE;
+        playerAnim.SetSpell(this, SkillType.Meteorite);
     }
 
     public override void Cast()
     {
-
+        playerAnim.SetUseSkillType(SkillType.Meteorite);
     }
 
-    public void ReleaseSpell()
+    public override void ReleaseSpell()
     {
         GameObject meteorite = poolManager.GetGameObject(spellName);
         Meteorite a = meteorite.GetComponent<Meteorite>();

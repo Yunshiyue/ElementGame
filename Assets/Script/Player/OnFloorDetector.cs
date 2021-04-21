@@ -42,16 +42,19 @@ public class OnFloorDetector : myUpdate
     //获得地面层
     private LayerMask groundLayer;
 
+    private GameObject player;
+
     //updateManager中代替start函数的初始化方法
     override public void Initialize()
     {
-        playerMovementComponent = transform.parent.GetComponent<MovementPlayer>();
+        player = GameObject.Find("Player");
+        playerMovementComponent = player.GetComponent<MovementPlayer>();
         if(playerMovementComponent == null)
         {
             Debug.LogError("在" + gameObject.name + "的父亲中，找不到MovementPlayer组件！");
         }
 
-        coll = transform.parent.GetComponent<CapsuleCollider2D>();
+        coll = GameObject.Find("Player").GetComponent<CapsuleCollider2D>();
         if (coll == null)
         {
             Debug.LogError("在" + gameObject.name + "的父亲中，找不到coll2D组件！");
@@ -153,8 +156,19 @@ public class OnFloorDetector : myUpdate
         if (floorLeftCheck || floorRightCheck)
         {
             playerMovementComponent.SetOnFloor(gameObject, true);
+
+            //设置父物体
+            if (floorLeftCheck)
+            {
+                player.transform.SetParent(floorLeftCheck.collider.gameObject.transform);
+            }
+            else
+            {
+                player.transform.SetParent(floorRightCheck.collider.gameObject.transform);
+            }
+
             //如果碰到地板而且在下落状态
-            if(playerMovementComponent.GetYSpeed() < 0)
+            if (playerMovementComponent.GetYSpeed() < 0)
             {
                 //取hit中最大的那个(如果只有一个探针碰到则另一个distance = 0)进行移动
                 float maxDistance = floorLeftCheck.distance > floorRightCheck.distance ? floorLeftCheck.distance : floorRightCheck.distance;
@@ -164,6 +178,8 @@ public class OnFloorDetector : myUpdate
         else
         {
             playerMovementComponent.SetOnFloor(gameObject, false);
+            //父物体置为空
+            player.transform.SetParent(null);
         }
 
         //左方探测器

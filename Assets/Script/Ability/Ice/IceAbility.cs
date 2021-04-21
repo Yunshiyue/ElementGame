@@ -12,12 +12,19 @@ public class IceAbility : myUpdate, Ability
     //水盾
     private WaterShieldSpell waterShieldSpell;
 
+    //冰雷
+    private IceThunderSpell iceThunderSpell;
+
+    //冰墙
+    private IceShieldSpell iceShieldSpell;
+
     //激活该主元素，同时制定两个辅助元素
     public void Activate(ElementAbilityManager.Element aElement, ElementAbilityManager.Element bElement)
     {
         //把冰主元素本身需要的资源激活
 
         this.enabled = true;
+        iceShieldSpell.Enable();
         //把指定辅助技能所需要的资源激活
 
         //水盾
@@ -25,14 +32,19 @@ public class IceAbility : myUpdate, Ability
         {
             waterShieldSpell.Enable();
         }
+        if (aElement == ElementAbilityManager.Element.Thunder || bElement == ElementAbilityManager.Element.Thunder)
+        {
+            iceThunderSpell.Enable();
+        }
     }
     //休眠该主元素
     public void DisActivate()
     {
         waterShieldSpell.Disable();
-
-
+        iceThunderSpell.Disable();
+        iceShieldSpell.Disable();
         this.enabled = false;
+
     }
 
     public override void Initialize()
@@ -43,6 +55,12 @@ public class IceAbility : myUpdate, Ability
         //初始化技能类
         waterShieldSpell = new WaterShieldSpell();
         waterShieldSpell.Initialize();
+
+        iceThunderSpell = new IceThunderSpell();
+        iceThunderSpell.Initialize();
+
+        iceShieldSpell = new IceShieldSpell();
+        iceShieldSpell.Initialize();
     }
 
     public override void MyUpdate()
@@ -51,7 +69,12 @@ public class IceAbility : myUpdate, Ability
     }
     public void ShortSpell()
     {
-        Debug.Log("冰短还未做好！");
+        Debug.Log("冰短做好！");
+        if (movementComponent.RequestChangeControlStatus(IceThunderSpell.ICE_THUNDER_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
+        {
+            iceShieldSpell.Cast();
+        }
+        
     }
 
     public override int GetPriorityInType()
@@ -76,6 +99,13 @@ public class IceAbility : myUpdate, Ability
             if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
             {
                 waterShieldSpell.Cast();
+            }
+        }else if (aElement == ElementAbilityManager.Element.Thunder && bElement == ElementAbilityManager.Element.NULL ||
+           aElement == ElementAbilityManager.Element.NULL && bElement == ElementAbilityManager.Element.Thunder)
+        {
+            if (movementComponent.RequestChangeControlStatus(IceThunderSpell.ICE_THUNDER_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
+            {
+                iceThunderSpell.Cast();
             }
         }
     }

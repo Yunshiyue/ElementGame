@@ -81,7 +81,7 @@ public class LavaAoe : FlyingAbility
     {
         if (passTime > ATTACK_INTERVAL)
         {
-            canFight.AttackArea(coll, damage);
+            canFight.AttackArea(coll, damage, AttackInterruptType.NONE, ElementAbilityManager.Element.Fire);
             passTime = 0f;
         }
         passTime += Time.deltaTime;

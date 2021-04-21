@@ -38,6 +38,7 @@ public abstract class FlyingAbility : myUpdate
 
     [Header("其他参数")]
     protected LayerMask ground;
+    protected LayerMask mechanism;
     protected Collider2D coll;
     protected PoolManager poolManager;
 
@@ -55,7 +56,6 @@ public abstract class FlyingAbility : myUpdate
         {
             Debug.LogError("在" + gameObject.name + "中，获取PoolManager失败");
         }
-        Debug.Log(poolManager.gameObject.name);
 
         coll = GetComponent<Collider2D>();
         if (coll == null)
@@ -64,6 +64,7 @@ public abstract class FlyingAbility : myUpdate
         }
 
         ground = LayerMask.GetMask("Platform");
+        mechanism = LayerMask.NameToLayer("Mechanism");
 
         //设置目标层
         targetLayer = LayerMask.NameToLayer(targetLayerName);

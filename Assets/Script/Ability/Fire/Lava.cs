@@ -99,12 +99,12 @@ public class Lava : FlyingAbility
     private void OnTriggerEnter2D(Collider2D collision)
     {
         CanBeFighted beFought;
-        if (collision.TryGetComponent<CanBeFighted>(out beFought) && collision.gameObject.layer == targetLayer)
+        if (collision.TryGetComponent<CanBeFighted>(out beFought) && (collision.gameObject.layer == targetLayer || collision.gameObject.layer == mechanism))
         {
             //不可对同一目标造成2次伤害
             if (!fought.Contains(beFought))
             {
-                canFight.Attack(beFought, damage);
+                canFight.Attack(beFought, damage, AttackInterruptType.NONE, ElementAbilityManager.Element.Fire);
                 fought.Add(beFought);
                 Debug.Log("FireBallAbility对" + beFought.name + "造成伤害");
             }

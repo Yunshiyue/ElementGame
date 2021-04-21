@@ -12,12 +12,13 @@ public class HurricaneSpell : FlyingSpell
         base.Initialize();
         spellName = Hurricane.HURRICANE;
         windAbility = player.GetComponent<WindAbility>();
+        playerAnim.SetSpell(this,SkillType.Hurricane);
     }
     public override void Cast()
     {
-
+        playerAnim.SetUseSkillType(SkillType.Hurricane);
     }
-    public void ReleaseSpell()
+    public override void ReleaseSpell()
     {
         GameObject hurricane = poolManager.GetGameObject("Hurricane");
         Hurricane a = hurricane.GetComponent<Hurricane>();

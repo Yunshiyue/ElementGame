@@ -8,4 +8,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/resource/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/resource/Scenes/Scene 1.unity
+    guid: 4e7cd4b0b7eb0cb4bbf49cfabef61f20
+  - enabled: 1
+    path: Assets/resource/Scenes/Demo_FirePuzzleScene.unity
+    guid: 29ce787e8b645d6489b3034e21680f89
   m_configObjects: {}

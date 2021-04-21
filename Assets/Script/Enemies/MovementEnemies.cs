@@ -12,14 +12,66 @@ public abstract class MovementEnemies : myUpdate
     protected LayerMask groundLayer;
     protected bool isSeePlayer = false;
 
+    private Vector2 noVelocity = new Vector2(0, 0);
+
     private UpdateType updateType = UpdateType.Enemy;
     //当前怪物处于何种状态：普通，技能释放，被控制
-    public enum EnemyStatus { Normal, AbilityWithMovement, AbilityNeedControl, Stun }
+    public enum EnemyStatus { Normal, AbilityWithMovement, AbilityWithNoMovement, Stun, Encompass }
 
     //当前怪物是否处于非正常状态，指主角是否处于释放技能状态或者被控制的状态，根据这个bool值判断某一帧是否需要计时器++
     protected EnemyStatus currentStatus = EnemyStatus.Normal;
 
     public enum MovementMode { Normal, Ability, Attacked }
+    override public void MyUpdate()
+    {
+        //如果当前状态不是Normal，则时间++，
+        if (isInAbnormalStatus)
+        {
+            //状态时间++
+            controlStatusCurTime += Time.deltaTime;
+            
+            //是否处于眩晕禁锢叠加态
+            if (isStunAndEncompassStatus)
+            {
+                stunAndEncompassStatusCurTime += Time.deltaTime;
+                if (stunAndEncompassStatusCurTime > stunAndEncompassStatusTotalTime)
+                {
+                    isStunAndEncompassStatus = false;
+                }
+            }
+            //是否处于技能&禁锢叠加态
+            if (isAbilityAndEncompassStatus)
+            {
+                abilityAndEncompassStatusCurTime += Time.deltaTime;
+                if (abilityAndEncompassStatusCurTime > abilityAndEncompassStatusTotalTime)
+                {
+                    isAbilityAndEncompassStatus = false;
+                }
+            }
+
+            //状态到期发生的事情
+            if (controlStatusCurTime >= controlStatusTotalTime)
+            {
+                ChangeControlStatus(0f, EnemyStatus.Normal);
+
+                if (isStunAndEncompassStatus)//如果眩晕结束后仍处于禁锢眩晕叠加态
+                {
+                    ChangeControlStatus(stunAndEncompassStatusTotalTime-stunAndEncompassStatusCurTime, EnemyStatus.Encompass);
+                    isStunAndEncompassStatus = false;//眩晕结束，叠加态消失
+                }else if (isAbilityAndEncompassStatus)
+                {
+                    ChangeControlStatus(abilityAndEncompassStatusTotalTime - abilityAndEncompassStatusCurTime, EnemyStatus.AbilityWithNoMovement);
+                    isAbilityAndEncompassStatus = false;//禁锢结束，叠加态消失
+                }
+            }
+        }
+        //在处理正常状态
+        else
+        {
+
+        }
+        Clear();
+    }
 
     public override void Initialize()
     {
@@ -35,9 +87,10 @@ public abstract class MovementEnemies : myUpdate
                 return true;
 
 
-            case EnemyStatus.AbilityNeedControl:
+            case EnemyStatus.AbilityWithNoMovement:
             case EnemyStatus.AbilityWithMovement:
                 if (status == EnemyStatus.Normal ||
+                    status == EnemyStatus.Encompass||
                    status == EnemyStatus.Stun)
                 {
                     ChangeControlStatus(statusTime, status);
@@ -51,6 +104,31 @@ public abstract class MovementEnemies : myUpdate
                    status == EnemyStatus.Stun)
                 {
                     ChangeControlStatus(statusTime, status);
+                    return true;
+                }else if(status == EnemyStatus.Encompass)
+                {
+                    //因为stun会覆盖Encompass，禁锢状态申请不会改变其状态，但启用了眩晕&禁锢计时器，记录眩晕和禁锢叠加状态 ,当stun状态结束后，如果还处于眩晕禁锢叠加状态，组件会为其改为禁锢状态
+                    isStunAndEncompassStatus = true;
+                    isAbilityAndEncompassStatus = false;//如果进入了眩晕禁锢叠加状态,那么技能&禁锢的状态则会被取消
+                    stunAndEncompassStatusTotalTime = statusTime;
+                    stunAndEncompassStatusCurTime = 0f;
+                    return true;
+                }
+                return false;
+
+            case EnemyStatus.Encompass:
+                if(status==EnemyStatus.Normal||
+                    status==EnemyStatus.Encompass||
+                    status==EnemyStatus.Stun)
+                {
+                    ChangeControlStatus(statusTime, status);
+                    return true;
+                }else if(status == EnemyStatus.AbilityWithNoMovement)
+                {
+                    //禁锢状态下没位移的技能（攻击）能够使用，但不会改变其禁锢状态,原理同眩晕和禁锢叠加状态，当禁锢状态结束后，如果还处于技能&禁锢叠加状态，组件会为其改为技能状态
+                    isAbilityAndEncompassStatus = true;
+                    abilityAndEncompassStatusTotalTime = statusTime;
+                    abilityAndEncompassStatusCurTime = 0f;
                     return true;
                 }
                 return false;
@@ -147,7 +225,16 @@ public abstract class MovementEnemies : myUpdate
     //当前状态的计时器，Normal态和Crouch态不需要计时器
     protected float controlStatusTotalTime = 0f;
     protected float controlStatusCurTime = 0f;
+    
+    //眩晕禁锢状态的额外计时器
+    protected float stunAndEncompassStatusTotalTime = 0f;
+    protected float stunAndEncompassStatusCurTime = 0f;
+    protected bool isStunAndEncompassStatus = false;
 
+    //攻击及禁锢的额外计时器
+    protected float abilityAndEncompassStatusTotalTime = 0f;
+    protected float abilityAndEncompassStatusCurTime = 0f;
+    protected bool isAbilityAndEncompassStatus = false;
 
     protected bool isFacingLeft = false;
 
@@ -230,7 +317,7 @@ public abstract class MovementEnemies : myUpdate
                 canPassiveTransport = true;
                 canActiveTransport = true;
                 canAbilityMovement = true;
-                canPassiveMovement = true;
+               
                 canControllorMovement = true;
 
                 isAbilityMovement = false;
@@ -243,7 +330,7 @@ public abstract class MovementEnemies : myUpdate
                 canPassiveMovement = true;
                 canActiveTransport = true;
                 canAbilityMovement = true;
-                canPassiveMovement = false;
+              
                 canControllorMovement = false;
 
                 isPassiveMovement = false;
@@ -251,11 +338,11 @@ public abstract class MovementEnemies : myUpdate
 
                 isInAbnormalStatus = true;
                 break;
-            case EnemyStatus.AbilityNeedControl:
+            case EnemyStatus.AbilityWithNoMovement:
                 canPassiveMovement = true;
                 canActiveTransport = true;
                 canAbilityMovement = true;
-                canPassiveMovement = false;
+               
                 canControllorMovement = true;
 
                 isPassiveMovement = false;
@@ -267,7 +354,21 @@ public abstract class MovementEnemies : myUpdate
                 canPassiveMovement = true;
                 canActiveTransport = false;
                 canAbilityMovement = false;
+              
+                canControllorMovement = false;
+
+                isAbilityMovement = false;
+                isPassiveMovement = false;
+                isControllorMovement = false;
+
+                isInAbnormalStatus = true;
+                break;
+
+            case EnemyStatus.Encompass://禁锢 与stun区别 能攻击但不能移动,此处的移动权限与stun一致 但在RequestChangeControlStatus方法中，没位移的技能状态申请EnemyStatus.AbilityWithNoMovement能被成功返回为true
                 canPassiveMovement = true;
+                canActiveTransport = false;
+                canAbilityMovement = false;
+              
                 canControllorMovement = false;
 
                 isAbilityMovement = false;
@@ -277,6 +378,14 @@ public abstract class MovementEnemies : myUpdate
                 isInAbnormalStatus = true;
                 break;
         }
+    }
+
+    /// <summary>
+    /// 把速度设为0，用于被禁锢
+    /// </summary>
+    public void setSpeedNull()
+    {
+       rb.velocity = noVelocity;
     }
 
     protected RaycastHit2D Raycast(Vector2 offset, Vector2 rayDiraction, float length, LayerMask layer)

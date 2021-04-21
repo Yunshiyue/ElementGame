@@ -38,6 +38,10 @@
  * @Editor: ridger
  * @Edit: 1. 增加了SetYFloorOffset方法，让探测器调用来实现陷入地板的调整
  *        2. 在update逻辑中增加了调整陷入地板的逻辑，如果这一帧需要进行调整，而且当前状态为normal则进行距离补偿
+ *        
+
+ * @Edit: 夜里猛
+ * @Edit: 增加了设置重力的接口，同时，在主动、被动movement计时器到时间时，会将isGravity设为true
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -265,6 +269,10 @@ public class MovementPlayer : myUpdate
     public float GetYSpeed()
     {
         return ySpeed;
+    }
+    public void SetGravity(bool isGravity)
+    {
+        this.isGravity = isGravity;
     }
     public float GetXSpeed()
     {
@@ -796,6 +804,7 @@ public class MovementPlayer : myUpdate
             {
                 ChangeControlStatus(0f, PlayerControlStatus.Normal);
                 //playerAnim.SetAbilityNum(999);
+                //playerAnim.SetUseSkillType((int)AttackPlayer.SkillType.Null);
             }
         }
         //在处理正常状态
@@ -875,6 +884,7 @@ public class MovementPlayer : myUpdate
                 isAbilityMovement = false;
                 abilityMovementCurTime = 0f;
                 abilityMovementTotalTime = 0f;
+                isGravity = true;
             }
         }
         else if (isPassiveMovement)
@@ -888,11 +898,13 @@ public class MovementPlayer : myUpdate
                 isPassiveMovement = false;
                 passiveMovementCurTime = 0f;
                 passiveMovementTotalTime = 0f;
+                isGravity = true;
             }
         }
         else if (isControllorMovement)
         {
-            xSpeed += controllorMovement.x;
+            //放大x轴向速度
+            xSpeed += controllorMovement.x * xSpeedRatio;
             ySpeed += controllorMovement.y;
         }
 
@@ -903,8 +915,6 @@ public class MovementPlayer : myUpdate
             xSpeed /= crouchDivision;
         }
 
-        //放大x轴向速度
-        xSpeed *= xSpeedRatio;
 
         //结算重力
         if (isGravity)
@@ -931,7 +941,7 @@ public class MovementPlayer : myUpdate
         }
 
         //转身: 只有在Normal or Crouch状态下才回转身，其他状态不会转身
-        if(!isInAbnormalStatus)
+        if(!isInAbnormalStatus || controlStatus == PlayerControlStatus.AbilityNeedControl)
         {
             if (xMovementPerFrame < 0)
             {

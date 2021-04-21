@@ -45,12 +45,14 @@ public class WaterShieldSpell : Spell
         {
             Debug.Log("在PlayerAnim中没有找到waterShield!");
         }
+        playerAnim.SetSpell(this,SkillType.IceFire);
+
     }
     public override void Cast()
     {
-
+        playerAnim.SetUseSkillType(SkillType.IceFire);
     }
-    public void ReleaseSpell()
+    public override void ReleaseSpell()
     {
         defencePlayer.ShieldUp(waterShieldPoint);
         waterShield.SetActive(true);

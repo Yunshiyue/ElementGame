@@ -69,7 +69,6 @@ public class FireBallAbility : FlyingAbility
         {
             Movement();
         }
-        Debug.Log(poolManager.gameObject.name);
     }
 
     /// <summary>
@@ -101,7 +100,6 @@ public class FireBallAbility : FlyingAbility
     protected override bool DisappearDetect()
     {
         return isTimeOut || isTouchEnemy || isTouchGround;
-        
     }
 
     /// <summary>
@@ -123,17 +121,23 @@ public class FireBallAbility : FlyingAbility
     private void OnTriggerEnter2D(Collider2D collision)
     {
         CanBeFighted beFought;
-        if (collision.TryGetComponent<CanBeFighted>(out beFought) && collision.gameObject.layer == targetLayer)
+
+        if (collision.TryGetComponent<CanBeFighted>(out beFought))
         {
             //不可对同一目标造成2次伤害
-            if (!fought.Contains(beFought))
-            {
-                canFight.Attack(beFought, damage);
+            if (collision.gameObject.layer == targetLayer && !fought.Contains(beFought))
+            {             
+                canFight.Attack(beFought, damage, AttackInterruptType.NONE, ElementAbilityManager.Element.Fire);
                 fought.Add(beFought);
                 Debug.Log("FireBallAbility对" + beFought.name + "造成伤害");
 
                 //碰到敌人消失
                 isTouchEnemy = true;
+            }
+            //机关
+            else if (collision.gameObject.layer == mechanism)
+            {
+                canFight.Attack(beFought, damage, AttackInterruptType.NONE, ElementAbilityManager.Element.Fire);
             }
         }
     }

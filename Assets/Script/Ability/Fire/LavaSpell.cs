@@ -9,12 +9,13 @@ public class LavaSpell : FlyingSpell
     {
         base.Initialize();
         spellName = Lava.LAVA;
+        playerAnim.SetSpell(this,SkillType.Lava);
     }
     public override void Cast()
     {
-
+        playerAnim.SetUseSkillType(SkillType.Lava);
     }
-    public void ReleaseSpell()
+    public override void ReleaseSpell()
     {
         GameObject lava = poolManager.GetGameObject("Lava");
         Lava a = lava.GetComponent<Lava>();

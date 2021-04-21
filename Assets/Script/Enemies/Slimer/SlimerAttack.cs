@@ -12,7 +12,7 @@ public class SlimerAttack : MonoBehaviour
     //攻击打断
     private float interruptTime = 0.3f;
     private Vector2 interruptVector = new Vector2(0.5f, 0);
-    void Start()
+    void Awake()
     {
         canFight = GetComponent<CanFight>();
         if (canFight == null)

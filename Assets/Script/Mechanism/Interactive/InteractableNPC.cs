@@ -9,7 +9,7 @@ public class InteractableNPC : Interactable
         //加载对话系统，并显示对话框
     }
 
-    void Start()
+    void Awake()
     {
         objectNameOnUI = gameObject.name;
     }

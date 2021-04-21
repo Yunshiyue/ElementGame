@@ -15,8 +15,9 @@ public class WitcherMovement : MovementEnemies
     [Header("移动参数")]
     private float speed = 1f;
     //移动范围
-    private float originx, leftx, rightx;
-
+    //public Transform originTransform;
+    private float  originx,leftx, rightx;
+    
     //player中优先级等级为5
     private int priorityInType = 5;
 
@@ -25,36 +26,24 @@ public class WitcherMovement : MovementEnemies
         base.Initialize();
 
         originx = transform.position.x;
-        leftx = originx - 1f;
-        rightx = originx + 1f;
+        leftx = originx - 0.5f;
+        rightx = originx + 0.5f;
 
         player = GameObject.Find("Player");
 
         witcherAnim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody2D>();
         coll = GetComponent<CapsuleCollider2D>();
-    }
-
-    override public void MyUpdate()
-    {
-        //如果当前状态不是Normal，则时间++，
-        if (isInAbnormalStatus)
+        if (transform.localScale.x > 0)
         {
-            //状态时间++
-            controlStatusCurTime += Time.deltaTime;
-            //状态到期发生的事情
-            if (controlStatusCurTime >= controlStatusTotalTime)
-            {
-                ChangeControlStatus(0f, EnemyStatus.Normal);
-                //playerAnim.SetAbilityNum(999);
-            }
+            faceRight = true;
         }
-        //在处理正常状态
         else
         {
+            faceRight = false;
         }
-        Clear();
     }
+
 
 
     //请求在这一帧中进行position的跳跃，movement为相对位移改变量
@@ -108,6 +97,7 @@ public class WitcherMovement : MovementEnemies
             if (transform.position.x > rightx)
             {
 
+                ///Debug.Log(transform.position.x + " " + rightx);
                 transform.localScale = new Vector3(-1, 1, 1);
                 faceRight = false;
             }
@@ -127,6 +117,10 @@ public class WitcherMovement : MovementEnemies
         rightx = r;
         leftx = l;
     }
+    public float GetOriginX()
+    {
+        return originx;
+    }
     private void Blink()
     {
         Transform temp = GameObject.Find("Player").transform;
@@ -137,17 +131,29 @@ public class WitcherMovement : MovementEnemies
 
     private void PlayerCheck()
     {
-        if (!isSeePlayer)//如果没看到player时检测
-        {
+        //if (!isSeePlayer)//如果没看到player时检测
+        //{
             //Debug.Log("no seePlayer");
             int face = faceRight ? 1 : -1;
             RaycastHit2D eyeCheck = Raycast(new Vector2(0f, 0f), new Vector2(face, 0), 7f, playerLayer);
             isSeePlayer = eyeCheck;
-        }
-        else if (Mathf.Abs(transform.position.x - player.transform.position.x) > 10f)//失去对player的追踪
+        //}
+        //else if (Mathf.Abs(transform.position.x - player.transform.position.x) > 10f)//失去对player的追踪
+        //{
+        //    isSeePlayer = false;
+        //}
+    }
+    public void setIsGravity(bool isGravity)
+    {
+        if (isGravity)
         {
-            isSeePlayer = false;
+            rb.gravityScale = 1;
         }
+        else
+        {
+            rb.gravityScale = 0;
+        }
+        
     }
     public bool getIsSeePlayer()
     {
@@ -157,4 +163,5 @@ public class WitcherMovement : MovementEnemies
     {
         return priorityInType;
     }
+    
 }

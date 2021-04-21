@@ -19,7 +19,7 @@ public class ElementAbilityManager : MonoBehaviour
     private WindAbility windAbility;
 
     private Ability mainAbility;
-    private void Start()
+    private void Awake()
     {
         fireAbility = GetComponent<FireAbility>();
         thunderAbility = GetComponent<ThunderAbility>();
@@ -32,6 +32,9 @@ public class ElementAbilityManager : MonoBehaviour
             Debug.LogError("没找到PlayerAbilityDebugInfo这个ui物体");
         }
 
+    }
+    private void Start()
+    {
         SwitchElement(Element.Fire, Element.Ice, Element.Wind);
     }
     public void NextMainElement()

@@ -39,7 +39,7 @@ public class ThunderLinkSpell : Spell
                 thunderLinkAttackedTimes++;
 
                 Except(thunderAbility.GetTargetInThunderCircle(), thunderLinkHasAttackedList, out tempTargetsInThunderCircle);
-                GameObject target = GetClosestTargetInList(tempTargetsInThunderCircle);
+                GameObject target = thunderAbility.GetClosestTargetInList(tempTargetsInThunderCircle);
                 if (target != null)
                 {
                     thunderLinkHasAttackedList.Add(target);
@@ -80,28 +80,13 @@ public class ThunderLinkSpell : Spell
         }
     }
 
-    private GameObject GetClosestTargetInList(List<GameObject> gameObjects)
-    {
-        float minDistance = float.MaxValue;
-        float tempDistance;
-        GameObject cloestTarget = null;
-        foreach (GameObject target in gameObjects)
-        {
-            tempDistance = Vector2.Distance(target.transform.position, player.transform.position);
-            if (tempDistance < minDistance)
-            {
-                minDistance = tempDistance;
-                cloestTarget = target;
-            }
-        }
-        return cloestTarget;
-    }
+
     public override void Cast()
     {
-
+        playerAnim.SetUseSkillType(SkillType.ThunderFire);
     }
 
-    public void ReleaseSpell()
+    public override void ReleaseSpell()
     {
         if (isThunderLink)
         {
@@ -143,5 +128,8 @@ public class ThunderLinkSpell : Spell
         {
             Debug.LogError("在ThunderLinkSpell中，没找到雷属性技能脚本！");
         }
+        playerAnim.SetSpell(this,SkillType.ThunderFire);
+
     }
+
 }

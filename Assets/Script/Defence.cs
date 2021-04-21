@@ -37,7 +37,7 @@ abstract public class Defence : MonoBehaviour
     //血量下降值
     protected int hpReduction = 0;
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         attackedCheck = GetComponent<CanBeFighted>();
         if (attackedCheck == null)
@@ -119,6 +119,7 @@ abstract public class Defence : MonoBehaviour
     //对生命值进行扣除，并计算出hpReduction；如果生命值为0，则isDead设置为true
     protected virtual void SetHealthStatus()
     {
+        
         if (hp < realDamage)
         {
             hpReduction = hp;

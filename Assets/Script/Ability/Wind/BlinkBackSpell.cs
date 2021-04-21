@@ -39,6 +39,8 @@ public class BlinkBackSpell : Spell
         }
 
         shadow.SetActive(false);
+        playerAnim.SetSpell(this,SkillType.WindFire);
+
     }
     public override void Disable()
     {
@@ -50,6 +52,7 @@ public class BlinkBackSpell : Spell
             }
             shadowPositions = null;
             blinkBackPositions = null;
+            isEnabled = false;
         }
     }
 
@@ -76,23 +79,26 @@ public class BlinkBackSpell : Spell
 
     public void BlinkBackClock()
     {
-        BBCurTime += Time.deltaTime;
-        if (BBCurTime >= blinkBackDetectTime)
+        if(isEnabled)
         {
-            blinkBackPositions[BBCurPointer].x = player.transform.position.x;
-            blinkBackPositions[BBCurPointer].y = player.transform.position.y;
-            shadowPositions[BBCurPointer].position = blinkBackPositions[BBCurPointer];
+            BBCurTime += Time.deltaTime;
+            if (BBCurTime >= blinkBackDetectTime)
+            {
+                blinkBackPositions[BBCurPointer].x = player.transform.position.x;
+                blinkBackPositions[BBCurPointer].y = player.transform.position.y;
+                shadowPositions[BBCurPointer].position = blinkBackPositions[BBCurPointer];
 
-            BBCurPointer = (BBCurPointer + 1) % BBVectorSize;
-            BBCurTime = 0f;
+                BBCurPointer = (BBCurPointer + 1) % BBVectorSize;
+                BBCurTime = 0f;
+            }
         }
     }
 
     public override void Cast()
     {
-
+        playerAnim.SetUseSkillType(SkillType.WindFire);
     }
-    public void ReleaseSpell()
+    public override void ReleaseSpell()
     {
         movementComponent.RequestMoveByFrame(blinkBackPositions[(BBCurPointer + 1) % BBVectorSize],
             MovementPlayer.MovementMode.Ability, Space.World);

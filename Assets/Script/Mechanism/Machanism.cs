@@ -15,7 +15,7 @@ public abstract class Machanism : MonoBehaviour
     public Collider2D collider;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         if (collider == null)
         {

@@ -13,6 +13,7 @@ public class FireAbility : myUpdate, Ability
     private MeteoriteSpell meteoriteSpell;
     private LavaSpell lavaSpell;
     private ProtectiveFireBallSpell protectiveFireBallSpell;
+    private FireThunderSpell fireThunderSpell;
 
     //激活该主元素，同时制定两个辅助元素
     public void Activate(ElementAbilityManager.Element aElement, ElementAbilityManager.Element bElement)
@@ -32,6 +33,10 @@ public class FireAbility : myUpdate, Ability
         if(aElement == ElementAbilityManager.Element.Ice || bElement == ElementAbilityManager.Element.Ice)
         {
             protectiveFireBallSpell.Enable();
+        } 
+        if(aElement == ElementAbilityManager.Element.Thunder|| bElement == ElementAbilityManager.Element.Thunder)
+        {
+            fireThunderSpell.Enable();
         }
     }
     //休眠该主元素
@@ -40,8 +45,11 @@ public class FireAbility : myUpdate, Ability
         fireBallSpell.Disable();
         meteoriteSpell.Disable();
         lavaSpell.Disable();
+        fireThunderSpell.Disable();
+
 
         this.enabled = false;
+
     }
 
     public override void Initialize()
@@ -61,6 +69,9 @@ public class FireAbility : myUpdate, Ability
 
         protectiveFireBallSpell = new ProtectiveFireBallSpell();
         protectiveFireBallSpell.Initialize();
+
+        fireThunderSpell = new FireThunderSpell();
+        fireThunderSpell.Initialize();
     }
 
     public override void MyUpdate()
@@ -103,6 +114,15 @@ public class FireAbility : myUpdate, Ability
              if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
              {
                  protectiveFireBallSpell.Cast();
+             }
+        }
+        else if (aElement == ElementAbilityManager.Element.Thunder && bElement == ElementAbilityManager.Element.NULL ||
+                 aElement == ElementAbilityManager.Element.NULL && bElement == ElementAbilityManager.Element.Thunder)
+        {
+             if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
+             {
+                Debug.Log("fireThunderSpell!!!!");
+                fireThunderSpell.Cast();
              }
         }
         else if (aElement == ElementAbilityManager.Element.Wind && bElement == ElementAbilityManager.Element.NULL ||

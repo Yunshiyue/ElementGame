@@ -9,12 +9,14 @@ public class ThunderBallSpell : FlyingSpell
     {
         base.Initialize();
         spellName = ThunderBall.Thunder_BALL;
+        playerAnim.SetSpell(this,SkillType.ThunderBall);
+
     }
     public override void Cast()
     {
-
+        playerAnim.SetUseSkillType(SkillType.ThunderBall);
     }
-    public void ReleaseSpell()
+    public override void ReleaseSpell()
     {
         GameObject thunderBall = poolManager.GetGameObject("ThunderBall");
         ThunderBall a = thunderBall.GetComponent<ThunderBall>();
@@ -25,4 +27,6 @@ public class ThunderBallSpell : FlyingSpell
         flyingDirection.y = 0;
         a.SetDirection(flyingDirection);
     }
+
+   
 }

@@ -15,9 +15,9 @@ public class DefenceSlimer : Defence
     private Text debugInfoUI;
     private StringBuilder debugInfo = new StringBuilder(1024);
 
-    protected override void Start()
+    protected override void Awake()
     {
-        base.Start();
+        base.Awake();
         debugInfoUI = GameObject.Find("SlimerDebug").GetComponent<Text>();
     }
 

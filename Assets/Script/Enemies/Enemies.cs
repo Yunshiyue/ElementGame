@@ -6,6 +6,7 @@ public abstract class  Enemies : myUpdate
 {
 
     protected DefenceEnemies defenceComponent;//防御组件 包含hpmax hp isdead 且自带canbeFight
+    
                                              
     //update顺序
     protected UpdateType updateType = UpdateType.Enemy;

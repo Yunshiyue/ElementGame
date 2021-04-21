@@ -11,10 +11,11 @@ public class WindArrowSpell : FlyingSpell
         base.Initialize();
         spellName = WindArrow.WIND_ARROW;
         windAbility = player.GetComponent<WindAbility>();
+        playerAnim.SetSpell(this,SkillType.WindIce);
     }
     public override void Cast()
     {
-
+        playerAnim.SetUseSkillType(SkillType.WindIce);
     }
     public void ReleaseCast()
     {
@@ -29,5 +30,10 @@ public class WindArrowSpell : FlyingSpell
 
         //设置方向
         a.SetDirection(windAbility.GetSightHeadPosition());
+    }
+
+    public override void ReleaseSpell()
+    {
+        
     }
 }

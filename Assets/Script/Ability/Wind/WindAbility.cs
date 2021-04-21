@@ -16,13 +16,15 @@ public class WindAbility : myUpdate, Ability
     private HurricaneSpell hurricaneSpell;
     private WindArrowSpell windArrowSpell;
     private BlinkBackSpell blinkBackSpell;
+    private WIndShortSpell windShortSpell;
+    private WindThunderSpell windThunderSpell;
 
     //激活该主元素，同时制定两个辅助元素
     public void Activate(ElementAbilityManager.Element aElement, ElementAbilityManager.Element bElement)
     {
         this.enabled = true;
         //把风主元素本身需要的资源激活
-
+        windShortSpell.Enable();
         //把指定辅助技能所需要的资源激活
 
         //飓风
@@ -38,6 +40,10 @@ public class WindAbility : myUpdate, Ability
         {
             windArrowSpell.Enable();
         }
+        if (aElement == ElementAbilityManager.Element.Thunder || bElement == ElementAbilityManager.Element.Thunder)
+        {
+            windThunderSpell.Enable();
+        }
     }
     //休眠该主元素
     public void DisActivate()
@@ -46,7 +52,8 @@ public class WindAbility : myUpdate, Ability
         hurricaneSpell.Disable();
         windArrowSpell.Disable();
         blinkBackSpell.Disable();
-
+        windShortSpell.Disable();
+        windThunderSpell.Disable();
 
         this.enabled = false;
     }
@@ -68,6 +75,12 @@ public class WindAbility : myUpdate, Ability
 
         blinkBackSpell = new BlinkBackSpell();
         blinkBackSpell.Initialize();
+
+        windShortSpell = new WIndShortSpell();
+        windShortSpell.Initialize();
+
+        windThunderSpell = new WindThunderSpell();
+        windThunderSpell.Initialize();
     }
 
     public override void MyUpdate()
@@ -87,7 +100,12 @@ public class WindAbility : myUpdate, Ability
     }
     public void ShortSpell()
     {
-        Debug.Log("风短还未做好！");
+        Debug.Log("风短做好！");
+        if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
+        {
+            windShortSpell.Cast();
+        }
+        
     }
 
     public void FullySpell(ElementAbilityManager.Element aElement, ElementAbilityManager.Element bElement)
@@ -118,9 +136,10 @@ public class WindAbility : myUpdate, Ability
         else if (aElement == ElementAbilityManager.Element.Thunder && bElement == ElementAbilityManager.Element.NULL ||
                  aElement == ElementAbilityManager.Element.NULL && bElement == ElementAbilityManager.Element.Thunder)
         {
-            if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
+            if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME, MovementPlayer.PlayerControlStatus.AbilityNeedControl))
             {
-                Debug.Log("风雷还未做好!");
+                windThunderSpell.SetTargetPosition(GetSightHeadPosition());
+                windThunderSpell.Cast();
             }
         }
     }

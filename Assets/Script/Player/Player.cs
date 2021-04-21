@@ -110,10 +110,13 @@ public class Player : myUpdate
 
         abilityManager.AbilityControl(Input.GetButton("MainElement"), Input.GetButtonDown("FirstOtherElement"), Input.GetButtonDown("SecondOtherElement"));
         abilityManager.SetCastDebugInfo();
+
         ChangeElementControl();
         InteractiveCheck();
 
+
         MoveControl();
+
 
     }
     private void ChangeElementControl()
@@ -130,6 +133,7 @@ public class Player : myUpdate
         {
             abilityManager.NextBElement();
         }
+
     }
     private void InteractiveCheck()
     {

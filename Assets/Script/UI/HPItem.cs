@@ -26,7 +26,7 @@ public class HPItem :  MonoBehaviour
     //    }
     //    img = GetComponent<Image>();
     //}
-    private void Start()
+    private void Awake()
     {
         if (!isGetting)
         {

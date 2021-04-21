@@ -9,16 +9,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Treasure : Machanism
+public class Treasure : Mechanism
 {
     bool isOpen = false;
     bool isPlayerEnter = false;
 
     void Update()
     {
-        if (!isOpen && CanOpen())
+        if (!isOpen && TriggerDetect())
         {
-            Trigger();
+            Trigger(TiggerType.Other);
         }
     }
 
@@ -26,7 +26,7 @@ public class Treasure : Machanism
     /// 打开宝箱的条件
     /// </summary>
     /// TODO 该如何判断是否可以打开宝箱？是否有前置条件？
-    private bool CanOpen()
+    protected override bool TriggerDetect()
     {
         return isPlayerEnter;
     }
@@ -35,14 +35,14 @@ public class Treasure : Machanism
     /// 触发机关（开启宝箱）
     /// </summary>
     /// TODO 开启宝箱该做什么？
-    public override void Trigger()
+    public override void Trigger(TiggerType triggerType)
     {
         isOpen = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.gameObject.name == "Player")
         {
             isPlayerEnter = true;
         }
@@ -50,7 +50,7 @@ public class Treasure : Machanism
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag == "Player")
+        if (collision.gameObject.name == "Player")
         {
             isPlayerEnter = false;
         }

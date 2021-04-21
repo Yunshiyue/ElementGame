@@ -7,7 +7,7 @@ public class InteractableCase : Interactable
     private PoolManager poolManager;
     private int goldNumber = 3;
 
-    private void Start()
+    private void Awake()
     {
         poolManager = GameObject.Find("PoolManager").GetComponent<PoolManager>();
         objectNameOnUI = "铁箱子";

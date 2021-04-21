@@ -8,7 +8,7 @@ public class InteractivePlayer : MonoBehaviour
     private List<Interactable> interactableList = new List<Interactable>(16);
     private Interactable closestInteractiable;
     private Text interactiveUI;
-    private void Start()
+    private void Awake()
     {
         interactiveUI = GameObject.Find("InteractableText").GetComponent<Text>();
         interactiveUI.gameObject.SetActive(false);

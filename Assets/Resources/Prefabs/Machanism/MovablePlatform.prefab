@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7704636060033718459}
   m_Layer: 8
   m_Name: MovablePlatform
-  m_TagString: Untagged
+  m_TagString: MoveablePlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -97,6 +97,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee01f19ef91e5c7439525a52de6c2105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 1
+  oneWayTime: 3
+  direction: {x: 1, y: 0, z: 0}
 --- !u!61 &7704636060033718458
 BoxCollider2D:
   m_ObjectHideFlags: 0

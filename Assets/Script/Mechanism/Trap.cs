@@ -1,9 +1,9 @@
 ﻿/**
  * @Description: Trap类是陷阱类
  * @Author: CuteRed
-
+1-2-1 20:30
  * 
-
+1-3-2 20:46
  * @Editor: CuteRed
  * @Edit: 该类不再继承自Machanism类，需要重新设计（TODO）
  *     
@@ -15,7 +15,7 @@ using UnityEngine;
 
 public class Trap : MonoBehaviour
 {
-    private Collider2D collider;
+    private Collider2D coll;
 
     [Header("伤害参数")]
     protected int damage = 1;
@@ -38,7 +38,7 @@ public class Trap : MonoBehaviour
             Debug.LogError("在" + gameObject.name + "中，获取canFight组件时出错");
         }
 
-        if (collider == null)
+        if (coll == null)
         {
             Debug.LogError("在" + gameObject.name + "中，找不到collider");
         }
@@ -56,7 +56,7 @@ public class Trap : MonoBehaviour
     public void Trigger()
     {
         //对区域内目标进行攻击
-        canFight.AttackArea(collider, damage);
+        canFight.AttackArea(coll, damage);
     }
 
     public void SetTargetLayerName(string layerName)

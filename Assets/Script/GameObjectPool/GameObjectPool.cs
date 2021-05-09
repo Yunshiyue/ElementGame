@@ -1,7 +1,7 @@
 ﻿/**
  * @Description: GameObjectPool类是对象池的基类，该类要被具体的类继承，负责生成需要频繁生成和消失的对象
  * @Author: CuteRed
-
+1-2-16 1:16
  *      
 */
 
@@ -60,7 +60,7 @@ public class GameObjectPool
         this.parentTransform = parentTransform;
 
         this.prefab = prefab;
-        Debug.Log("对象池" + poolType + "成功初始化。" + " 最大存放：" + maxCount + " 当前存放" + pool.Count);
+        //Debug.Log("对象池" + poolType + "成功初始化。" + " 最大存放：" + maxCount + " 当前存放" + pool.Count);
     }
 
     /// <summary>

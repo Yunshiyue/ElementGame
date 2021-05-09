@@ -20,20 +20,19 @@ public class IceShieldAttack : SpellAttackEvent
         //冰盾
         //iceShield = gameObject.transform.Find("IceShield").gameObject;
         iceShieldAttackArea = gameObject.GetComponent<Collider2D>();
-        iceShieldColl = gameObject.transform.Find("IceShieldCollider").gameObject;
-        iceShieldColl.transform.SetParent(null);
-        
+        iceShieldColl = GameObject.Find("IceShieldCollider");
     }
     private void Start()
     {
         gameObject.SetActive(false);
+        iceShieldColl.SetActive(false);
     }
     //调整碰撞体位置
     public void IceShieldAppearEvent()
     {
-        //如果已有冰盾碰撞体则暂禁用碰撞体
-        if (iceShieldColl.activeSelf) 
-            iceShieldColl.SetActive(false);
+        ////如果已有冰盾碰撞体则暂禁用碰撞体
+        //if (iceShieldColl.activeSelf) 
+        //    iceShieldColl.SetActive(false);
 
         iceShieldColl.transform.position = new Vector3((float)(player.transform.localScale.x * 1.5 + player.transform.position.x), (float)(player.transform.position.y + 0.05), 0);
 

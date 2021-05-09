@@ -5,11 +5,11 @@ using UnityEngine;
 public class IceShieldSpell : Spell
 {
     //private GameObject iceShield;
-    //private GameObject iceShieldColl;
+     private GameObject iceShieldColl;
     public override void Initialize()
     {
         base.Initialize();
-        
+        iceShieldColl = GameObject.Find("IceShieldCollider");
         //iceShield = GameObject.Find("IceShield");
         //iceShield.SetActive(false);
         //playerAnim.SetSpell(this, SkillType.IceShield);
@@ -17,10 +17,10 @@ public class IceShieldSpell : Spell
     }
     public override void Cast()
     {
-        //if (iceShield.activeSelf)//如果之前还有冰墙则销毁
-        //{
-        //    iceShield.SetActive(false);
-        //}
+        //如果已有冰盾碰撞体则暂禁用碰撞体
+        if (iceShieldColl.activeSelf)
+            iceShieldColl.SetActive(false);
+
         playerAnim.SetUseSkillType(SkillType.IceShield);
     }
 

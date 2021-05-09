@@ -2,9 +2,9 @@
  * @Description: 探测器组件，player的子物体，在update中探测主角上下左右是否有碰撞体，并通知主角的movement组件。
  *               通过raycast实现，调用顺序应该在movement前。
  * @Author: ridger
-
+1-2-13 21:18
  * 
-
+1-2-24 11:24
  * @Editor: ridger
  * @Edit: 1. 修改了下方探测器的位置设定逻辑，现在下方探测器长度由两部分组成，一部分是player内部探测器长度，用于
  *           固定探测器的初始位置，以及计算当触碰到地板的时候y轴距离补偿。另一部分是是player外部探测器长度，用于检测
@@ -158,28 +158,30 @@ public class OnFloorDetector : myUpdate
             playerMovementComponent.SetOnFloor(gameObject, true);
 
             //设置父物体
-            if (floorLeftCheck)
+            if (floorLeftCheck && floorLeftCheck.collider.gameObject.tag == "MoveablePlatform")
             {
                 player.transform.SetParent(floorLeftCheck.collider.gameObject.transform);
             }
-            else
+            else if(floorRightCheck && floorRightCheck.collider.gameObject.tag == "MoveablePlatform")
             {
                 player.transform.SetParent(floorRightCheck.collider.gameObject.transform);
             }
+            else if (player.gameObject.transform.parent != null)
+            {
+                player.gameObject.transform.parent = null;
+            }
 
             //如果碰到地板而且在下落状态
-            if (playerMovementComponent.GetYSpeed() < 0)
-            {
+            //if (playerMovementComponent.GetYSpeed() < 0)
+            //{
                 //取hit中最大的那个(如果只有一个探针碰到则另一个distance = 0)进行移动
                 float maxDistance = floorLeftCheck.distance > floorRightCheck.distance ? floorLeftCheck.distance : floorRightCheck.distance;
                 playerMovementComponent.SetFloorOffset(floorDetectorAsecendDistance - maxDistance);
-            }
+            //}
         }
         else
         {
             playerMovementComponent.SetOnFloor(gameObject, false);
-            //父物体置为空
-            player.transform.SetParent(null);
         }
 
         //左方探测器
@@ -190,9 +192,10 @@ public class OnFloorDetector : myUpdate
             playerMovementComponent.SetLeftDetect(gameObject, true);
             if(playerMovementComponent.GetXSpeed() < 0)
             {
+                Debug.Log("左侧x轴距离补偿");
                 //取hit中最大的那个(如果只有一个探针碰到则另一个distance = 0)进行移动
                 float maxDistance = leftTopCheck.distance > leftDownCheck.distance ? leftTopCheck.distance : leftDownCheck.distance;
-                playerMovementComponent.SetFloorOffset(detectorInsideOffsetRatio - maxDistance);
+                playerMovementComponent.SetRightOffset(LRDetectorInsideLength - maxDistance);
             }
         }
         else
@@ -206,12 +209,13 @@ public class OnFloorDetector : myUpdate
         if (rightDownCheck || rightTopCheck)
         {
             playerMovementComponent.SetRightDetect(gameObject, true);
-            if (playerMovementComponent.GetXSpeed() > 0)
-            {
+            //if (playerMovementComponent.GetXSpeed() > 0)
+            //{
+                Debug.Log("右侧侧x轴距离补偿");
                 //取hit中最大的那个(如果只有一个探针碰到则另一个distance = 0)进行移动
                 float maxDistance = rightTopCheck.distance > rightDownCheck.distance ? rightTopCheck.distance : rightDownCheck.distance;
-                playerMovementComponent.SetFloorOffset(detectorInsideOffsetRatio - maxDistance);
-            }
+                playerMovementComponent.SetRightOffset(maxDistance - LRDetectorInsideLength);
+            //}
         }
         else
         {

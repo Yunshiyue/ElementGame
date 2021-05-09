@@ -5,7 +5,7 @@ using UnityEngine;
 /**
  * @Description: In User Settings Edit  实现人物的移动，跳跃（长按跳跃），下蹲（蹲跳），碰撞检测
  * @Author: your name  lanyihao
-
+1/1/21  作者编写完成时间
  *
  * 备注：人物锚点怎么调整位置？（貌似只能在sprite editor里面调整） 我一开始的人物锚点在中心，导致在用射线做碰撞检测
  * 的时候不能像M_studio的教程那样直接弄好（他的素材锚点直接在底部），而是做了一些手动的数字调整，目前来说测试没什么问题。。。

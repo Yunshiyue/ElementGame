@@ -1,9 +1,9 @@
 ﻿/**
  * @Description: CanBeFighted类是所有能够“被攻击”的单位所拥有的组件。在每一帧中记录每次被攻击的信息，以数组方式储存。
  * @Author: ridger
-
+1-1-27 23:16
  * 
-
+1-3-2 17:44
  * @Editor: CuteRed
  * @Edit: BeAttacked函数新增元素属性参数
 */
@@ -74,7 +74,7 @@ public class CanBeFighted : MonoBehaviour
             if (gameObject.name == "Player")
             {
                 MovementPlayer movement = gameObject.GetComponent<MovementPlayer>();
-                if (movement.RequestChangeControlStatus(interruptTime, MovementPlayer.PlayerControlStatus.Interrupt))
+                if (movement.RequestChangeControlStatus(interruptTime, MovementPlayer.PlayerControlStatus.Stun))
                 {
                     if (transform.position.x > attackerPos.position.x)
                     {
@@ -141,7 +141,7 @@ public class CanBeFighted : MonoBehaviour
     public void Encompass(float time)
     {
         MovementEnemies movement = gameObject.GetComponent<MovementEnemies>();
-        movement.setSpeedNull();
+        movement.SetSpeedNull();
         movement.RequestChangeControlStatus(time, MovementEnemies.EnemyStatus.Encompass);
     }
 

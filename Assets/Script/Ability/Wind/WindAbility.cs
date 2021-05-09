@@ -12,23 +12,27 @@ public class WindAbility : myUpdate, Ability
     private SightHead sightHead;
     private bool isCurCasting = false;
     private bool isLastCasting = false;
+    private bool isActive = false;
 
     private HurricaneSpell hurricaneSpell;
     private WindArrowSpell windArrowSpell;
     private BlinkBackSpell blinkBackSpell;
     private WIndShortSpell windShortSpell;
     private WindThunderSpell windThunderSpell;
+    private WindFieldSpell windFieldSpell;
 
     //激活该主元素，同时制定两个辅助元素
     public void Activate(ElementAbilityManager.Element aElement, ElementAbilityManager.Element bElement)
     {
-        this.enabled = true;
+        isActive = true;
         //把风主元素本身需要的资源激活
         windShortSpell.Enable();
         //把指定辅助技能所需要的资源激活
 
         //飓风
         hurricaneSpell.Enable();
+        //风场
+        windFieldSpell.Enable();
 
 
         if (aElement == ElementAbilityManager.Element.Fire || bElement == ElementAbilityManager.Element.Fire)
@@ -48,14 +52,13 @@ public class WindAbility : myUpdate, Ability
     //休眠该主元素
     public void DisActivate()
     {
+        isActive = false;
         sightHead.gameObject.SetActive(false);
         hurricaneSpell.Disable();
         windArrowSpell.Disable();
         blinkBackSpell.Disable();
         windShortSpell.Disable();
         windThunderSpell.Disable();
-
-        this.enabled = false;
     }
 
     public override void Initialize()
@@ -81,26 +84,32 @@ public class WindAbility : myUpdate, Ability
 
         windThunderSpell = new WindThunderSpell();
         windThunderSpell.Initialize();
+
+        windFieldSpell = new WindFieldSpell();
+        windFieldSpell.Initialize();
     }
 
     public override void MyUpdate()
     {
-        if(isCurCasting && !isLastCasting)
+        if(isActive)
         {
-            WindSightHeadOn();
-        }
-        else if(!isCurCasting && isLastCasting)
-        {
-            WindSightHeadOff();
-        }
-        isLastCasting = isCurCasting;
-        isCurCasting = false;
+            if(isCurCasting && !isLastCasting)
+            {
+                WindSightHeadOn();
+            }
+            else if(!isCurCasting && isLastCasting)
+            {
+                WindSightHeadOff();
+            }
+            isLastCasting = isCurCasting;
+            isCurCasting = false;
 
-        blinkBackSpell.BlinkBackClock();
+            blinkBackSpell.BlinkBackClock();
+        }
+        windFieldSpell.windFieldClock();
     }
     public void ShortSpell()
     {
-        Debug.Log("风短做好！");
         if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
         {
             windShortSpell.Cast();
@@ -173,7 +182,24 @@ public class WindAbility : myUpdate, Ability
     }
     public bool Casting()
     {
-        isCurCasting = true;
-        return movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Casting);
+        if(movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Casting))
+        {
+            isCurCasting = true;
+            return true;
+        }
+        return false;
+    }
+
+    public int NextAuxiliarySpellCost()
+    {
+        return windFieldSpell.GetNextAuxiliaryCost();
+    }
+
+    public void AuxiliarySpell()
+    {
+        if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
+        {
+            windFieldSpell.Cast();
+        }
     }
 }

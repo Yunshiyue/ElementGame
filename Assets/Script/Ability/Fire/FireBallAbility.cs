@@ -9,7 +9,7 @@
  * 初始化说明：方向
  * 
  * @Author: CuteRed
-
+1-2-23 12:12
  *
 */
 
@@ -30,7 +30,7 @@ public class FireBallAbility : FlyingAbility
 
     [Header("碰墙检测参数")]
     private ContactFilter2D filter = new ContactFilter2D();
-    Collider2D[] grounds = new Collider2D[1];
+    private Collider2D[] grounds = new Collider2D[1];
 
     public override void Initialize()
     {

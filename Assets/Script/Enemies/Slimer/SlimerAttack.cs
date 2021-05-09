@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(CanFight))]
-[RequireComponent(typeof(SlimerMovement))]
-public class SlimerAttack : MonoBehaviour
+[RequireComponent(typeof(MovementSlimer))]
+public class SlimerAttack : AttackEnemies
 {
-    CanFight canFight;
-    SlimerMovement movementComponent;
+    //CanFight canFight;
+    MovementSlimer movementComponent;
     private string targetLayerName = "Player";
-    //攻击打断
-    private float interruptTime = 0.3f;
-    private Vector2 interruptVector = new Vector2(0.5f, 0);
+   
     void Awake()
     {
         canFight = GetComponent<CanFight>();
@@ -25,23 +23,12 @@ public class SlimerAttack : MonoBehaviour
         targets[0] = targetLayerName;
         canFight.Initiailize(targets);
 
-        movementComponent = GetComponent<SlimerMovement>();
+        movementComponent = GetComponent<MovementSlimer>();
         if (movementComponent == null)
         {
             Debug.LogError("在" + gameObject.name + "中，找不到MovementPlayer组件！");
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Transform player = collision.transform;
-        if (player.gameObject.name == "Player")
-        {
-            //Debug.Log("碰到了主角！");
-            canFight.Attack(player.GetComponent<CanBeFighted>(), 2, AttackInterruptType.WEAK);
-            player.GetComponent<CanBeFighted>().BeatBack(transform, interruptTime, interruptVector);
 
-
-        }
-    }
 
 }

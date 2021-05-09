@@ -10,7 +10,7 @@
  * 初始化说明：方向
  * 
  * @Author: CuteRed
-
+1-2-23 17:56
  *
 */
 
@@ -30,10 +30,14 @@ public class Meteorite : FlyingAbility
 
     [Header("消失检测参数")]
     private bool isTouchGround = false;
+    private bool isAppearing = false;
 
     [Header("碰墙检测参数")]
     private ContactFilter2D filter = new ContactFilter2D();
     Collider2D[] grounds = new Collider2D[1];
+
+    [Header("动画状态机")]
+    private Animator anim;
 
     public override void Initialize()
     {
@@ -55,6 +59,8 @@ public class Meteorite : FlyingAbility
         layerMask ^= 1 << LayerMask.NameToLayer("Platform");
 
         filter.layerMask = layerMask;
+
+        anim = GetComponent<Animator>();
     }
 
     public override void MyUpdate()
@@ -65,7 +71,10 @@ public class Meteorite : FlyingAbility
         //消失检测
         if (DisappearDetect())
         {
-            Disappear();
+            if (!isAppearing)
+            {
+                Disappear();
+            }
         }
         //运动
         else
@@ -89,8 +98,17 @@ public class Meteorite : FlyingAbility
     /// </summary>
     protected override void Disappear()
     {
+        anim.SetBool("bomb", true);
+
+        isAppearing = true;
+
         //爆炸，造成AOE伤害
         canFight.AttackArea(coll, damage, AttackInterruptType.NONE, ElementAbilityManager.Element.Fire);
+    }
+
+    public void DisappearEvent()
+    {
+        anim.SetBool("bomb", false);
 
         //消失
         poolManager.RemoveGameObject(METEORITE, gameObject);
@@ -149,5 +167,6 @@ public class Meteorite : FlyingAbility
         base.Clear();
 
         isTouchGround = false;
+        isAppearing = false;
     }
 }

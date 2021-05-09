@@ -109,4 +109,14 @@ public class IceAbility : myUpdate, Ability
             }
         }
     }
+
+    public int NextAuxiliarySpellCost()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void AuxiliarySpell()
+    {
+        throw new System.NotImplementedException();
+    }
 }

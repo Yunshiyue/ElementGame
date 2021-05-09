@@ -14,6 +14,7 @@ public class FireAbility : myUpdate, Ability
     private LavaSpell lavaSpell;
     private ProtectiveFireBallSpell protectiveFireBallSpell;
     private FireThunderSpell fireThunderSpell;
+    private RemoteControlBombSpell remoteControlBombSpell;
 
     //激活该主元素，同时制定两个辅助元素
     public void Activate(ElementAbilityManager.Element aElement, ElementAbilityManager.Element bElement)
@@ -49,7 +50,6 @@ public class FireAbility : myUpdate, Ability
 
 
         this.enabled = false;
-
     }
 
     public override void Initialize()
@@ -72,17 +72,25 @@ public class FireAbility : myUpdate, Ability
 
         fireThunderSpell = new FireThunderSpell();
         fireThunderSpell.Initialize();
+
+        //辅助技能直接enable
+        remoteControlBombSpell = new RemoteControlBombSpell();
+        remoteControlBombSpell.Initialize();
+        remoteControlBombSpell.Enable();
     }
 
     public override void MyUpdate()
     {
+        remoteControlBombSpell.BombClock();
     }
 
     public void ShortSpell()
     {
+        Debug.Log("请求火球！");
         if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME , MovementPlayer.PlayerControlStatus.AbilityWithMovement))
         {
             fireBallSpell.Cast();
+            Debug.Log("扔出火球！");
         }
     }
     public override int GetPriorityInType()
@@ -132,6 +140,19 @@ public class FireAbility : myUpdate, Ability
              {
                  lavaSpell.Cast();
              }
+        }
+    }
+
+    public int NextAuxiliarySpellCost()
+    {
+        return remoteControlBombSpell.GetNextSpellCost();
+    }
+
+    public void AuxiliarySpell()
+    {
+        if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
+        {
+            remoteControlBombSpell.Cast();
         }
     }
 }

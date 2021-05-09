@@ -16,8 +16,10 @@ public class WindThunderSpell : Spell
     }
     public override void Cast()
     {
-        movement.RequestMoveByTime(targetPosition, windThunderStatusTotalTime, MovementPlayer.MovementMode.Ability);
-        playerAnim.SetUseSkillType(SkillType.WindThunder);
+        if(movement.RequestMoveByTime(targetPosition, windThunderStatusTotalTime, MovementPlayer.MovementMode.Ability))
+        {
+            playerAnim.SetUseSkillType(SkillType.WindThunder);
+        }  
     }
 
     private float windThunderDistance = 7f;

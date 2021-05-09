@@ -21,6 +21,10 @@
  *           public bool IsSieldUp()用于获得当前是否施加护盾
  *        2. 重写了父类的SetHealthStatus方法，增加了如果有护盾情况下伤害逻辑的判定
  *        
+
+ * @Editor: ridger
+ * @Edit: 1.当主角死亡时场景重置，通知movement脚本主角死亡
+ *        2.主角挨打时，进入无敌状态并通过改变不透明度来实现闪烁效果
  */
 using System.Collections;
 using System.Collections.Generic;
@@ -31,6 +35,20 @@ public class DefencePlayer : Defence
     private int armor = 1;
     private bool isShieldUp = false;
     private int shieldPoint = 0;
+    private MovementPlayer movementComponent;
+
+    //挨打无敌参数
+    private float immuneTotalTime = 2f;
+    private float immuneCurTime = 0f;
+    private bool isAttackedImmune = false;
+
+    private AttackAnime attackAnime;
+    protected override void Awake()
+    {
+        base.Awake();
+        movementComponent = GetComponent<MovementPlayer>();
+        attackAnime = GetComponent<AttackAnime>();
+    }
 
     public void ShieldUp(int localShieldPoint)
     {
@@ -59,6 +77,7 @@ public class DefencePlayer : Defence
     public override void AttackCheck()
     {
         SetStatistic();
+        AttackImmuneCheck();
         Damage();
     }
 
@@ -67,6 +86,30 @@ public class DefencePlayer : Defence
         base.Initialize(hpMax);
     }
 
+    private void AttackImmuneCheck()
+    {
+        if(attackedCheck.hasBeenAttacked())
+        {
+            Debug.Log("挨打，进入无敌状态");
+            isAttackedImmune = true;
+            attackedCheck.SetImmune(true);
+            //无敌闪烁动画
+            attackAnime.StartAnime();
+            return;
+        }
+        if(isAttackedImmune)
+        {
+            immuneCurTime += Time.deltaTime;
+            if(immuneCurTime >= immuneTotalTime)
+            {
+                immuneCurTime = 0;
+                isAttackedImmune = false;
+                attackedCheck.SetImmune(false);
+                //无敌闪烁动画结束
+                attackAnime.EndAnime();
+            }
+        }
+    }
 
     //改写父类的伤害计算方法，每次伤害都会减少1点护甲值的伤害。
     protected override void Damage()
@@ -130,6 +173,7 @@ public class DefencePlayer : Defence
         if (hp == 0)
         {
             isDead = true;
+            movementComponent.SetIsDead(true);
         }
     }
 

@@ -10,8 +10,8 @@ public class HPItem :  MonoBehaviour
     public Sprite havingImg;
 
     //状态
-    public bool isGetting =false;
-    public bool isHaving =true;
+    public bool isGetting =false;//生命上限是否获得
+    public bool isHaving =true;//当前的心是否存在
     public bool isChanging =false;
 
 

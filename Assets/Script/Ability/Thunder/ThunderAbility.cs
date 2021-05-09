@@ -202,4 +202,14 @@ public class ThunderAbility : myUpdate, Ability
     {
         return movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Casting);
     }
+
+    public int NextAuxiliarySpellCost()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void AuxiliarySpell()
+    {
+        throw new System.NotImplementedException();
+    }
 }

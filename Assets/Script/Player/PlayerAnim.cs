@@ -9,9 +9,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class PlayerAnim : myUpdate
 {
+    //public GameObject cameraMachine;
     private Animator anim;
     private float xVelocity = 0;
     private float yVelocity = 0;
@@ -35,6 +36,8 @@ public class PlayerAnim : myUpdate
     private GameObject windShort;
     private Cinemachine.CinemachineImpulseSource MyInpulse;
 
+    public Transform cameraTransform;
+
     private void Awake()
     {
         fireThunderEffect = GameObject.Find("FireThunder");
@@ -47,6 +50,7 @@ public class PlayerAnim : myUpdate
 
         //相机抖动
         //MyInpulse = GetComponent<Cinemachine.CinemachineImpulseSource>();
+        cameraTransform = GameObject.Find("Main Camera").transform;
 
     }
     /// <summary>
@@ -114,8 +118,9 @@ public class PlayerAnim : myUpdate
     }
     public void EffectActive()
     {
+        //cameraMachine.transform.rotation= Quaternion.Euler(0.0f, 0.0f, 0.0f);
         //MyInpulse.GenerateImpulse();
-        //MyInpulse.
+        cameraTransform.DOShakeRotation(1,new Vector3(1,1,0));
         switch (skillType)
         {
             case Spell.SkillType.FireBall:
@@ -132,6 +137,9 @@ public class PlayerAnim : myUpdate
                 break;
             case Spell.SkillType.Lava:
                 lava.ReleaseSpell();
+                break;
+            case Spell.SkillType.RemoteControlBomb:
+                remoteControlBomb.ReleaseSpell();
                 break;
             case Spell.SkillType.ThunderBall:
                 thunderBall.ReleaseSpell();
@@ -185,6 +193,12 @@ public class PlayerAnim : myUpdate
             case Spell.SkillType.WindIce:
                 windIce.ReleaseSpell();
                 break;
+            case Spell.SkillType.WindField:
+                windField.ReleaseSpell();
+                break;
+            default:
+                Debug.Log("该技能尚未完成！");
+                break;
         }
         anim.SetInteger("useSkillType", 0);
     }
@@ -193,6 +207,7 @@ public class PlayerAnim : myUpdate
     private Spell thunderLong;
     private Spell protectiveFireBall;
     private Spell lava;
+    private Spell remoteControlBomb;
     private Spell thunderBall;
     private Spell thunderFire;
     private Spell thunderWind;
@@ -202,6 +217,7 @@ public class PlayerAnim : myUpdate
     private Spell hurricane;
     private Spell windFire;
     private Spell windIce;
+    private Spell windField;
     
     public void SetSpell(Spell spell, Spell.SkillType type)
     {
@@ -220,6 +236,9 @@ public class PlayerAnim : myUpdate
                 break;
             case Spell.SkillType.Lava:
                 lava = spell;
+                break;
+            case Spell.SkillType.RemoteControlBomb:
+                remoteControlBomb = spell;
                 break;
             case Spell.SkillType.ThunderLong:
                 thunderLong = spell;
@@ -248,7 +267,12 @@ public class PlayerAnim : myUpdate
             case Spell.SkillType.WindIce:
                 windIce = spell;
                 break;
-              
+            case Spell.SkillType.WindField:
+                windField = spell;
+                break;
+            default:
+                Debug.Log("该技能尚未完成！");
+                break;
         }
     }
 

@@ -2,7 +2,7 @@
  * @Description: 主角的风属性瞄准镜脚本，当主角施法时，瞄准镜物体被active，该脚本接管移动控制。
  *               主角施法完成时，通过GetPosition获得瞄准镜物体的位置，以控制释放技能的目的地点。同时瞄准镜被disactive
  * @Author: ridger
-
+1-2-22 21:25
  */
 using System.Collections;
 using System.Collections.Generic;

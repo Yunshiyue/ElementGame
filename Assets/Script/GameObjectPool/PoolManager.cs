@@ -1,14 +1,14 @@
 ﻿/**
  * @Description: PoolManager类是对象池管理类，所有的对象池要在该类中注册，生成特定对象时要调用此类中的接口
  * @Author: CuteRed
-
+1-2-16 1:18
  * 
  * 
  * @Description: 在对象池中添加了poolType-FireBall 火球 typeCount = 2
  * @Author:夜里猛
-
+1-2-16 14:02
  * 
-
+1-2-27 22:49
  * @Editor: CuteRed
  * @Edit: 新增了指定对象池的清空函数ClearPool
 */

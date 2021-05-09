@@ -10,7 +10,6 @@ public class SkillEvent : MonoBehaviour
     public void EventFinsh()
     {
         //gameObject.GetComponent<Animator>().SetBool("effect", false);
-        gameObject.GetComponent<Animator>().SetBool("effect", false);
         gameObject.SetActive(false);
         playerAnim.SetInteger("useSkillType", 0);
     }

@@ -1,7 +1,7 @@
 ﻿/**
  * @Description: TriggerablePlatform为可触发的平台类，由Switch机关触发。默认脚本失效，在被触发后生效
  * @Author: CuteRed
-
+1-3-3 20:46
  *     
 */
 
@@ -13,14 +13,16 @@ using UnityEngine;
 public class TriggerablePlatform : Mechanism, Movable
 {
     [Header("移动参数")]
-    private float speed = 1.0f;
+    public float speed = 1.0f;
     public Vector3 direction = new Vector3(0, 1, 0);
-    private float moveTime = 2.5f;
+    public float moveTime = 2.5f;
     private float passTime = 0.0f;
 
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
+
         enabled = false;
     }
 
@@ -38,9 +40,14 @@ public class TriggerablePlatform : Mechanism, Movable
     /// </summary>
     public void Movement()
     {
+        //向指定方向移动
         transform.position += direction * speed * Time.deltaTime;
     }
 
+    /// <summary>
+    /// 触发
+    /// </summary>
+    /// <param name="triggerType"></param>
     public override void Trigger(TiggerType triggerType)
     {
         enabled = true;
@@ -58,6 +65,10 @@ public class TriggerablePlatform : Mechanism, Movable
         }
     }
 
+    /// <summary>
+    /// 触发检测（在此类中用不到）
+    /// </summary>
+    /// <returns></returns>
     protected override bool TriggerDetect()
     {
         return true;

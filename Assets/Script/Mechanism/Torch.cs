@@ -1,8 +1,8 @@
 ﻿/**
  * @Description: Torch是火把类，是机关的一种，被火属性攻击后会被点燃
  * @Author: CuteRed
-
- *     
+1-3-3 19:56
+ * 
 */
 
 using System.Collections;
@@ -14,10 +14,9 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class Torch : Mechanism
 {
     private CanBeFoughtMachanism canBeFought;
-    private Light2D light;
+    private new Light2D light;
     private bool isAttackedByFire = false;
 
-    // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();

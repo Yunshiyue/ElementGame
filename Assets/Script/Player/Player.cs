@@ -26,13 +26,14 @@
  * @Editor: ridger
  * @Edit: 将Element枚举类型转到ElementAbilityManager中
  * 
+
+ * @Editor: ridger
+ * @Edit: 当主角死亡时场景重置，在movement脚本中实现
  */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Text;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(MovementPlayer))]
 //[RequireComponent(typeof(AttackPlayer))]
@@ -52,6 +53,7 @@ public class Player : myUpdate
     private UpdateType updateType = UpdateType.Player;
     //临时变量
     private Vector2 tempMovement = new Vector2(0, 0);
+    private int lastHp;//记录上一帧的血量
 
     //心心数组
     private HPItem[] hpArray;
@@ -153,18 +155,21 @@ public class Player : myUpdate
     //防御组件检查，目前只统计信息，但并不对信息做什么处理
     private void DefenceCheck()
     {
+        lastHp = defenceComponent.getHp();
+
         defenceComponent.AttackCheck();
         if (defenceComponent.getHpReduction() > 0)
         {
             ChangeHpUI();
         }
+
         defenceComponent.Clear();
     }
     public void ChangeHpUI()
     {
-        for (int i = 0; i < defenceComponent.getRealDamage(); i++)
+        for (int i = 0; i < defenceComponent.getHpReduction(); i++)
         {
-            int index = defenceComponent.getHp() - i;
+            int index = lastHp - i-1;
             Debug.Log("lost-- HP:" + defenceComponent.getHp() + ";index:" + index);
             hpArray[index].Lost();
         }

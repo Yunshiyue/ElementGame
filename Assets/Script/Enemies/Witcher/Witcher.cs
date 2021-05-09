@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-[RequireComponent(typeof(WitcherMovement))]
+[RequireComponent(typeof(MovementWitcher))]
 [RequireComponent(typeof(WitcherAttack))]
 [RequireComponent(typeof(DefenceEnemies))]
 public class Witcher : Enemies
 {
-    private WitcherMovement movementComponent;
+    private MovementWitcher movementComponent;
     private WitcherAttack attackComponent;
 
     GameObject player;
@@ -24,7 +24,7 @@ public class Witcher : Enemies
 
         player = GameObject.Find("Player");
 
-        movementComponent = GetComponent<WitcherMovement>();
+        movementComponent = GetComponent<MovementWitcher>();
         if (movementComponent == null)
         {
             Debug.LogError("在Witcher中，没有找到Movement脚本！");
@@ -41,7 +41,7 @@ public class Witcher : Enemies
             Debug.LogError("在Witcher中，没有找到Defence脚本！");
         }
         //设置最大生命值
-        defenceComponent.Initialize(3);
+        defenceComponent.Initialize(10);
     }
 
     public override void MyUpdate()
@@ -49,41 +49,41 @@ public class Witcher : Enemies
         //为了测试暂关闭防御组件
         DefenceCheck();
         
-        MoveControl();
+        //MoveControl();
     }
     
     //移动流程
-    private void MoveControl()
-    {   
-        //没看到player时在初始位置来回移动
-        movementComponent.RequestMoveByFrame(WitcherMovement.MovementMode.Normal);
-        movementComponent.setIsGravity(true);
+    //private void MoveControl()
+    //{   
+    //    //没看到player时在初始位置来回移动
+    //    movementComponent.RequestMoveByFrame(WitcherMovement.MovementMode.Normal);
+    //    movementComponent.setIsGravity(true);
 
-        if (actionCD > 0)
-        {
-            actionCD -= Time.deltaTime;
-        }
-        if (movementComponent.getIsSeePlayer())//看到player后进入攻击状态
-        {     
-            //Debug.Log("blink!");
-            //movementComponent.RequestMoveByFrame(WitcherMovemet.MovementMode.Ability);
-            //isSeePlayer = false;
-            //attackComponent.PushFire();
+    //    if (actionCD > 0)
+    //    {
+    //        actionCD -= Time.deltaTime;
+    //    }
+    //    if (movementComponent.getIsSeePlayer())//看到player后进入攻击状态
+    //    {     
+    //        //Debug.Log("blink!");
+    //        //movementComponent.RequestMoveByFrame(WitcherMovemet.MovementMode.Ability);
+    //        //isSeePlayer = false;
+    //        //attackComponent.PushFire();
 
-            //改变移动范围 
-            movementComponent.ChangeRange(player.transform.position.x + 1, player.transform.position.x - 1);
-            AttackControl();
-        }
-        else
-        {
-            if (canBack)
-            { 
-                Invoke("RangeMoveBack", 2f);
-                canBack = false;
-            }
+    //        //改变移动范围 
+    //        movementComponent.ChangeRange(player.transform.position.x + 1, player.transform.position.x - 1);
+    //        AttackControl();
+    //    }
+    //    else
+    //    {
+    //        if (canBack)
+    //        { 
+    //            Invoke("RangeMoveBack", 2f);
+    //            canBack = false;
+    //        }
            
-        }
-    }
+    //    }
+    //}
 
     private void DefenceCheck()
     {

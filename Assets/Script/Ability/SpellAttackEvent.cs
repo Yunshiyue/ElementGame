@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿/**
+ * @Description: 元素管理组件，负责玩家施法长短按的判定、元素点的消耗和回复、元素及技能切换，以及技能函数的调用
+ * @Author: ridger
+
+ * 
+ */
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;

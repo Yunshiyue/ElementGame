@@ -5,12 +5,56 @@ using UnityEngine;
 
 public abstract class MovementEnemies : myUpdate
 {
+    protected AttackEnemies attackComponent;
     protected Rigidbody2D rb;
+    public Animator enemyAnim;//动画
+
+    public float originx, leftx, rightx;
+    public Vector3 originTransform;
+
+    //移动参数
+    public float speed = 0f;
+    public float seekSpeed = 0f;//追击速度
+    public float jumpForce = 0f;
+    //记录初始速度
+    protected float speedChangeTime = 0f;
+    protected float originSpeed = 0f;
+    protected float originSeekSpeed = 0f;
+    protected float originJumpForce = 0f;
+
+    protected Vector2 toRightVelocity;
+    protected Vector2 toLeftVelocity;
+    protected Vector3 rightScale = new Vector3(1, 1, 1);
+    protected Vector3 leftScale = new Vector3(-1, 1, 1);
 
     //移动组件中包含检测
     protected LayerMask playerLayer;
     protected LayerMask groundLayer;
-    protected bool isSeePlayer = false;
+    public bool isSeePlayer = false;
+    public GameObject player;
+   
+    //是否在移动范围内
+    public bool isInMoveArea = true;
+    //player是否在范围内
+    public bool isPlayerInArea = false;
+    //检测是否在地面上  
+    public bool isOnGround = true;
+    //是否朝右
+    public bool faceRight;
+
+    //用于boss 无法被眩晕
+    public bool isUnStoppable = false;
+    
+    //用于行为树
+    public bool isBeAttacked=false;//是否处于被攻击流程
+    public bool isTired=false;//是否处于疲惫
+    public bool islostTargetButFind = false;//是否处于失去攻击目标但仍在寻找状态
+    public bool isInSeePlayerControl = false;//是否处于看见player的流程
+    public float lastAttackedTime = 0f;
+
+    //状态CD
+    public float statusCD = 0f;
+    public float curStatusCD = 0f;
 
     private Vector2 noVelocity = new Vector2(0, 0);
 
@@ -22,6 +66,7 @@ public abstract class MovementEnemies : myUpdate
     protected EnemyStatus currentStatus = EnemyStatus.Normal;
 
     public enum MovementMode { Normal, Ability, Attacked }
+
     override public void MyUpdate()
     {
         //如果当前状态不是Normal，则时间++，
@@ -68,18 +113,36 @@ public abstract class MovementEnemies : myUpdate
         //在处理正常状态
         else
         {
-
+            //正常状态下需进行人物检测和物理检测
+            PlayerCheck();
+            PhysicsCheck();
         }
+        //处理速度变化
+        //if (speedChangeTime>0)
+        //{
+        //    speedChangeTime -= Time.deltaTime;
+        //}
+        //else
+        //{
+        //    speedChangeTime = 0;
+        //    RecoverSpeed();
+        //}
+       
         Clear();
     }
-
     public override void Initialize()
     {
         playerLayer = LayerMask.GetMask("Player");
         groundLayer = LayerMask.GetMask("Platform");
+        player = GameObject.Find("Player");
     }
     public bool RequestChangeControlStatus(float statusTime, EnemyStatus status)
     {
+        if(isUnStoppable  && (status == EnemyStatus.Stun || status == EnemyStatus.Encompass))
+        {
+            return false;
+        }
+
         switch (currentStatus)
         {
             case EnemyStatus.Normal:
@@ -169,7 +232,6 @@ public abstract class MovementEnemies : myUpdate
                 if (canPassiveMovement)
                 {
                     //被击移动
-                    //transform.DOMove(movement, time);
                     rb.AddForce(movement, ForceMode2D.Impulse);
                     isPassiveMovement = true;
                     
@@ -287,8 +349,121 @@ public abstract class MovementEnemies : myUpdate
     protected bool isControllorMovement = false;
     protected bool canControllorMovement = true;
 
+    RaycastHit2D leftCheck, rightCheck;
+    protected Vector2 leftV ;
+    protected Vector2 rightV;
+    public virtual void PhysicsCheck()
+    {
+        //地板检测
+        leftCheck = Raycast(leftV, Vector2.down, 0.05f, groundLayer);
+        rightCheck = Raycast(rightV, Vector2.down, 0.05f, groundLayer);
+        if (leftCheck || rightCheck)
+        {
+            isOnGround = true;
+        }
+        else
+        {
+            isOnGround = false;
+        }
+    }
+    public virtual void PlayerCheck()
+    {
 
+    }
+    public virtual void Idle()
+    {
+        //isInAction = false;
+    }
+    float absLength = 0;
+    public virtual void Seek()
+    {
+        absLength = Mathf.Abs(transform.position.x - player.transform.position.x);
+        if (absLength>1.5f && RequestMoveByFrame(MovementMode.Normal))//申请是否可移动
+        {
+            if (isOnGround)
+            {
+                if (transform.position.x > player.transform.position.x)
+                {
+                    transform.localScale = leftScale;
+                    faceRight = false;
+                }
+                else
+                {
+                    transform.localScale = rightScale;
+                    faceRight = true;
+                }
+                if (faceRight)
+                {
+                    toRightVelocity.x = seekSpeed;
+                    toRightVelocity.y = rb.velocity.y;
+                    rb.velocity = toRightVelocity;
+                }
+                else
+                {
+                    toLeftVelocity.x = -seekSpeed;
+                    toLeftVelocity.y = rb.velocity.y;
+                    rb.velocity = toLeftVelocity;
+                }
+            }
+        }
+    }
+    public virtual void NormalMove()
+    {
+        if (RequestMoveByFrame(MovementMode.Normal))//申请是否可移动
+        {
+            if (isOnGround)
+            {
+                if (faceRight)
+                {
+                    toRightVelocity.x = speed;
+                    toRightVelocity.y = rb.velocity.y;
+                    rb.velocity = toRightVelocity;
+                    if (transform.position.x > rightx)
+                    {
+                        transform.localScale = leftScale;
+                        faceRight = false;
+                    }
+                }
+                else
+                {
+                    toLeftVelocity.x = -speed;
+                    toLeftVelocity.y = rb.velocity.y;
+                    rb.velocity = toLeftVelocity;
+                    if (transform.position.x < leftx)
+                    {
+                        transform.localScale = rightScale;
+                        faceRight = true;
+                    }
+                }
+            }
+        }
+    }
 
+    public virtual void Dash()
+    {
+
+    }
+    public virtual void StunEvent()
+    {
+        isInSeePlayerControl = false;
+        isBeAttacked = true;
+        enemyAnim.SetBool("stunning", true);
+    }
+
+    //修复使用技能后的朝向问题
+    public void RecoverScale()
+    {
+        if (player.transform.position.x > transform.position.x)
+        {
+            transform.localScale = rightScale;
+            faceRight = true;
+        }
+        else
+        {
+            transform.localScale = leftScale;
+            faceRight = false;
+        }
+    }
 
     //修改当前状态的私有方法；在修改当前状态的同时，把Can系列的状态为设置，保证在某些状态下屏蔽掉低优先级的请求
     //(比如在眩晕的时候请求释放技能)；同时，将低优先级的计时器状态设置为false(is系列状态位)，保证进行高优先级计时器是
@@ -314,6 +489,7 @@ public abstract class MovementEnemies : myUpdate
         switch (status)
         {
             case EnemyStatus.Normal:
+                //enemyAnim.SetBool("stunning", false);
                 canPassiveTransport = true;
                 canActiveTransport = true;
                 canAbilityMovement = true;
@@ -351,6 +527,7 @@ public abstract class MovementEnemies : myUpdate
                 break;
 
             case EnemyStatus.Stun:
+                //enemyAnim.SetBool("stunning",true);
                 canPassiveMovement = true;
                 canActiveTransport = false;
                 canAbilityMovement = false;
@@ -383,9 +560,42 @@ public abstract class MovementEnemies : myUpdate
     /// <summary>
     /// 把速度设为0，用于被禁锢
     /// </summary>
-    public void setSpeedNull()
+    public void SetSpeedNull()
     {
        rb.velocity = noVelocity;
+    }
+    public void SetSkillTypeNull()
+    {
+        enemyAnim.SetInteger("skillType", 0);
+        attackComponent.isInAction = false;
+    }
+    /// <summary>
+    /// 改变敌人移动速度的方法
+    /// </summary>
+    /// <param name="time">持续时间</param>
+    /// <param name="speedChange">改变移动/追击速度的参数，0~1为减速；1以上为加速</param>
+    /// <param name="jumpforceChange">改变跳跃速度的参数，默认为1不改变；0~1为减少跳力；1以上为增加跳力</param>
+    public virtual void ChangeSpeed(float time,float speedChange,float jumpforceChange = 1f)
+    {
+        speedChangeTime = time;
+        speed *= speedChange;
+        seekSpeed *= speedChange;
+        jumpForce *= jumpforceChange;
+        Invoke("RecoverSpeed", time);
+    }
+    /// <summary>
+    /// 恢复敌人至初始速度
+    /// </summary>
+    public virtual void RecoverSpeed()
+    {
+        speed = originSpeed;
+        seekSpeed = originSeekSpeed;
+        jumpForce = originJumpForce;
+    }
+    
+    public EnemyStatus GetEnemyStatus()
+    {
+        return currentStatus;
     }
 
     protected RaycastHit2D Raycast(Vector2 offset, Vector2 rayDiraction, float length, LayerMask layer)

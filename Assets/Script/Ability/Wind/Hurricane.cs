@@ -8,8 +8,12 @@
  * 初始化说明：无
  * 
  * @Author: CuteRed
-
+1-2-23 19:26
  *
+ *
+1-3-6 11:17
+ * @Editor: CuteRed
+ * @Edit: 飓风不可击飞玩家
 */
 
 using System.Collections;
@@ -21,12 +25,14 @@ public class Hurricane : FlyingAbility
     public const string HURRICANE = "Hurricane";
 
     [Header("伤害参数")]
-    private float pushUpForce = 20;
+    private float pushUpForce = 10;
     private Vector2 pushUpVector = new Vector2(0, 0);
 
     [Header("伤害时间参数")]
     private const float ATTACK_INTERVAL = 0.5f;
     private float passTime = 0.0f;
+
+    private LayerMask player;
 
     public override void Initialize()
     {
@@ -37,6 +43,8 @@ public class Hurricane : FlyingAbility
 
         //设置上升力
         pushUpVector.y = pushUpForce;
+
+        player = LayerMask.NameToLayer("Player");
     }
 
     public override void MyUpdate()
@@ -88,12 +96,15 @@ public class Hurricane : FlyingAbility
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //向上推动敌人或物体
-        Rigidbody2D beFought;
-        if (collision.TryGetComponent<Rigidbody2D>(out beFought))
+        if (collision.gameObject.layer != player)
         {
-            PushUp(beFought);
-            Debug.Log("Hurricane对" + beFought.name + "击飞");
+            //向上推动敌人或物体
+            Rigidbody2D beFought;
+            if (collision.TryGetComponent<Rigidbody2D>(out beFought))
+            {
+                PushUp(beFought);
+                Debug.Log("Hurricane对" + beFought.name + "击飞");
+            }
         }
     }
 

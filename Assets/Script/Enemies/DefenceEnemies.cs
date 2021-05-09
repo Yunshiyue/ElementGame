@@ -6,10 +6,10 @@ public class DefenceEnemies : Defence
 {
     private GameObject bloodEffect;
 
-    private void Awake()
+    protected override void Awake()
     {
         base.Awake();
-        bloodEffect = (GameObject)Resources.Load("Prefabs/BloodEffect");
+        bloodEffect = (GameObject)Resources.Load("Prefabs/Effect/BloodEffect");
     }
     public override void AttackCheck()
     {      

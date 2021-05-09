@@ -18,5 +18,5 @@ public abstract class  Enemies : myUpdate
         return updateType;
     }
 
-    
+   
 }

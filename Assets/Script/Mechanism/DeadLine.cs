@@ -9,7 +9,7 @@ public class DeadLine : MonoBehaviour
     {
         if(collision.gameObject.name == "Player")
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            collision.GetComponent<MovementPlayer>().SetIsDead(true);
         }
     }
 }

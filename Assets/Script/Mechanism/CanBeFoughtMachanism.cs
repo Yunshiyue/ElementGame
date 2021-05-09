@@ -1,7 +1,7 @@
 ﻿/**
  * @Description: CanBeFoughtMachanism类是机关被击类，继承CanBeFighted类，主要用于检测机关的触发条件
  * @Author: CuteRed
-
+1-3-2 20:11
  * 
 */
 

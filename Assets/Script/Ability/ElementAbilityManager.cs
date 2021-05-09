@@ -1,4 +1,15 @@
-﻿using System.Collections;
+﻿/**
+ * @Description: 元素管理组件，负责玩家施法长短按的判定、元素点的消耗和回复、元素及技能切换，以及技能函数的调用
+ * @Author: ridger
+
+ *
+
+ * @Editor: CuteRed
+ * @Edit: 增加了元素切换UI组件，新增3个元素的Get方法
+ * 
+ */
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
@@ -6,12 +17,14 @@ using UnityEngine.UI;
 
 public class ElementAbilityManager : MonoBehaviour
 {
+    //默认施法时间
     public const float DEFALT_CASTING_TIME = 0.3f;
+    //完全蓄力所需要的时间
     private float fullyCastTime = 0.3f;
     public enum Element { Fire, Ice, Wind, Thunder, NULL }
-    private Element mainElement;
-    private Element aElement;
-    private Element bElement;
+    private Element mainElement = Element.Fire;
+    private Element aElement = Element.Ice;
+    private Element bElement = Element.Wind;
 
     private FireAbility fireAbility;
     private ThunderAbility thunderAbility;
@@ -19,6 +32,13 @@ public class ElementAbilityManager : MonoBehaviour
     private WindAbility windAbility;
 
     private Ability mainAbility;
+
+    /// <summary>
+    /// 元素切换UI
+    /// </summary>
+    private ElementSwitch elementSwitch;
+    private Ability aAbility;
+    private Ability bAbility;
     private void Awake()
     {
         fireAbility = GetComponent<FireAbility>();
@@ -32,11 +52,19 @@ public class ElementAbilityManager : MonoBehaviour
             Debug.LogError("没找到PlayerAbilityDebugInfo这个ui物体");
         }
 
+        elementSwitch = GameObject.Find("ElementSwitch").GetComponent<ElementSwitch>();
+        if (elementSwitch == null)
+        {
+            Debug.LogError("没找到elementSwitch这个ui物体");
+        }
+
     }
+    //设置初始元素
     private void Start()
     {
         SwitchElement(Element.Fire, Element.Ice, Element.Wind);
     }
+    //顺序切换元素接口
     public void NextMainElement()
     {
         SwitchElement((Element)(((int)mainElement + 1) % ((int)Element.NULL)), aElement, bElement);
@@ -49,23 +77,33 @@ public class ElementAbilityManager : MonoBehaviour
     {
         SwitchElement(mainElement, aElement, (Element)(((int)bElement + 1) % ((int)Element.NULL + 1)));
     }
+    //切换元素，需要将各元素的休眠，然后激活主元素的对应技能
     public void SwitchElement(Element m, Element a = Element.NULL, Element b = Element.NULL)
     {
         mainElement = m;
         aElement = a;
         bElement = b;
 
+        //更新UI
+        elementSwitch.Switch(m, a, b);
+
+        mainElementPoint = originElementPoint;
+        aElementPoint = originElementPoint;
+        bElementPoint = originElementPoint;
+
         switch(m)
         {
             case Element.Fire:
                 mainAbility = fireAbility;
-                fireAbility.Activate(a, b);
+                fireAbility.DisActivate();
                 thunderAbility.DisActivate();
                 iceAbility.DisActivate();
                 windAbility.DisActivate();
+                fireAbility.Activate(a, b);
                 break;
             case Element.Thunder:
                 mainAbility = thunderAbility;
+                thunderAbility.DisActivate();
                 thunderAbility.Activate(a, b);
                 fireAbility.DisActivate();
                 iceAbility.DisActivate();
@@ -73,6 +111,7 @@ public class ElementAbilityManager : MonoBehaviour
                 break;
             case Element.Ice:
                 mainAbility = iceAbility;
+                iceAbility.DisActivate();
                 iceAbility.Activate(a, b);
                 fireAbility.DisActivate();
                 thunderAbility.DisActivate();
@@ -80,20 +119,61 @@ public class ElementAbilityManager : MonoBehaviour
                 break;
             case Element.Wind:
                 mainAbility = windAbility;
+                windAbility.DisActivate();
                 windAbility.Activate(a, b);
                 fireAbility.DisActivate();
                 thunderAbility.DisActivate();
                 iceAbility.DisActivate();
                 break;
         }
+        switch(a)
+        {
+            case Element.Fire:
+                aAbility = fireAbility;
+                break;
+            case Element.Ice:
+                aAbility = iceAbility;
+                break;
+            case Element.Thunder:
+                aAbility = thunderAbility;
+                break;
+            case Element.Wind:
+                aAbility = windAbility;
+                break;
+            case Element.NULL:
+                aAbility = null;
+                break;
+        }
+        switch (b)
+        {
+            case Element.Fire:
+                bAbility = fireAbility;
+                break;
+            case Element.Ice:
+                bAbility = iceAbility;
+                break;
+            case Element.Thunder:
+                bAbility = thunderAbility;
+                break;
+            case Element.Wind:
+                bAbility = windAbility;
+                break;
+            case Element.NULL:
+                bAbility = null;
+                break;
+        }
     }
+    //剩余的元素点
+    private int mainElementPoint;
+    private int aElementPoint;
+    private int bElementPoint;
+    private int originElementPoint = 999;
 
-    private int aElementPoint = 999;
-    private int bElementPoint = 999;
-
+    //控制蓄力逻辑
     private bool isLastFrameCasting = false;
     private bool isAddFirstElement = false;
     private bool isAddSecondElement = false;
+    private bool isAddMainElement = false;
 
     private float currentCastingTime = 0f;
     private int otherElementCost = 1;
@@ -105,32 +185,32 @@ public class ElementAbilityManager : MonoBehaviour
         //如果上一帧没有施法，则直接释放辅助技能
         if (!isLastFrameCasting)
         {
-            if (isRequestFirstOtherElement && canConsumeElement(1, 1))
+            if (isRequestFirstOtherElement && aAbility != null && canConsumeElement(1, aAbility.NextAuxiliarySpellCost()))
             {
                 //剩余元素点够不够
-                consumeElement(1, otherElementCost);
+                consumeElement(1, aAbility.NextAuxiliarySpellCost());
                 //释放辅助元素A技能
-                ASpell();
+                aAbility.AuxiliarySpell();
                 return;
             }
-            if (isRequestSecondOtherElement && canConsumeElement(2, 1))
+            if (isRequestSecondOtherElement && bAbility != null && canConsumeElement(2, bAbility.NextAuxiliarySpellCost()))
             {
-                consumeElement(2, otherElementCost);
+                consumeElement(2, aAbility.NextAuxiliarySpellCost());
                 //释放辅助元素B技能
-                BSpell();
+                bAbility.AuxiliarySpell();
                 return;
             }
         }
         //如果上一帧正在施法，则加入辅助元素
         else
         {
-            if (isRequestFirstOtherElement && canConsumeElement(1, 1) && !isAddFirstElement)
+            if (isRequestFirstOtherElement && aElement != Element.NULL && canConsumeElement(1, 1) && !isAddFirstElement)
             {
                 consumeElement(1, otherElementCost);
                 isAddFirstElement = true;
                 //播放消耗元素动画
             }
-            if (isRequestSecondOtherElement && canConsumeElement(2, 1) && !isAddSecondElement)
+            if (isRequestSecondOtherElement && bElement != Element.NULL && canConsumeElement(2, 1) && !isAddSecondElement)
             {
                 consumeElement(2, otherElementCost);
                 isAddSecondElement = true;
@@ -149,7 +229,28 @@ public class ElementAbilityManager : MonoBehaviour
 
                 if (currentCastingTime >= fullyCastTime)
                 {
-                    //施法完成动画
+                    if(!isAddMainElement)
+                    {
+                        if (canConsumeElement(0, 1))
+                        {
+                            consumeElement(0, 1);
+                            isAddMainElement = true;
+                            //施法完成动画
+                        }
+                        else
+                        {
+                            //主元素点不足，施法结束
+                            mainAbility.ShortSpell();
+                            Debug.Log("主元素点不足，施法结束");
+                            resumeElement();
+                            isAddFirstElement = false;
+                            isAddSecondElement = false;
+                            isAddMainElement = false;
+                            isLastFrameCasting = false;
+                            currentCastingTime = 0f;
+                            return;
+                        }
+                    }
                 }
                 else
                 {
@@ -166,6 +267,7 @@ public class ElementAbilityManager : MonoBehaviour
                     resumeElement();
                     isAddFirstElement = false;
                     isAddSecondElement = false;
+                    isAddMainElement = false;
                     isLastFrameCasting = false;
                     currentCastingTime = 0f;
                 }
@@ -190,6 +292,7 @@ public class ElementAbilityManager : MonoBehaviour
                 }
                 isAddFirstElement = false;
                 isAddSecondElement = false;
+                isAddMainElement = false;
                 isLastFrameCasting = false;
                 currentCastingTime = 0f;
             }
@@ -208,6 +311,8 @@ public class ElementAbilityManager : MonoBehaviour
         debugInfo.AppendLine(bElement.ToString());
 
         debugInfo.AppendLine("元素点");
+        debugInfo.Append("mainElementPoint: ");
+        debugInfo.AppendLine(mainElementPoint.ToString());
         debugInfo.Append("firstOtherElementPoint: ");
         debugInfo.AppendLine(aElementPoint.ToString());
         debugInfo.Append("secondOtherElementPoint: ");
@@ -219,6 +324,8 @@ public class ElementAbilityManager : MonoBehaviour
 
         debugInfo.Append("isLastFrameCasting: ");
         debugInfo.AppendLine(isLastFrameCasting.ToString());
+        debugInfo.Append("isAddMainElement: ");
+        debugInfo.AppendLine(isAddMainElement.ToString());
         debugInfo.Append("isAddFirstElement: ");
         debugInfo.AppendLine(isAddFirstElement.ToString());
         debugInfo.Append("isAddSecondElement: ");
@@ -228,10 +335,16 @@ public class ElementAbilityManager : MonoBehaviour
         debugInfoUI.text = debugInfo.ToString();
         debugInfo.Clear();
     }
-    private bool canConsumeElement(int otherElementIndex, int consumeAmount)
+    private bool canConsumeElement(int elementIndex, int consumeAmount)
     {
-        switch (otherElementIndex)
+        switch (elementIndex)
         {
+            case 0:
+                if(mainElementPoint >= consumeAmount)
+                {
+                    return true;
+                }
+                return false;
             case 1:
                 if (aElementPoint >= consumeAmount)
                 {
@@ -247,10 +360,13 @@ public class ElementAbilityManager : MonoBehaviour
         }
         return false;
     }
-    private void consumeElement(int otherElementIndex, int consumeAmount)
+    private void consumeElement(int elementIndex, int consumeAmount)
     {
-        switch (otherElementIndex)
+        switch (elementIndex)
         {
+            case 0:
+                mainElementPoint -= consumeAmount;
+                return;
             case 1:
                 aElementPoint -= consumeAmount;
                 return;
@@ -269,13 +385,14 @@ public class ElementAbilityManager : MonoBehaviour
         {
             bElementPoint++;
         }
+        if(isAddMainElement)
+        {
+            mainElementPoint++;
+        }
     }
+    
 
 
-    public void Casting()
-    {
-        mainAbility.Casting();
-    }
     public void ShortMainSpell()
     {
         mainAbility.ShortSpell();
@@ -310,6 +427,37 @@ public class ElementAbilityManager : MonoBehaviour
     public void BigMainSpell()
     {
 
+    }
+
+    public Element GetMainElement()
+    {
+        return mainElement;
+    }
+
+    public Element GetAElement()
+    {
+        return aElement;
+    }
+
+    public Element GetBElement()
+    {
+        return bElement;
+    }
+
+    public void RestoreElement(Element type, int point)
+    {
+        if(mainElement == type)
+        {
+            mainElementPoint += point;
+        }
+        else if(aElement == type)
+        {
+            aElementPoint += point;
+        }
+        else if(bElement == type)
+        {
+            bElementPoint += point;
+        }
     }
 }
 

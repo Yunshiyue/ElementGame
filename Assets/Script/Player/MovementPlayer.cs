@@ -40,19 +40,24 @@
  *        2. 在update逻辑中增加了调整陷入地板的逻辑，如果这一帧需要进行调整，而且当前状态为normal则进行距离补偿
  *        
 
- * @Edit: 夜里猛
+ * @Edittor: 夜里猛
  * @Edit: 增加了设置重力的接口，同时，在主动、被动movement计时器到时间时，会将isGravity设为true
+ * 
+
+ * @Editor: ridger
+ * @Edit: 修改了x轴y轴陷入墙中距离补偿的bug，现在只要检测到陷入墙中就会进行距离补偿，而不是和速度挂钩，主角不再会卡墙了
  */
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Text;
+using UnityEngine.SceneManagement;
 
 public class MovementPlayer : myUpdate
 {
     //public部分
-
+    //public GameObject cameraMachine;
     //unity编辑器中可以进行调试的参数，包括是否受重力、重力大小、跳跃初速度、下蹲的减速系数等
     private bool isGravity = true;
     private float gravity = 20.0f;
@@ -70,6 +75,11 @@ public class MovementPlayer : myUpdate
     //传送时，每隔该距离，检测有无墙体；
     private float transportStuckDetectionSnap = 0.2f;
 
+    /// <summary>
+    /// 游戏菜单管理组件
+    /// </summary>
+    private GameMenu gameMenu;
+
 
 
     //该组件主要食用方法：通过RequestChangeControlStatus判断能否执行下一个状态，如果可以，通过RequestMove申请移动
@@ -79,6 +89,11 @@ public class MovementPlayer : myUpdate
     //当status == 0时，表示单帧申请状态改变，现在只有申请持续施法会这样做
     public bool RequestChangeControlStatus(float statusTime, PlayerControlStatus status)
     {
+        if(status == PlayerControlStatus.Crouch)
+        {
+            isRequestCrouch = true;
+            return true;
+        }
         switch (controlStatus)
         {
             case PlayerControlStatus.Normal:
@@ -96,13 +111,11 @@ public class MovementPlayer : myUpdate
                 }
                 return false;
 
-            //释放法术必须是单帧调用的
             case PlayerControlStatus.Casting:
-                if (statusTime == 0 && (
-                    status == PlayerControlStatus.Normal ||
+                if (status == PlayerControlStatus.Normal ||
                     status == PlayerControlStatus.Stun ||
                     status == PlayerControlStatus.AbilityWithMovement ||
-                    status == PlayerControlStatus.AbilityNeedControl ))
+                    status == PlayerControlStatus.AbilityNeedControl )
                 {
                     ChangeControlStatus(statusTime, status);
                     return true;
@@ -256,7 +269,10 @@ public class MovementPlayer : myUpdate
     {
         this.gravity = gravity;
     }
-
+    public void SetIsDead(bool dead)
+    {
+        isDead = dead;
+    }
     public void RequestJump()
     {
         isRequestJump = true;
@@ -312,6 +328,7 @@ public class MovementPlayer : myUpdate
     private bool isDownFloor = false;
     private bool isLeftDetect = false;
     private bool isRightDetect = false;
+    private bool isDead = false;
 
     private bool isFacingLeft = false;
     private Vector3 leftLocalScale = new Vector3(-1, 1, 0);
@@ -369,6 +386,9 @@ public class MovementPlayer : myUpdate
         {
             Debug.LogError("在" + gameObject.name + "中，没有找到DebugInfo这个ui组件！");
         }
+
+        //初始化游戏菜单管理组件
+        gameMenu = GameObject.Find("GameMenu").GetComponent<GameMenu>();
     }
 
     //在ui上输出movement状态信息
@@ -545,9 +565,10 @@ public class MovementPlayer : myUpdate
         xSpeed = 0f;
 
         needYFloorOffset = false;
-        needXFlootOffset = false;
+        needXRightOffset = false;
+        needXLeftOffset = false;
 
-        if(controlStatus != PlayerControlStatus.Normal)
+        if (controlStatus != PlayerControlStatus.Normal)
         {
             ySpeed = 0;
             isGravity = false;
@@ -567,7 +588,8 @@ public class MovementPlayer : myUpdate
     private float yFloorOffset = 0f;
     private float xFloorOffset = 0f;
     private bool needYFloorOffset = false;
-    private bool needXFlootOffset = false;
+    private bool needXRightOffset = false;
+    private bool needXLeftOffset = false;
     //被动传送 = 被动以帧为结算的位移
     private Vector2 passiveTransportPosition;
     private bool canPassiveTransport = false;
@@ -665,7 +687,6 @@ public class MovementPlayer : myUpdate
 
                 isInAbnormalStatus = false;
 
-                isRequestCrouch = true;
                 break;
 
             case PlayerControlStatus.Casting:
@@ -772,7 +793,16 @@ public class MovementPlayer : myUpdate
         this.yFloorOffset = offset;
         needYFloorOffset = true;
     }
-
+    public void SetRightOffset(float offset)
+    {
+        xFloorOffset = offset;
+        needXRightOffset = true;
+    }
+    public void SetLeftOffset(float offset)
+    {
+        xFloorOffset = offset;
+        needXLeftOffset = true;
+    }
 
     //MyUpdate相关的属性及方法
 
@@ -780,6 +810,11 @@ public class MovementPlayer : myUpdate
     override public void MyUpdate()
     {
         //Debug.Log("1Player当前的状态是" + controlStatus.ToString());
+        if (isDead)
+        {
+            gameMenu.GameOver();
+            return;
+        }
 
         //如果当前状态不是Normal或Crouch，则时间++，
         if (isInAbnormalStatus && controlStatus != PlayerControlStatus.Casting)
@@ -803,6 +838,9 @@ public class MovementPlayer : myUpdate
             if (controlStatusCurTime >= controlStatusTotalTime)
             {
                 ChangeControlStatus(0f, PlayerControlStatus.Normal);
+                
+                //cameraMachine.transform.rotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+                //Debug.Log("执行还原:"+cameraMachine.transform.rotation);
                 //playerAnim.SetAbilityNum(999);
                 //playerAnim.SetUseSkillType((int)AttackPlayer.SkillType.Null);
             }
@@ -966,7 +1004,11 @@ public class MovementPlayer : myUpdate
         {
             transform.Translate(0, yFloorOffset, 0, Space.Self);
         }
-        if(needXFlootOffset)
+        if(needXRightOffset && xSpeed > 0)
+        {
+            transform.Translate(xFloorOffset, 0, 0, Space.Self);
+        }
+        if(needXLeftOffset && xSpeed < 0)
         {
             transform.Translate(xFloorOffset, 0, 0, Space.Self);
         }
@@ -979,8 +1021,8 @@ public class MovementPlayer : myUpdate
     }
     //所在update队列为Player
     public UpdateType updateType = UpdateType.Player;
-    //player中优先级等级为5
-    private int priorityInType = 8;
+    //player中优先级等级为9
+    private int priorityInType = 9;
     public override UpdateType GetUpdateType()
     {
         return updateType;

@@ -10,6 +10,7 @@ public class DeadLine : MonoBehaviour
         if(collision.gameObject.name == "Player")
         {
             collision.GetComponent<MovementPlayer>().SetIsDead(true);
+            StatisticsCollector.deadByFalling++;
         }
     }
 }

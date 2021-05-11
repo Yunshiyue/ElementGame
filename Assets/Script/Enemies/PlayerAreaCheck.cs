@@ -14,7 +14,7 @@ public class PlayerAreaCheck : MonoBehaviour
         if (other.gameObject.name == "Player")
         {
             movement.isPlayerInArea = true;
-            movement.enemyAnim.SetBool("idle", false);
+           // movement.enemyAnim.SetBool("idle", false);
         }
     }
 

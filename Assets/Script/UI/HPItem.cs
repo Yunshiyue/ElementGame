@@ -59,12 +59,17 @@ public class HPItem :  MonoBehaviour
     //{
     //    return updateType;
     //}
+    /// <summary>
+    /// 获得生命上限
+    /// </summary>
     public void Getting()
     {
         isGetting = true;
         transform.gameObject.SetActive(true);
     }
-
+    /// <summary>
+    /// 丢失生命值
+    /// </summary>
     public void Lost()
     {
         Debug.Log("心心丢了");
@@ -73,6 +78,9 @@ public class HPItem :  MonoBehaviour
         img.overrideSprite = lostingImg;
     }
 
+    /// <summary>
+    /// 回复生命值
+    /// </summary>
     public void Recover()
     {
         isHaving = true;

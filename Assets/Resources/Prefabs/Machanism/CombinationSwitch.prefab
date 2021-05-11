@@ -115,6 +115,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   combinationMechanisms: []
+  triggerIntervalTime: 2
 --- !u!58 &7159109813070247816
 CircleCollider2D:
   m_ObjectHideFlags: 0

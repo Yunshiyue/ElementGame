@@ -11,6 +11,7 @@ public class Minotaur : Enemies
     private MovementMinotaur movementComponent;
     private MinotaurAttack attackComponent;
     private CapsuleCollider2D coll;
+    public List<Mechanism> mechanisms = new List<Mechanism>();
 
     public override void Initialize()
     {
@@ -57,6 +58,10 @@ public class Minotaur : Enemies
     
     public void DieEvent()
     {
+        foreach (Mechanism mechanism in mechanisms)
+        {
+            mechanism.Trigger(Mechanism.TiggerType.Other);
+        }
         gameObject.SetActive(false);
     }
     

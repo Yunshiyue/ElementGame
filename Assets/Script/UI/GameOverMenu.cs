@@ -1,7 +1,7 @@
 ﻿/**
  * @Description: GameOverMenu类负责控制游戏结束菜单，目前包括返回主界面和重新游戏
  * @Author: CuteRed
-1-3-9 21：00
+
 */
 
 using System.Collections;

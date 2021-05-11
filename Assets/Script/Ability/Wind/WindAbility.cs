@@ -180,15 +180,6 @@ public class WindAbility : myUpdate, Ability
     {
         return type;
     }
-    public bool Casting()
-    {
-        if(movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Casting))
-        {
-            isCurCasting = true;
-            return true;
-        }
-        return false;
-    }
 
     public int NextAuxiliarySpellCost()
     {
@@ -201,5 +192,15 @@ public class WindAbility : myUpdate, Ability
         {
             windFieldSpell.Cast();
         }
+    }
+
+    public bool Casting(bool isFullySpelt, ElementAbilityManager.Element aElement, ElementAbilityManager.Element bElement)
+    {
+        if (movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Casting))
+        {
+            isCurCasting = true;
+            return true;
+        }
+        return false;
     }
 }

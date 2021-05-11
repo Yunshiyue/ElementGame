@@ -20,7 +20,8 @@ public class ElementAbilityManager : MonoBehaviour
     //默认施法时间
     public const float DEFALT_CASTING_TIME = 0.3f;
     //完全蓄力所需要的时间
-    private float fullyCastTime = 0.3f;
+    public static float fullyCastTime = 0.3f;
+    private bool isFullySpelt = false;
     public enum Element { Fire, Ice, Wind, Thunder, NULL }
     private Element mainElement = Element.Fire;
     private Element aElement = Element.Ice;
@@ -62,7 +63,8 @@ public class ElementAbilityManager : MonoBehaviour
     //设置初始元素
     private void Start()
     {
-        SwitchElement(Element.Fire, Element.Ice, Element.Wind);
+        SwitchElement(Element.Fire, Element.Thunder, Element.Wind);
+        //Debug.Log("a:" + aAbility.ToString());
     }
     //顺序切换元素接口
     public void NextMainElement()
@@ -191,6 +193,9 @@ public class ElementAbilityManager : MonoBehaviour
                 consumeElement(1, aAbility.NextAuxiliarySpellCost());
                 //释放辅助元素A技能
                 aAbility.AuxiliarySpell();
+                //记录释放了A技能
+                StatisticsCollector.ASpellTime++;
+                //Debug.Log("释放了A");
                 return;
             }
             if (isRequestSecondOtherElement && bAbility != null && canConsumeElement(2, bAbility.NextAuxiliarySpellCost()))
@@ -198,6 +203,8 @@ public class ElementAbilityManager : MonoBehaviour
                 consumeElement(2, aAbility.NextAuxiliarySpellCost());
                 //释放辅助元素B技能
                 bAbility.AuxiliarySpell();
+                StatisticsCollector.BSpellTime++;
+                //Debug.Log("释放了B");
                 return;
             }
         }
@@ -222,14 +229,15 @@ public class ElementAbilityManager : MonoBehaviour
         {
             //Debug.Log("请求施法！");
             //请求施法成功，开始/继续施法
-            if (mainAbility.Casting())
+            if (mainAbility.Casting(isFullySpelt, isAddFirstElement ? aElement : Element.NULL, isAddSecondElement ? bElement : Element.NULL))
             {
                 currentCastingTime += Time.deltaTime;
                 isLastFrameCasting = true;
 
                 if (currentCastingTime >= fullyCastTime)
                 {
-                    if(!isAddMainElement)
+                    isFullySpelt = true;
+                    if (!isAddMainElement)
                     {
                         if (canConsumeElement(0, 1))
                         {
@@ -241,13 +249,17 @@ public class ElementAbilityManager : MonoBehaviour
                         {
                             //主元素点不足，施法结束
                             mainAbility.ShortSpell();
+                            StatisticsCollector.shortSpellTime++;
+                            StatisticsCollector.wantFullyButFailedTimeForElementNotEnough++;
                             Debug.Log("主元素点不足，施法结束");
                             resumeElement();
                             isAddFirstElement = false;
                             isAddSecondElement = false;
                             isAddMainElement = false;
                             isLastFrameCasting = false;
+                            isFullySpelt = false;
                             currentCastingTime = 0f;
+                            mainAbility.Casting(isFullySpelt, isAddFirstElement ? aElement : Element.NULL, isAddSecondElement ? bElement : Element.NULL);
                             return;
                         }
                     }
@@ -264,11 +276,14 @@ public class ElementAbilityManager : MonoBehaviour
                 if (isLastFrameCasting)
                 {
                     Debug.Log("施法被打断！");
+                    StatisticsCollector.wantFullyButFailedTimeForBeInterrupted++;
                     resumeElement();
                     isAddFirstElement = false;
                     isAddSecondElement = false;
                     isAddMainElement = false;
                     isLastFrameCasting = false;
+                    isFullySpelt = false;
+                    mainAbility.Casting(isFullySpelt, isAddFirstElement ? aElement : Element.NULL, isAddSecondElement ? bElement : Element.NULL);
                     currentCastingTime = 0f;
                 }
             }
@@ -281,11 +296,13 @@ public class ElementAbilityManager : MonoBehaviour
             {
                 if (currentCastingTime >= fullyCastTime)
                 {
+                    StatisticsCollector.RecordSpell(currentCastingTime);
                     //其中调用sightHead的getposition方法
                     FullySpell();
                 }
                 else
                 {
+                    StatisticsCollector.shortSpellTime++;
                     ShortMainSpell();
                     //短暂施法，归还蓄力元素
                     resumeElement();
@@ -294,7 +311,9 @@ public class ElementAbilityManager : MonoBehaviour
                 isAddSecondElement = false;
                 isAddMainElement = false;
                 isLastFrameCasting = false;
+                isFullySpelt = false;
                 currentCastingTime = 0f;
+                mainAbility.Casting(isFullySpelt, isAddFirstElement ? aElement : Element.NULL, isAddSecondElement ? bElement : Element.NULL);
             }
             //如果上一帧没有施法，则啥也不干
         }
@@ -366,12 +385,33 @@ public class ElementAbilityManager : MonoBehaviour
         {
             case 0:
                 mainElementPoint -= consumeAmount;
+                switch(mainElement)
+                {
+                    case Element.Fire: StatisticsCollector.fireElementConsumption++; break;
+                    case Element.Thunder: StatisticsCollector.thunderElementConsumption++; break;
+                    case Element.Ice: StatisticsCollector.iceElementConsumption++; break;
+                    case Element.Wind: StatisticsCollector.windElementConsumption++; break;
+                }
                 return;
             case 1:
                 aElementPoint -= consumeAmount;
+                switch (aElement)
+                {
+                    case Element.Fire: StatisticsCollector.fireElementConsumption++; break;
+                    case Element.Thunder: StatisticsCollector.thunderElementConsumption++; break;
+                    case Element.Ice: StatisticsCollector.iceElementConsumption++; break;
+                    case Element.Wind: StatisticsCollector.windElementConsumption++; break;
+                }
                 return;
             case 2:
                 bElementPoint -= consumeAmount;
+                switch (bElement)
+                {
+                    case Element.Fire: StatisticsCollector.fireElementConsumption++; break;
+                    case Element.Thunder: StatisticsCollector.thunderElementConsumption++; break;
+                    case Element.Ice: StatisticsCollector.iceElementConsumption++; break;
+                    case Element.Wind: StatisticsCollector.windElementConsumption++; break;
+                }
                 return;
         }
     }
@@ -380,14 +420,35 @@ public class ElementAbilityManager : MonoBehaviour
         if (isAddFirstElement)
         {
             aElementPoint++;
+            switch (aElement)
+            {
+                case Element.Fire: StatisticsCollector.fireElementConsumption--; break;
+                case Element.Thunder: StatisticsCollector.thunderElementConsumption--; break;
+                case Element.Ice: StatisticsCollector.iceElementConsumption--; break;
+                case Element.Wind: StatisticsCollector.windElementConsumption--; break;
+            }
         }
         if (isAddSecondElement)
         {
-            bElementPoint++;
+            bElementPoint++; 
+            switch (bElement)
+            {
+                case Element.Fire: StatisticsCollector.fireElementConsumption--; break;
+                case Element.Thunder: StatisticsCollector.thunderElementConsumption--; break;
+                case Element.Ice: StatisticsCollector.iceElementConsumption--; break;
+                case Element.Wind: StatisticsCollector.windElementConsumption--; break;
+            }
         }
         if(isAddMainElement)
         {
             mainElementPoint++;
+            switch (mainElement)
+            {
+                case Element.Fire: StatisticsCollector.fireElementConsumption--; break;
+                case Element.Thunder: StatisticsCollector.thunderElementConsumption--; break;
+                case Element.Ice: StatisticsCollector.iceElementConsumption--; break;
+                case Element.Wind: StatisticsCollector.windElementConsumption--; break;
+            }
         }
     }
     
@@ -401,29 +462,26 @@ public class ElementAbilityManager : MonoBehaviour
     {
         if (!isAddFirstElement && !isAddSecondElement)
         {
+            StatisticsCollector.MSpellTime++;
             mainAbility.FullySpell(Element.NULL, Element.NULL);
         }
         else if (isAddFirstElement && !isAddSecondElement)
         {
+            StatisticsCollector.MASpellTime++;
             mainAbility.FullySpell(aElement, Element.NULL);
         }
         else if (!isAddFirstElement && isAddSecondElement)
         {
+            StatisticsCollector.MBSpellTime++;
             mainAbility.FullySpell(Element.NULL, bElement);
         }
         else
         {
+            StatisticsCollector.MABSpellTime++;
             mainAbility.FullySpell(aElement, bElement);
         }
     }
-    public void ASpell()
-    {
 
-    }
-    public void BSpell()
-    {
-
-    }
     public void BigMainSpell()
     {
 

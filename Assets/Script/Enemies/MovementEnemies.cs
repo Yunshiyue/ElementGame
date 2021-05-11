@@ -135,6 +135,7 @@ public abstract class MovementEnemies : myUpdate
         playerLayer = LayerMask.GetMask("Player");
         groundLayer = LayerMask.GetMask("Platform");
         player = GameObject.Find("Player");
+        attackComponent = GetComponent<AttackEnemies>();
     }
     public bool RequestChangeControlStatus(float statusTime, EnemyStatus status)
     {
@@ -583,11 +584,18 @@ public abstract class MovementEnemies : myUpdate
         jumpForce *= jumpforceChange;
         Invoke("RecoverSpeed", time);
     }
+    public virtual void ChangeSpeed(float speedChange,float jumpforceChange = 1f)
+    {   
+        speed *= speedChange;
+        seekSpeed *= speedChange;
+        jumpForce *= jumpforceChange; 
+    }
     /// <summary>
     /// 恢复敌人至初始速度
     /// </summary>
     public virtual void RecoverSpeed()
     {
+        //Debug.Log("??");
         speed = originSpeed;
         seekSpeed = originSeekSpeed;
         jumpForce = originJumpForce;

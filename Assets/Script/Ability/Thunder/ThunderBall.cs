@@ -10,12 +10,15 @@
  * 初始化说明：方向
  * 
  * @Author: CuteRed
-1-2-23 14:06
+
  * 
-1-2-27 22:49
+
  * @Editor: CuteRed
  * @Edit: 新增了反弹效果
- *        
+ *    
+
+ * @Editor: CuteRed
+ * @Edit: 以前设置scale时，会直接根据发射方向的x确定，但如果x=0会出错，现对此bug进行了修复
  *
 */
 
@@ -32,7 +35,7 @@ public class ThunderBall : FlyingAbility
 
     [Header("消失检测参数")]
     private bool isTouchEnemy = false;
-    private const float MAX_DISTANCE_TO_PLAYER = 10.0f;
+    private const float MAX_DISTANCE_TO_PLAYER = 1000.0f;
     private float distanceToPlayer = 0.0f;
 
     public override void Initialize()
@@ -41,6 +44,7 @@ public class ThunderBall : FlyingAbility
 
         //设置目标层
         targetLayer = LayerMask.NameToLayer(targetLayerName);
+        speed = 5f;
     }
 
     public override void MyUpdate()
@@ -70,7 +74,19 @@ public class ThunderBall : FlyingAbility
     public void SetDirection(Vector3 direction)
     {
         this.direction = direction;
-        transform.localScale = new Vector3(direction.x, 1, 1);
+
+        //改变朝向
+        int x = 1;
+        int y = 1;
+        if (direction.x < 0)
+        {
+            x = -1;
+        }
+        if (direction.y < 0)
+        {
+            y = -1;
+        }
+        transform.localScale = new Vector3(x, y, 1);
     }
 
     /// <summary>
@@ -102,7 +118,7 @@ public class ThunderBall : FlyingAbility
 
         //检测碰到地图，反弹
         RaycastHit2D hit;
-        hit = Physics2D.Raycast(transform.position, direction, 0.05f, ground);
+        hit = Physics2D.Raycast(transform.position, direction, 0.2f, ground);
         if (hit)
         {
             Vector2 normal = hit.normal;

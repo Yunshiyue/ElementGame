@@ -21,7 +21,7 @@ public class BeInAttack : Conditional
     {
         if (defenceComponent.getHpReduction() > 0 || movementComponent.isBeAttacked)
         {
-            Debug.Log("beAttacked!！");
+            //Debug.Log("beAttacked!！");
             //lastAttackedTime = 0f;
             movementComponent.isBeAttacked = true;
             movementComponent.isInSeePlayerControl = false;

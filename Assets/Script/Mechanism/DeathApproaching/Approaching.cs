@@ -4,27 +4,49 @@ using UnityEngine;
 
 public class Approaching : MonoBehaviour
 {
-    private float originSpeed = 2f;
-    public float approachingSpeed;
+
+    public float originSpeed = 2f;
     public float maxDistanceFromPlayer = 5;
+    public Transform StartPosition;
+    public Transform EndPosition;
+    public float approachingSpeed;
+
     private Transform player;
+    private Vector3 direction;
+
+    private bool isEnded = false;
+
     // Update is called once per frame
     private void Awake()
     {
         player = GameObject.Find("Player").GetComponent<Transform>();
         approachingSpeed = originSpeed;
     }
+    private void Start()
+    {
+        direction = EndPosition.position - StartPosition.position;
+        direction.z = player.position.z;
+        direction.Normalize();
+
+        transform.position = StartPosition.position;
+    }
     void Update()
     {
-        if(player.position.x - transform.position.x > maxDistanceFromPlayer)
+        if(Vector2.Distance(EndPosition.position, transform.position) < 0.1f)
         {
-            approachingSpeed += 0.004f;
+            enabled = false;
+            return;
+        }
+        
+        if(Vector3.Project(player.position - transform.position, direction).magnitude > maxDistanceFromPlayer)
+        {
+            approachingSpeed += 0.01f;
         }
         else
         {
             approachingSpeed = originSpeed;
         }
-        transform.Translate(approachingSpeed * Time.deltaTime, 0, 0, Space.Self);
+        transform.Translate(approachingSpeed * Time.deltaTime * direction,  Space.Self);
 
     }
 }

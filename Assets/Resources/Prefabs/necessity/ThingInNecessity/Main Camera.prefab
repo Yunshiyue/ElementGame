@@ -181,6 +181,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   follower: {fileID: 7213643551368622203}
+  smoothing: 0
+  cameraBounds: {fileID: 0}
 --- !u!1 &7213643551778179272
 GameObject:
   m_ObjectHideFlags: 0

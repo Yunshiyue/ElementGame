@@ -10,7 +10,7 @@
  * 4.部分子类中仍有参数需要初始化，详情见子类
  * 
  * @Author: CuteRed
-1-2-23 20:08
+
  *
 */
 
@@ -21,8 +21,8 @@ using UnityEngine;
 public abstract class FlyingAbility : myUpdate
 {
     [Header("时间参数")]
-    protected float maxExistTime = 5.0f;
-    protected float existTime = 0;
+    public float maxExistTime = 5.0f;
+    public float existTime = 0;
 
     [Header("移动参数")]
     protected Vector2 startPosition;

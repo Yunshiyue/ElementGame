@@ -4,7 +4,7 @@
  *               minPlayerAlpha：闪烁期间最小不透明度
  *               alphaChangeOnceTime：一次闪烁的时间间隔
  * @Author: ridger
-1-1-27 23:16
+
  */
 using System.Collections;
 using System.Collections.Generic;

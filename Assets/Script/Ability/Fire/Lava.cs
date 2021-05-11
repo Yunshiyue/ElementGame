@@ -11,7 +11,7 @@
  * 初始化说明：方向
  * 
  * @Author: CuteRed
-1-2-23 20:08
+
  *
 */
 
@@ -99,7 +99,8 @@ public class Lava : FlyingAbility
     private void OnTriggerEnter2D(Collider2D collision)
     {
         CanBeFighted beFought;
-        if (collision.TryGetComponent<CanBeFighted>(out beFought) && (collision.gameObject.layer == targetLayer || collision.gameObject.layer == mechanism))
+        if (collision.TryGetComponent<CanBeFighted>(out beFought) && 
+            (collision.gameObject.layer == targetLayer || collision.gameObject.layer == mechanism))
         {
             //不可对同一目标造成2次伤害
             if (!fought.Contains(beFought))
@@ -118,7 +119,6 @@ public class Lava : FlyingAbility
     public void SetDirection(float direction)
     {
         this.direction = direction;
-        transform.localScale = new Vector3(direction, 1, 1);
 
         Init();
     }
@@ -129,9 +129,9 @@ public class Lava : FlyingAbility
     private void Init()
     {
         //加随机力
-        horizontalForce = Random.Range(3.0f, 5.0f);
-        verticalForce = Random.Range(3.0f, 5.0f);
-        force.x = horizontalForce * direction;
+        horizontalForce = Random.Range(-5f, 5.0f);
+        verticalForce = Random.Range(4.0f, 8.0f);
+        force.x = horizontalForce;
         force.y = verticalForce;
         rigid.velocity = force;
     }

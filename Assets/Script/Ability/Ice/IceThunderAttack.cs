@@ -29,7 +29,7 @@ public class IceThunderAttack : SpellAttackEvent
     {
         Debug.Log("IceThunderEvent");
         //找到攻击命中的单位 canFight.AttackArea实现了攻击
-        targets = canFight.AttackArea(iceThunderArea, iceThunderDamage);
+        targets = canFight.AttackArea(iceThunderArea, iceThunderDamage, AttackInterruptType.NONE, ElementAbilityManager.Element.Ice);
         if (targets != null)
         {
             foreach (CanBeFighted a in targets)

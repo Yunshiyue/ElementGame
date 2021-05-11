@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5599320626595111382}
   - component: {fileID: 5599320626595111380}
   - component: {fileID: 5599320626595111381}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: SlimerColl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -389,7 +389,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5599320628296505103}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: SlimerObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -423,7 +423,7 @@ GameObject:
   - component: {fileID: 5599320628567660932}
   - component: {fileID: 5599320628567660939}
   - component: {fileID: 5599320628567660938}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: MoveArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}

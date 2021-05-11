@@ -46,7 +46,13 @@
 
  * @Editor: ridger
  * @Edit: 修改了x轴y轴陷入墙中距离补偿的bug，现在只要检测到陷入墙中就会进行距离补偿，而不是和速度挂钩，主角不再会卡墙了
+ * 
+
+ * @Editor: CuteRed
+ * @Edit: 增加了事件管理器，跳跃会触发事件
+ * 
  */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -61,6 +67,7 @@ public class MovementPlayer : myUpdate
     //unity编辑器中可以进行调试的参数，包括是否受重力、重力大小、跳跃初速度、下蹲的减速系数等
     private bool isGravity = true;
     private float gravity = 20.0f;
+    private float DefalutGravity = 20f;
     private float jumpForce = 12.0f;
     //计算下一次跳跃时的速度，详见引用处
     private float jumpOriRatio = 0.15f;
@@ -80,6 +87,8 @@ public class MovementPlayer : myUpdate
     /// </summary>
     private GameMenu gameMenu;
 
+    private EventManager eventManager;
+    private object[] jumpArray = new object[1];
 
 
     //该组件主要食用方法：通过RequestChangeControlStatus判断能否执行下一个状态，如果可以，通过RequestMove申请移动
@@ -91,15 +100,46 @@ public class MovementPlayer : myUpdate
     {
         if(status == PlayerControlStatus.Crouch)
         {
-            isRequestCrouch = true;
-            return true;
+            if(controlStatus == PlayerControlStatus.Normal ||
+               controlStatus == PlayerControlStatus.Crouch)
+            {
+                isRequestCrouch = true;
+                return true;
+            }
         }
         switch (controlStatus)
         {
             case PlayerControlStatus.Normal:
-                ChangeControlStatus(statusTime, status);
-                return true;
+                if(isOnFloor || isInWater)
+                {
+                    ChangeControlStatus(statusTime, status);
+                    return true;
+                }
+                else
+                {
+                    if(status == PlayerControlStatus.Crouch)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        ChangeControlStatus(statusTime, status);
+                        return true;
+                    }
+                }
 
+            //case PlayerControlStatus.InWater:
+            //    if(status == PlayerControlStatus.Normal ||
+            //       status == PlayerControlStatus.Crouch ||
+            //       status == PlayerControlStatus.AbilityNeedControl ||
+            //       status == PlayerControlStatus.AbilityWithMovement ||
+            //       status == PlayerControlStatus.Stun ||
+            //       status == PlayerControlStatus.Interrupt)
+            //    {
+            //        ChangeControlStatus(statusTime, status);
+            //        return true;
+            //    }
+            //    return false;
             case PlayerControlStatus.Crouch:
                 if (status == PlayerControlStatus.Normal ||
                     status == PlayerControlStatus.Interrupt ||
@@ -155,7 +195,18 @@ public class MovementPlayer : myUpdate
     {
         switch (mode)
         {
+            //只考虑世界坐标系位移
             case MovementMode.PlayerControl:
+                //return false;
+                if(canControllorMovement)
+                {
+                    isPlayerControlMovement = true;
+                    playerControlMovement = movement;
+                    playerControlMovementTotalTime = time;
+                    playerControlMovementSpeed = movement / time;
+                    playerControlMovementCurTime = 0f;
+                    return true;
+                }
                 return false;
 
             case MovementMode.Ability:
@@ -273,6 +324,52 @@ public class MovementPlayer : myUpdate
     {
         isDead = dead;
     }
+    public void SetInWater(bool isInWater)
+    {
+        this.isInWater = isInWater;
+        gravity = isInWater ? waterGravity : gravity;
+    }
+    private bool isLastTouchingWall;
+    //在该方法中，如果第一次触墙则y轴速度为0
+    public void SetSideWall(int sideNumber)
+    {
+        if (isInWater || controlStatus != PlayerControlStatus.Normal)
+        {
+            isSideLeftWall = false;
+            isSideRightWall = false;
+            isLastTouchingWall = false;
+            return;
+        }
+        switch (sideNumber)
+        {
+            case 0:
+                isSideLeftWall = false;
+                isSideRightWall = false;
+                gravity = DefalutGravity;
+                isLastTouchingWall = false;
+                return;
+            case 1:
+                isSideLeftWall = true;
+                isSideRightWall = false;
+                gravity = climbingGravity;
+                if(!isLastTouchingWall)
+                {
+                    ySpeed = ySpeed > 0 ? 0 : ySpeed * 0.4f;
+                    isLastTouchingWall = true;
+                }
+                return;
+            case 2:
+                isSideRightWall = true;
+                isSideLeftWall = false;
+                gravity = climbingGravity;
+                if (!isLastTouchingWall)
+                {
+                    ySpeed = ySpeed > 0 ? 0 : ySpeed * 0.4f;
+                    isLastTouchingWall = true;
+                }
+                return;
+        }
+    }
     public void RequestJump()
     {
         isRequestJump = true;
@@ -313,6 +410,27 @@ public class MovementPlayer : myUpdate
     private bool isRequestJump = false;
     private int jumpNumberCur = 0;
 
+    //在水中逻辑变量
+    private bool isInWater = false;
+    private float xDragInWater = 0.6f;
+    private float waterJumpSpeed = 3f;
+    private float waterDipGravity = 8f;
+    private float waterGravity = 6f;
+    private float waterMaxSpeed = 5f;
+    private float waterRestoreForceRatio = 5f;
+
+    //施法移动减速变量
+    private float castingXSpeedRatio = 0.2f;
+
+    //爬墙跳逻辑变量
+    private bool isSideLeftWall = false;
+    private bool isSideRightWall = false;
+    public static readonly float climbingGravity = 5f;
+    private Vector2 leftClimbingJumpVector = new Vector2(1.4f, 2f);
+    private Vector2 rightClimbingJumpVector = new Vector2(-1.4f, 2f);
+    private float climbingJumpTime = 0.25f;
+    private float maxClimbingFallingSpeed = 4f;
+
 
     //与状态控制相关的整个类所用到的变量
     public enum PlayerControlStatus { Normal, Crouch, Casting, AbilityWithMovement, AbilityNeedControl, Interrupt, Stun}
@@ -341,6 +459,7 @@ public class MovementPlayer : myUpdate
 
     //动画组件(改成public,用于其他类调用）
     public PlayerAnim playerAnim;
+    private Rigidbody2D rigid;
 
     private Text debugInfo1;
     private Text debugInfo2;
@@ -370,6 +489,8 @@ public class MovementPlayer : myUpdate
         colliderCrouchOffset = crouchCollider.offset;
         colliderCrouchSize = crouchCollider.size;
 
+        rigid = GetComponent<Rigidbody2D>();
+
         detector = GameObject.Find("FloorDetector").GetComponent<OnFloorDetector>();
         if(detector == null)
         {
@@ -389,6 +510,17 @@ public class MovementPlayer : myUpdate
 
         //初始化游戏菜单管理组件
         gameMenu = GameObject.Find("GameMenu").GetComponent<GameMenu>();
+        if (gameMenu == null)
+        {
+            Debug.LogError("在" + gameObject.name + "中，没有找到GameMenu");
+        }
+
+        //初始化事件管理器
+        eventManager = GameObject.Find("EventManager").GetComponent<EventManager>();
+        if (eventManager == null)
+        {
+            Debug.LogError("在" + gameObject.name + "中，没有找到EventManager");
+        }
     }
 
     //在ui上输出movement状态信息
@@ -406,6 +538,8 @@ public class MovementPlayer : myUpdate
         debugInfoText.AppendLine(controlStatusTotalTime.ToString());
         debugInfoText.Append("controlStatusCurTime: ");
         debugInfoText.AppendLine(controlStatusCurTime.ToString());
+        debugInfoText.Append("重力: ");
+        debugInfoText.AppendLine(gravity.ToString());
 
         debugInfoText.AppendLine("探测器状态");
         debugInfoText.Append("isOnFloor: ");
@@ -550,6 +684,10 @@ public class MovementPlayer : myUpdate
         {
             jumpNumberCur = 0;
         }
+        else if(isInWater || isSideLeftWall || isSideRightWall)
+        {
+            jumpNumberCur = 0;
+        }
 
         if(controlStatus == PlayerControlStatus.Casting)
         {
@@ -568,7 +706,9 @@ public class MovementPlayer : myUpdate
         needXRightOffset = false;
         needXLeftOffset = false;
 
-        if (controlStatus != PlayerControlStatus.Normal)
+        if ((controlStatus != PlayerControlStatus.Normal || isPlayerControlMovement) && 
+            controlStatus != PlayerControlStatus.Stun &&
+            controlStatus != PlayerControlStatus.Interrupt)
         {
             ySpeed = 0;
             isGravity = false;
@@ -620,6 +760,13 @@ public class MovementPlayer : myUpdate
     private Vector2 controllorMovement = new Vector2(0,0);
     private bool isControllorMovement = false;
     private bool canControllorMovement = true;
+
+    //控制位移，以时间结算
+    private Vector2 playerControlMovement;
+    private Vector2 playerControlMovementSpeed = new Vector2(0, 0);
+    private float playerControlMovementTotalTime = 0f;
+    private float playerControlMovementCurTime = 0f;
+    private bool isPlayerControlMovement = false;
 
     //变速状态管理(加速、减速的计时结构)
     private const int SPEED_RATIO_LIST_MAX_SIZE = 32;
@@ -694,7 +841,7 @@ public class MovementPlayer : myUpdate
                 canActiveTransport = true;
                 canAbilityMovement = true;
                 canPassiveMovement = true;
-                canControllorMovement = false;
+                canControllorMovement = true;
 
                 isPassiveMovement = false;
                 isControllorMovement = false;
@@ -808,8 +955,9 @@ public class MovementPlayer : myUpdate
 
     //update函数，处理异常状态计时与恢复、下蹲逻辑、起跳逻辑、根据这一帧的运动记录结算运动情况、结算减速
     override public void MyUpdate()
-    {
-        //Debug.Log("1Player当前的状态是" + controlStatus.ToString());
+{ 
+
+        //Debug.Log("1Player当前的重力是" + gravity.ToString());
         if (isDead)
         {
             gameMenu.GameOver();
@@ -848,8 +996,20 @@ public class MovementPlayer : myUpdate
         //在处理正常状态
         else
         {
+            if (isInWater)
+            {
+                //清空时恢复gravity
+                if (isRequestCrouch)
+                {
+                    gravity = waterDipGravity;
+                }
+                else
+                {
+                    gravity = waterGravity;
+                }
+            }
             //如果在地面上
-            if (isOnFloor)
+            else if (isOnFloor)
             {
                 //处理下蹲逻辑
                 //如果在地面上按下了下蹲键，或者，没有按下下蹲，但是蹲的时候头上有东西，则保持下蹲
@@ -875,11 +1035,45 @@ public class MovementPlayer : myUpdate
         {
             if (isRequestJump && jumpNumberCur < jumpNumberMax)
             {
-                ySpeed = jumpForce + ySpeed * jumpOriRatio;
-                jumpNumberCur++;
+                if(isInWater)
+                {
+                    ySpeed = waterJumpSpeed + ySpeed * jumpOriRatio;
+                }
+                else if((isSideLeftWall || isSideRightWall) && controlStatus == PlayerControlStatus.Normal)
+                {
+                    Debug.Log("请求抓墙跳");
+                    if(isSideLeftWall)
+                    {
+                        jumpNumberCur++;
+                        RequestMoveByTime(leftClimbingJumpVector, climbingJumpTime, MovementMode.PlayerControl);
+                    }
+                    else if(isSideRightWall)
+                    {
+                        jumpNumberCur++;
+                        RequestMoveByTime(rightClimbingJumpVector, climbingJumpTime, MovementMode.PlayerControl);
+                    }
+                }
+                else
+                {
+                    ySpeed = jumpForce + ySpeed * jumpOriRatio;
+                    jumpNumberCur++;
+
+                    StatisticsCollector.jumpNumber++;
+                    //触发事件
+                    if (isOnFloor)
+                    {
+                        jumpArray[0] = 1;
+                    }
+                    else
+                    {
+                        jumpArray[0] = 2;
+                    }
+                    eventManager.TriggerEvent(EventManager.OnJumpNumChange, jumpArray);
+                }
             }
         }
 
+        //Debug.Log("2Player当前的重力是" + gravity.ToString());
         //Debug.Log("2Player当前的状态是" + controlStatus.ToString());
 
         //结算运动情况
@@ -944,13 +1138,36 @@ public class MovementPlayer : myUpdate
             //放大x轴向速度
             xSpeed += controllorMovement.x * xSpeedRatio;
             ySpeed += controllorMovement.y;
+
+            if(isPlayerControlMovement)
+            {
+                xSpeed += playerControlMovementSpeed.x;
+                ySpeed += playerControlMovementSpeed.y;
+                playerControlMovementCurTime += Time.deltaTime;
+
+                if(playerControlMovementCurTime >= playerControlMovementTotalTime)
+                {
+                    playerControlMovementCurTime = 0f;
+                    isPlayerControlMovement = false;
+                }
+            }
+
+            if (controlStatus == PlayerControlStatus.Casting)
+            {
+                xSpeed *= castingXSpeedRatio;
+            }
         }
 
+        //Debug.Log("3Player当前的重力是" + gravity.ToString());
         //结算减速列表
 
         if (controlStatus == PlayerControlStatus.Crouch)
         {
             xSpeed /= crouchDivision;
+        } 
+        else if(isInWater)
+        {
+            xSpeed *= xDragInWater;
         }
 
 
@@ -958,7 +1175,19 @@ public class MovementPlayer : myUpdate
         if (isGravity)
         {
             ySpeed -= gravity * Time.deltaTime;
-            ySpeed = ySpeed < yFallingMaxSpeed ? yFallingMaxSpeed : ySpeed;
+            if(isInWater)
+            {
+                if (ySpeed > waterMaxSpeed) ySpeed -= ySpeed * waterRestoreForceRatio * Time.deltaTime;
+                else if (ySpeed < -waterMaxSpeed) ySpeed -= ySpeed * waterRestoreForceRatio * Time.deltaTime;
+            }
+            else if(isSideLeftWall || isSideRightWall)
+            {
+                ySpeed = ySpeed < -maxClimbingFallingSpeed ? -maxClimbingFallingSpeed : ySpeed;
+            }
+            else
+            {
+                ySpeed = ySpeed < yFallingMaxSpeed ? yFallingMaxSpeed : ySpeed;
+            }
         }
 
         //检测墙体碰撞，以便速度归0
@@ -979,7 +1208,8 @@ public class MovementPlayer : myUpdate
         }
 
         //转身: 只有在Normal or Crouch状态下才回转身，其他状态不会转身
-        if(!isInAbnormalStatus || controlStatus == PlayerControlStatus.AbilityNeedControl)
+        if(!isInAbnormalStatus || controlStatus == PlayerControlStatus.AbilityNeedControl
+            || controlStatus == PlayerControlStatus.Casting)
         {
             if (xMovementPerFrame < 0)
             {
@@ -996,6 +1226,8 @@ public class MovementPlayer : myUpdate
         ////控制y轴速度绝对值在最大值以内
         //ySpeed = ySpeed > yMaxSpeed ? yMaxSpeed : ySpeed;
         //ySpeed = ySpeed < -yMaxSpeed ? -yMaxSpeed : ySpeed;
+        xMovementPerFrame += rigid.velocity.x * Time.deltaTime;
+        yMovementPerFrame += rigid.velocity.y * Time.deltaTime;
 
         transform.Translate(xMovementPerFrame, yMovementPerFrame, 0, Space.Self);
 
@@ -1013,6 +1245,7 @@ public class MovementPlayer : myUpdate
             transform.Translate(xFloorOffset, 0, 0, Space.Self);
         }
 
+        //Debug.Log("4Player当前的重力是" + gravity.ToString());
         SetAnimStatus();
 
         //Debug.Log("3Player当前的状态是" + controlStatus.ToString());
@@ -1020,7 +1253,7 @@ public class MovementPlayer : myUpdate
         Clear();
     }
     //所在update队列为Player
-    public UpdateType updateType = UpdateType.Player;
+    private UpdateType updateType = UpdateType.Player;
     //player中优先级等级为9
     private int priorityInType = 9;
     public override UpdateType GetUpdateType()

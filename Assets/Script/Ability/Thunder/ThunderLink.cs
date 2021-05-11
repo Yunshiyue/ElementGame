@@ -2,7 +2,7 @@
  * @Description: 闪电链物体在主角技能组件SetTarget后就会寻找敌人，在飞到敌人周围后对敌人造成伤害，
  *               并待机等待下一次Set敌人
  * @Author: ridger
-1-2-25 23:37
+
  */
 using System.Collections;
 using System.Collections.Generic;

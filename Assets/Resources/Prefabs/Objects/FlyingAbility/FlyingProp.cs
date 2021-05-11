@@ -1,7 +1,7 @@
 ﻿/**
  * @Description: FlyingProp类是飞行道具抽象类，包含抽象方法移动和超时检测
  * @Author: CuteRed
-1-2-1 18:52
+
  *     
 */
 using System.Collections;

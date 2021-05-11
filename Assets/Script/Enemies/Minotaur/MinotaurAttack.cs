@@ -33,10 +33,10 @@ public class MinotaurAttack : AttackEnemies
     private Vector2 flyingFromDirection;
 
     //冲刺 技能4
-    private int dashDamage = 2;
+    //private int dashDamage = 2;
     private float dashAttackTime = 3f;
-    private float dashInterruptTime = 1f;
-    private Vector2 dashInterruptVetcor = new Vector2(4, 0);
+    //private float dashInterruptTime = 1f;
+    //private Vector2 dashInterruptVetcor = new Vector2(4, 0);
     void Awake()
     {
         canFight = GetComponent<CanFight>();
@@ -61,6 +61,7 @@ public class MinotaurAttack : AttackEnemies
         whirlWindColl = GameObject.Find("WhirlWindColl").GetComponent<Collider2D>();
         cameraTransform = GameObject.Find("Main Camera").transform;
 
+        //火球位置
         flyingFromDirection = new Vector2(movementComponent.originx-3f, 10f);
 
         //用于行为树的一些参数

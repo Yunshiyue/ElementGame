@@ -1,7 +1,7 @@
 ﻿/**
  * @Description: GameObjectPool类是对象池的基类，该类要被具体的类继承，负责生成需要频繁生成和消失的对象
  * @Author: CuteRed
-1-2-16 1:16
+
  *      
 */
 
@@ -134,7 +134,7 @@ public class GameObjectPool
     /// <returns>生成的对象</returns>
     public virtual GameObject Get()
     {
-        Debug.Log("对象池" + poolType + "Get。" + " 最大存放：" + maxCount + " 当前存放" + pool.Count);
+        //Debug.Log("对象池" + poolType + "Get。" + " 最大存放：" + maxCount + " 当前存放" + pool.Count);
         GameObject returnObj;
 
         //如果对象池中有对象，直接取出
@@ -160,7 +160,7 @@ public class GameObjectPool
     /// <param name="obj">要删除的对象</param>
     public virtual void Recycle(GameObject obj)
     {
-        Debug.Log("对象池" + poolType + "Recycle。" + " 最大存放：" + maxCount + " 当前存放" + pool.Count);
+        //Debug.Log("对象池" + poolType + "Recycle。" + " 最大存放：" + maxCount + " 当前存放" + pool.Count);
         //如果对象已经在对象池中，则不能重复放入
         if (pool.Contains(obj))
         {

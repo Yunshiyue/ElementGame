@@ -28,7 +28,7 @@ abstract public class FlyingSpell : Spell
     }
     public override void Enable()
     {
-        Debug.Log(spellName + "被启用了！");
+        //Debug.Log(spellName + "被启用了！");
     }
     public override void Disable()
     {

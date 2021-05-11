@@ -9,7 +9,7 @@
  * 初始化说明：方向
  * 
  * @Author: CuteRed
-1-2-23 12:12
+
  *
 */
 
@@ -120,10 +120,12 @@ public class FireBallAbility : FlyingAbility
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Debug.Log(collision.gameObject.name);
         CanBeFighted beFought;
 
         if (collision.TryGetComponent<CanBeFighted>(out beFought))
         {
+            
             //不可对同一目标造成2次伤害
             if (collision.gameObject.layer == targetLayer && !fought.Contains(beFought))
             {             
@@ -137,6 +139,7 @@ public class FireBallAbility : FlyingAbility
             //机关
             else if (collision.gameObject.layer == mechanism)
             {
+                Debug.Log("FireBallAbility对" + beFought.name + "造成伤害");
                 canFight.Attack(beFought, damage, AttackInterruptType.NONE, ElementAbilityManager.Element.Fire);
             }
         }

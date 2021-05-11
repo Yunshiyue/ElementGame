@@ -1,7 +1,7 @@
 ﻿/**
  * @Description: MovablePlatform是可移动平台类，可以任意方向循环移动
  * @Author: CuteRed
-1-3-3 19:56
+
  *     
 */
 

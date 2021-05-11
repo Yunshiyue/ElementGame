@@ -69,13 +69,13 @@ abstract public class Defence : MonoBehaviour
     public int getHpReduction() { return hpReduction; }
 
     //将下一帧的hasSetStatistic设置为false，并清除CanBeFighted的数据
-    public void Clear()
+    public virtual void Clear()
     {
         hasSetStatistic = false;
         attackedCheck.Clear();
     }
     //统计CanBeFighted中的信息，包括统计相关、受击次数、毛伤害总和、最大打断类型
-    protected void SetStatistic()
+    protected virtual void SetStatistic()
     {
         hasSetStatistic = true;
         if(!hasBeenInitialized)

@@ -24,6 +24,7 @@ public class FireBallSpell : FlyingSpell
         a.SetThrower(player);
         a.SetTargetLayerName("Enemy");
         a.SetStartPosition(player.transform.position);
+        a.SetMaxExistTime(0.7f);
 
         if (movementComponent.IsFacingLeft())
         {

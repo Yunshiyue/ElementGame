@@ -14,7 +14,7 @@ public class InteractiveRange : MonoBehaviour
         Interactable target;
         if(collision.TryGetComponent<Interactable>(out target))
         {
-            Debug.Log(target.GetObjectNameOnUI() + "进入交互范围");
+            //Debug.Log(target.GetObjectNameOnUI() + "进入交互范围");
             interactivePlayer.AddInteractableAndShowUI(target);
         }
     }

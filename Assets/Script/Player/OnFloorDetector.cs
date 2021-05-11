@@ -2,9 +2,9 @@
  * @Description: 探测器组件，player的子物体，在update中探测主角上下左右是否有碰撞体，并通知主角的movement组件。
  *               通过raycast实现，调用顺序应该在movement前。
  * @Author: ridger
-1-2-13 21:18
+
  * 
-1-2-24 11:24
+
  * @Editor: ridger
  * @Edit: 1. 修改了下方探测器的位置设定逻辑，现在下方探测器长度由两部分组成，一部分是player内部探测器长度，用于
  *           固定探测器的初始位置，以及计算当触碰到地板的时候y轴距离补偿。另一部分是是player外部探测器长度，用于检测
@@ -27,20 +27,26 @@ public class OnFloorDetector : myUpdate
     //保存player中的collider组件
     private CapsuleCollider2D coll;
 
+    //水探测器长度
+    private float waterDetectorLength = 0.1f;
     //头顶探测器长度
     private float headDetectorLength = 0.3f;
     //脚下探测器长度参数
-    private static float floorOutOfBodyDistance = 0.1f;
+    private static float floorOutOfBodyDistance = 0.02f;
     private static float floorDetectorAsecendDistance = 0.25f;
     private static float floorDetectorLength = floorOutOfBodyDistance + floorDetectorAsecendDistance;
     //其他探测器长度
-    private static float LRDetectorInsideLength = 0.2f;
+    private static float LRDetectorInsideLength = 0.02f;
     private static float LRDetectorOutsideLength = 0.05f;
     private static float LRDetectorTotalLength = LRDetectorInsideLength + LRDetectorOutsideLength;
     //脚下探测器x轴向缩放比例
     private float detectorInsideOffsetRatio = 0.6f;
     //获得地面层
     private LayerMask groundLayer;
+    private LayerMask waterLayer;
+
+    private bool isTouchingLeftGround;
+    private bool isTouchingRightGround;
 
     private GameObject player;
 
@@ -61,6 +67,7 @@ public class OnFloorDetector : myUpdate
         }
 
         groundLayer = LayerMask.GetMask("Platform");
+        waterLayer = LayerMask.GetMask("Water");
 
         //给探测器固定位置
         ldnx = -coll.size.x / 2 + LRDetectorInsideLength;
@@ -147,6 +154,15 @@ public class OnFloorDetector : myUpdate
         headRightRay.x = hrcx;
         headRightRay.y = hrcy;
     }
+
+    public bool isLeftTouchingGround()
+    {
+        return isTouchingLeftGround;
+    }
+    public bool isRightTouchingGround()
+    {
+        return isTouchingRightGround;
+    }
     //通过封装的raycast方法，检测射线是否碰撞到地面。并通过set方法通知movementplayer。
     override public void MyUpdate()
     {
@@ -189,6 +205,7 @@ public class OnFloorDetector : myUpdate
         RaycastHit2D leftDownCheck = Raycast(leftDownRay, Vector2.left, LRDetectorTotalLength, groundLayer);
         if (leftDownCheck || leftTopCheck)
         {
+            isTouchingLeftGround = true;
             playerMovementComponent.SetLeftDetect(gameObject, true);
             if(playerMovementComponent.GetXSpeed() < 0)
             {
@@ -201,6 +218,7 @@ public class OnFloorDetector : myUpdate
         else
         {
             playerMovementComponent.SetLeftDetect(gameObject, false);
+            isTouchingLeftGround = false;
         }
 
         //右方探测器
@@ -208,10 +226,11 @@ public class OnFloorDetector : myUpdate
         RaycastHit2D rightDownCheck = Raycast(rightDownRay, Vector2.right, LRDetectorTotalLength, groundLayer);
         if (rightDownCheck || rightTopCheck)
         {
+            isTouchingRightGround = true;
             playerMovementComponent.SetRightDetect(gameObject, true);
             //if (playerMovementComponent.GetXSpeed() > 0)
             //{
-                Debug.Log("右侧侧x轴距离补偿");
+                //Debug.Log("右侧侧x轴距离补偿");
                 //取hit中最大的那个(如果只有一个探针碰到则另一个distance = 0)进行移动
                 float maxDistance = rightTopCheck.distance > rightDownCheck.distance ? rightTopCheck.distance : rightDownCheck.distance;
                 playerMovementComponent.SetRightOffset(maxDistance - LRDetectorInsideLength);
@@ -219,9 +238,22 @@ public class OnFloorDetector : myUpdate
         }
         else
         {
+            isTouchingRightGround = false;
             playerMovementComponent.SetRightDetect(gameObject, false);
         }
 
+        if(rightTopCheck && Input.GetAxis("Horizontal") > 0f)
+        {
+            playerMovementComponent.SetSideWall(2);
+        }
+        else if(leftTopCheck && Input.GetAxis("Horizontal") < 0f)
+        {
+            playerMovementComponent.SetSideWall(1);
+        }
+        else
+        {
+            playerMovementComponent.SetSideWall(0);
+        }
         //上方探测器
         RaycastHit2D headLeftCheck = Raycast(headLeftRay, Vector2.up, headDetectorLength, groundLayer);
         RaycastHit2D headRightCheck = Raycast(headRightRay, Vector2.up, headDetectorLength, groundLayer);
@@ -232,6 +264,17 @@ public class OnFloorDetector : myUpdate
         else
         {
             playerMovementComponent.SetDownFloor(gameObject, false);
+        }
+
+        RaycastHit2D halfInWater = Raycast(halfInWaterRay, Vector2.down, waterDetectorLength, waterLayer);
+        if(halfInWater)
+        {
+            playerMovementComponent.SetInWater(true);
+            //Debug.Log("进入水中");
+        }
+        else
+        {
+            playerMovementComponent.SetInWater(false);
         }
     }
 
@@ -275,6 +318,7 @@ public class OnFloorDetector : myUpdate
     private Vector2 rightDownRay = new Vector2(0, 0);
     private Vector2 headRightRay = new Vector2(0, 0);
     private Vector2 headLeftRay = new Vector2(0, 0);
+    private Vector2 halfInWaterRay = new Vector2(0, 0);
     private float descentDistance = 0.2f;
     private float ldnx;
     private float ldny;

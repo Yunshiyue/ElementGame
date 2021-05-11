@@ -2,8 +2,11 @@
  * @Description: CombinationSwitch是组合机关类，组合机关可以与其他多个机关共同使用，当他们全部打开后，可触发(多对多)
  * 其他多个机关
  * @Author: CuteRed
-1-3-6 10:40
- *     
+
+ * 
+
+ * @Editor: CuteRed
+ * @Edit: 以前将多个触发条件保存在列表中，触发则移出；现在改为保存在字典中，修改value（为适应限时机关的需求）
 */
 
 using System.Collections;
@@ -16,6 +19,7 @@ public class CombinationSwitch : Mechanism
     /// 机关的触发条件，一个机关可能有多个条件触发
     /// </summary>
     public List<Mechanism.TiggerType> triggerConditions = new List<TiggerType>();
+    public Dictionary<Mechanism.TiggerType, bool> triggerConditionsDic = new Dictionary<TiggerType, bool>();
 
     /// <summary>
     /// 该开关要触发的机关
@@ -28,12 +32,12 @@ public class CombinationSwitch : Mechanism
     public List<GameObject> combinationMechanisms = new List<GameObject>();
 
     [Header("触发参数")]
-    private CanBeFoughtMachanism canBeFought;
-    private int triggerNum = 0;
+    protected CanBeFoughtMachanism canBeFought;
+    protected int triggerNum = 0;
 
     [Header("时间参数")]
     public float triggerIntervalTime = 2.0f;
-    private float passTime = 0.0f;
+    protected float passTime = 0.0f;
 
     protected override void Start()
     {
@@ -42,6 +46,14 @@ public class CombinationSwitch : Mechanism
         if (triggerConditions.Count == 0)
         {
             Debug.LogError("在" + gameObject.name + "中，未初始化triggerConditions");
+        }
+        else
+        {
+            //初始化字典
+            foreach (Mechanism.TiggerType triggerType in triggerConditions)
+            {
+                triggerConditionsDic.Add(triggerType, false);
+            }
         }
 
         if (mechanisms.Count == 0)
@@ -54,7 +66,7 @@ public class CombinationSwitch : Mechanism
         enabled = false;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         //判断时间间隔
         if (passTime > triggerIntervalTime)
@@ -83,9 +95,9 @@ public class CombinationSwitch : Mechanism
     public override void Trigger(TiggerType triggerType)
     {
         //检测是否有该触发条件
-        if (triggerConditions.Contains(triggerType))
+        if (triggerConditionsDic.ContainsKey(triggerType))
         {
-            triggerConditions.Remove(triggerType);
+            triggerConditionsDic[triggerType] = true;
 
             //检测所有触发条件是否满足
             if (TriggerDetect())
@@ -119,6 +131,15 @@ public class CombinationSwitch : Mechanism
     /// <returns></returns>
     protected override bool TriggerDetect()
     {
-        return !isTriggered && triggerConditions.Count == 0;
+        bool isAllConditionsTriggerd = true;
+        foreach (bool triggered in triggerConditionsDic.Values)
+        {
+            if (!triggered)
+            {
+                isAllConditionsTriggerd = false;
+                break;
+            }
+        }
+        return !isTriggered && isAllConditionsTriggerd;
     }
 }

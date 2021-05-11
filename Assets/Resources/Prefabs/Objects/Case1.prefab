@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6707214411539062553}
   - component: {fileID: 6707214411539062552}
   - component: {fileID: 6707214411539062555}
+  - component: {fileID: 7586442498914106671}
   m_Layer: 0
   m_Name: Case1
   m_TagString: Untagged
@@ -98,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ead2b6860ade5b469a07ba7657d92a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectNameOnUI: "\u94C1\u7BB1\u5B50"
 --- !u!50 &6707214411539062553
 Rigidbody2D:
   serializedVersion: 4
@@ -106,7 +108,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6707214411539062565}
-  m_BodyType: 0
+  m_BodyType: 2
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -157,3 +159,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ead2b6860ade5b469a07ba7657d92a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectNameOnUI: 
+--- !u!114 &7586442498914106671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6707214411539062565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3390ca5346073b64fb0f7ca711b2e137, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Thing1: Gold
+  Thing1Number: 3
+  Thing2: MainElementStone
+  Thing2Number: 2
+  Thing3: AElementStone
+  Thing3Number: 1
+  Thing4: BElementStone
+  Thing4Number: 1
+  Thing5: 
+  Thing5Number: 0

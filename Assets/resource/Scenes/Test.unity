@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba37811782ab66646a26ebf92a69c500, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasInitialize: 0
   updateType: 2
 --- !u!1 &9356020
 GameObject:
@@ -816,7 +817,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294798745}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 6.30711, y: 0.01721859, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 825733009}
@@ -1224,7 +1225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &482246391
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1527,7 +1528,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.84, y: 2.8600001, z: -12.885237}
+  m_LocalPosition: {x: 3.5328903, y: 2.8427815, z: -12.885237}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 294798746}
@@ -3352,6 +3353,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 497e9300cdfd20a4f928d6c8479088a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasInitialize: 0
 --- !u!114 &1610635549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3364,15 +3366,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c0d38aab5a66745b904077afc34124, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isGravity: 1
-  gravity: 5
-  jumpForce: 5
-  crouchDivision: 3
-  jumpNumberMax: 2
-  xSpeedRatio: 3
-  yMaxSpeed: 5
+  hasInitialize: 0
   playerAnim: {fileID: 0}
-  updateType: 2
 --- !u!114 &1610635550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3437,7 +3432,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23833a8c322e82a4ba5418feb281e494, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  armor: 1
 --- !u!95 &1610635555
 Animator:
   serializedVersion: 3
@@ -3469,6 +3463,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a04a445b02a0343895d51ab58a9766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasInitialize: 0
+  cameraTransform: {fileID: 0}
 --- !u!1 &1753597097
 GameObject:
   m_ObjectHideFlags: 0

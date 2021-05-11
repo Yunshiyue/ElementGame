@@ -17,7 +17,7 @@ interface Ability
 {
     void Activate(ElementAbilityManager.Element aElement, ElementAbilityManager.Element bElement);
     void DisActivate();
-    bool Casting();
+    bool Casting(bool isFullySpelt, ElementAbilityManager.Element aElement, ElementAbilityManager.Element bElement);
     void ShortSpell();
     void FullySpell(ElementAbilityManager.Element aElement, ElementAbilityManager.Element bElement);
     int NextAuxiliarySpellCost();

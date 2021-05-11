@@ -12,7 +12,7 @@ public class RemoteAutoFetch : Fetch
     private float cannotBeFetchUntil = 0.5f;
     private void Reset()
     {
-        speed = 5f;
+        speed = 10f;
     }
     protected virtual void Awake()
     {
@@ -24,6 +24,8 @@ public class RemoteAutoFetch : Fetch
         isFetched = true;
     }
 
+    private bool isJustBroned = true;
+    private Rigidbody2D rb;
     // Update is called once per frame
     void Update()
     {
@@ -35,6 +37,15 @@ public class RemoteAutoFetch : Fetch
 
         if(isFetched)
         {
+            if(isJustBroned)
+            {
+                if (TryGetComponent<Rigidbody2D>(out rb))
+                {
+                    rb.isKinematic = true;
+                    rb.velocity = Vector2.zero;
+                    isJustBroned = false;
+                }
+            }
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
             if(Vector2.Distance(transform.position, player.transform.position) < 0.7f)
             {

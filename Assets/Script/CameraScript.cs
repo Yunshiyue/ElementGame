@@ -5,10 +5,12 @@ using DG.Tweening;
 
 public class CameraScript : MonoBehaviour
 {
-
     public Transform follower;
     public float smoothing;
     public BoxCollider2D cameraBounds;
+
+    public float offsetX = 0f;
+    public float offsetY = 0f;
     
     private Vector3 targetPos;
     //相机移动范围
@@ -24,14 +26,16 @@ public class CameraScript : MonoBehaviour
     {
         if (follower != null)
         {
+            //Debug.Log("follower不为空!");
             if(transform.position != follower.position)
             {
-                targetPos.x = follower.position.x;
-                targetPos.y = follower.position.y;
+                targetPos.x = follower.position.x+offsetX;
+                targetPos.y = follower.position.y+offsetY;
                 targetPos.z = transform.position.z;
-                //transform朝targetPos移动smooth距离
+                //移动范围
                 targetPos.x = Mathf.Clamp(targetPos.x, minPos.x, maxPos.x);
                 targetPos.y = Mathf.Clamp(targetPos.y, minPos.y, maxPos.y);
+                //transform朝targetPos移动smooth距离
                 transform.position = Vector3.Lerp(transform.position, targetPos, smoothing);
             }
         }

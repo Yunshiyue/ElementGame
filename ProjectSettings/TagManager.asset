@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - MoveablePlatform
+  - SceneSwitcher
   layers:
   - Default
   - TransparentFX
@@ -57,4 +58,7 @@ TagManager:
     locked: 0
   - name: playerEffect
     uniqueID: 3173715789
+    locked: 0
+  - name: enemies
+    uniqueID: 488894887
     locked: 0

@@ -1,7 +1,7 @@
 ﻿/**
  * @Description: ElementSwitch类为负责显示元素的UI类，根据当前元素动态显示在UI上
  * @Author: CuteRed
-1-3-7 10:00
+
 */
 
 using System.Collections;
@@ -68,6 +68,6 @@ public class ElementSwitch : MonoBehaviour
         aElement.overrideSprite = elements[a];
         bElement.overrideSprite = elements[b];
 
-        Debug.Log("切换元素");
+        //Debug.Log("切换元素");
     }
 }

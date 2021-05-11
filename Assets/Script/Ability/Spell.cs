@@ -7,7 +7,7 @@
  *               Disable：当主角切换到别的元素时调用，释放该技能所需要的资源
  *               向子类提供Player变量和playerAnim变量
  * @Author: ridger
-1-3-6 11:19
+
  * 
  */
 
@@ -23,9 +23,9 @@ abstract public class Spell
     
     //技能施法 火雷冰风
     public enum SkillType { Null,
-                            FireBall,Meteorite,FireThunder,ProtectiveFireBall,Lava,RemoteControlBomb, F1, F2, F3,
-                            ThunderBall,ThunderLong,ThunderFire,ThunderIce,ThunderWind, ThunerElf, T1, T2, T3,
-                            IceSword,IceArrow,IceHammer,IceShield,IceFire,IceThunder,IceWind,IceHeal, I1, I2, I3,
+                            FireBall,Meteorite,FireThunder,ProtectiveFireBall,RocketPack,RemoteControlBomb, Lava, MeteorShower, SelfExplosion,
+                            ThunderBall,ThunderLong,ThunderFire,ThunderIce,ThunderWind, ThunderElf, T1, T2, T3,
+                            IceSword,IceArrow,IceHammer,IceShield,IceFire,IceThunder,IceBlink,IceShot,IceShieldMash,IceHammerDance,IceHeal, I1, I2, I3,
                             WindShort, Hurricane,WindFire, WindThunder,WindIce,WindField, W1, W2, W3 }
 
     public virtual void Initialize()

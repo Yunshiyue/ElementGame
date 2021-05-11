@@ -1,7 +1,7 @@
 ﻿/**
  * @Description: TriggerablePlatform为可触发的平台类，由Switch机关触发。默认脚本失效，在被触发后生效
  * @Author: CuteRed
-1-3-3 20:46
+
  *     
 */
 

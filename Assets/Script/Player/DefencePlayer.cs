@@ -30,11 +30,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefencePlayer : Defence
+public class DefencePlayer : Defence, ClassSaver
 {
     private int armor = 1;
     private bool isShieldUp = false;
     private int shieldPoint = 0;
+    private int recoveredHp = 0;
     private MovementPlayer movementComponent;
 
     //挨打无敌参数
@@ -69,16 +70,64 @@ public class DefencePlayer : Defence
 
     public void Heal(int healPoint)
     {
-        hp += healPoint;
-        hp = hp > hpMax ? hpMax : hp;
+        //hp += healPoint;
+        //hp = hp > hpMax ? hpMax : hp;
+        if ((hp+healPoint)> hpMax)
+        {
+            recoveredHp = hpMax - hp;
+            hp = hpMax;
+        }
+        else
+        {
+            recoveredHp = healPoint;
+            hp += healPoint;
+        }
     }
-    
+
+    public override void Clear()
+    {
+        base.Clear();
+        recoveredHp = 0;
+    }
+
     //实现了抽象方法，在这个方法中包含你想通过这个组件做到的全部事情，在Player控制脚本中逐帧调用该方法
     public override void AttackCheck()
     {
         SetStatistic();
         AttackImmuneCheck();
         Damage();
+        GetStatisticCollector();
+    }
+
+    private void GetStatisticCollector()
+    {
+        AttackContent[] attacks = attackedCheck.GetAttackedList();
+        if(hp > 0)
+        {
+            for (int i = 0; i < attackNum; i++)
+            {
+                switch(attacks[i].who.tag)
+                {
+                    case "Slimer": StatisticsCollector.hitBySlimer++; break;
+                    case "Witcher": StatisticsCollector.hitByWitch++; break;
+                    case "Minotaur": StatisticsCollector.hitByMinotaur++; break;
+                    //default: Debug.LogError(attacks[i].who.tag + " 没有录入统计信息中！"); break;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < attackNum; i++)
+            {
+                switch (attacks[i].who.tag)
+                {
+                    case "Slimer": StatisticsCollector.deadBySlimer++; break;
+                    case "Witcher": StatisticsCollector.deadByWitch++; break;
+                    case "Minotaur": StatisticsCollector.deadByMinotaur++; break;
+                    //default: Debug.LogError(attacks[i].who.tag + " 没有录入统计信息中！"); break;
+                }
+            }
+        }
     }
 
     public override void Initialize(int hpMax)
@@ -178,23 +227,26 @@ public class DefencePlayer : Defence
     }
 
     public int getArmor() { return armor; }
+    public int getRecoverdHp() { return recoveredHp; }
 
+    public void LoadClass(string content)
+    {
+        ClassSaveHelper helper = new ClassSaveHelper();
+        helper.LoadClassJsonString(content);
+        helper.LoadValue(nameof(hp), out hp);
+    }
 
-    //protected override void Start()
-    //{
-    //    base.Start();
+    public string SaveClass()
+    {
+        ClassSaveHelper helper = new ClassSaveHelper();
+        helper.SaveValue(nameof(hp), hp);
+        return helper.GetJsonString();
+    }
 
-    //    Debug.Log("defenceplayer start")
-    //    GameObject HpPanel = GameObject.Find("HP Panel");
+    public string GetID()
+    {
+        return nameof(DefencePlayer);
+    }
 
-    //    hpArray = new HPItem[hpMax];
-    //    初始化心心数
-    //    for (int i = 0; i < hp; i++)
-    //    {
-    //        Transform hpItem = HpPanel.transform.GetChild(i);
-    //        hpArray[i] = hpItem.GetComponent<HPItem>();
-    //        hpArray[i].Getting();
-    //    }
-    //}
 
 }

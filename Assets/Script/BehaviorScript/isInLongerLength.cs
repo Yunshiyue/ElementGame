@@ -18,8 +18,8 @@ public class IsInLongerLength : Conditional
 
     public override TaskStatus OnUpdate()
     {
-        length = Mathf.Abs(movementComponent.player.transform.position.x - transform.position.x);
-        if (length>longerLength)
+        length = (movementComponent.player.transform.position - transform.position).sqrMagnitude;
+        if (length> Mathf.Pow(longerLength, 2))
         {
             return TaskStatus.Success;
         }

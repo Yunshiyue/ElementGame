@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6145952049898774562}
   - component: {fileID: 6145952049898774573}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: WhirlWindColl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -67,7 +67,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6145952050032881593}
   - component: {fileID: 6145952050032881592}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: CutColl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 6145952050205838707}
   - component: {fileID: 6145952050205838717}
   - component: {fileID: 6145952050205838706}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: DashColl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -516,6 +516,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hasInitialize: 0
+  mechanisms: []
 --- !u!95 &6145952050360371549
 Animator:
   serializedVersion: 3
@@ -546,7 +547,7 @@ GameObject:
   - component: {fileID: 6145952051133057349}
   - component: {fileID: 6145952051133057351}
   - component: {fileID: 6145952051133057348}
-  m_Layer: 13
+  m_Layer: 0
   m_Name: AttackArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}

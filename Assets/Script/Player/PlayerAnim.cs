@@ -28,10 +28,14 @@ public class PlayerAnim : myUpdate
 
     //特效物体
     private GameObject fireThunderEffect;
+    private GameObject selfExplosionEffect;
     private GameObject leftIceThunder;
     private GameObject rightIceThunder;
     private GameObject thunderIceSpecial;
     private GameObject iceShield;
+    private GameObject iceHammer;
+    private GameObject iceMashShield;
+    private GameObject iceHeal;
     private GameObject windThunder;
     private GameObject windShort;
     private Cinemachine.CinemachineImpulseSource MyInpulse;
@@ -41,10 +45,14 @@ public class PlayerAnim : myUpdate
     private void Awake()
     {
         fireThunderEffect = GameObject.Find("FireThunder");
+        selfExplosionEffect = GameObject.Find("SelfExplosion");
         leftIceThunder = GameObject.Find("LeftIceThunder");
         rightIceThunder = GameObject.Find("RightIceThunder");
         thunderIceSpecial = GameObject.Find("ThunderIceSpecial");
         iceShield = GameObject.Find("IceShield");
+        iceHammer = GameObject.Find("IceHammer");
+        iceMashShield = GameObject.Find("IceMashShield");
+        iceHeal = GameObject.Find("IceHeal");
         windThunder = GameObject.Find("WindThunder");
         windShort = GameObject.Find("WindShortMain");
 
@@ -135,11 +143,21 @@ public class PlayerAnim : myUpdate
             case Spell.SkillType.ProtectiveFireBall:
                 protectiveFireBall.ReleaseSpell();
                 break;
-            case Spell.SkillType.Lava:
-                lava.ReleaseSpell();
+            case Spell.SkillType.RocketPack:
+                rocketPackSpell.ReleaseSpell();
                 break;
             case Spell.SkillType.RemoteControlBomb:
                 remoteControlBomb.ReleaseSpell();
+                break;
+            case Spell.SkillType.Lava:
+                lava.ReleaseSpell();
+                break;
+            case Spell.SkillType.MeteorShower:
+                meteorShowerSpell.ReleaseSpell();
+                break;
+            case Spell.SkillType.SelfExplosion:
+                selfExplosionEffect.SetActive(true);
+                selfExplosionSpell.ReleaseSpell();
                 break;
             case Spell.SkillType.ThunderBall:
                 thunderBall.ReleaseSpell();
@@ -156,14 +174,18 @@ public class PlayerAnim : myUpdate
             case Spell.SkillType.ThunderWind:
                 //thunderIceSpecial.SetActive(true);
                 break;
+            case Spell.SkillType.ThunderElf:
+                thunderElfSpell.ReleaseSpell();
+                break;
             case Spell.SkillType.IceSword:
-                //thunderIceSpecial.SetActive(true);
+                iceSword.ReleaseSpell();
                 break;
             case Spell.SkillType.IceArrow:
+                iceArrow.ReleaseSpell();
                 //thunderIceSpecial.SetActive(true);
                 break;
             case Spell.SkillType.IceHammer:
-                //thunderIceSpecial.SetActive(true);
+                iceHammer.SetActive(true);
                 break;
             case Spell.SkillType.IceShield:
                 iceShield.SetActive(true);
@@ -175,8 +197,19 @@ public class PlayerAnim : myUpdate
                 leftIceThunder.SetActive(true);
                 rightIceThunder.SetActive(true);
                 break;
-            case Spell.SkillType.IceWind:
-                iceWind.ReleaseSpell();
+            case Spell.SkillType.IceBlink:
+                iceBlink.ReleaseSpell();
+                break;
+            case Spell.SkillType.IceShot:
+                iceShotSpell.ReleaseSpell();
+                break;
+            case Spell.SkillType.IceShieldMash:
+                Debug.Log("mash!");
+                iceMashShield.SetActive(true);
+                break;
+            case Spell.SkillType.IceHeal:
+                iceHealSpell.ReleaseSpell();
+                iceHeal.SetActive(true);
                 break;
             case Spell.SkillType.WindShort:
                 windShort.SetActive(true);
@@ -206,14 +239,21 @@ public class PlayerAnim : myUpdate
     private Spell meteorite;
     private Spell thunderLong;
     private Spell protectiveFireBall;
-    private Spell lava;
+    private Spell rocketPackSpell;
     private Spell remoteControlBomb;
+    private Spell meteorShowerSpell;
+    private Spell lava;
+    private Spell selfExplosionSpell;
     private Spell thunderBall;
     private Spell thunderFire;
     private Spell thunderWind;
+    private Spell thunderElfSpell;
+    private Spell iceSword;
     private Spell iceArrow;
     private Spell iceFire;
-    private Spell iceWind;
+    private Spell iceBlink;
+    private Spell iceShotSpell;
+    private Spell iceHealSpell;
     private Spell hurricane;
     private Spell windFire;
     private Spell windIce;
@@ -234,11 +274,20 @@ public class PlayerAnim : myUpdate
             case Spell.SkillType.ProtectiveFireBall:
                 protectiveFireBall = spell;
                 break;
-            case Spell.SkillType.Lava:
-                lava = spell;
+            case Spell.SkillType.RocketPack:
+                rocketPackSpell = spell;
                 break;
             case Spell.SkillType.RemoteControlBomb:
                 remoteControlBomb = spell;
+                break;
+            case Spell.SkillType.Lava:
+                lava = spell;
+                break;
+            case Spell.SkillType.MeteorShower:
+                meteorShowerSpell = spell;
+                break;
+            case Spell.SkillType.SelfExplosion:
+                selfExplosionSpell = spell;
                 break;
             case Spell.SkillType.ThunderLong:
                 thunderLong = spell;
@@ -249,14 +298,26 @@ public class PlayerAnim : myUpdate
             case Spell.SkillType.ThunderFire:
                 thunderFire = spell;
                 break;
+            case Spell.SkillType.ThunderElf:
+                thunderElfSpell = spell;
+                break;
+            case Spell.SkillType.IceSword:
+                iceSword = spell;
+                break; 
             case Spell.SkillType.IceArrow:
                 iceArrow = spell;
                 break;
             case Spell.SkillType.IceFire:
                 iceFire = spell;
                 break;
-            case Spell.SkillType.IceWind:
-                iceWind = spell;
+            case Spell.SkillType.IceBlink:
+                iceBlink = spell;
+                break;
+            case Spell.SkillType.IceShot:
+                iceShotSpell = spell;
+                break;
+            case Spell.SkillType.IceHeal:
+                iceHealSpell = spell;
                 break;
             case Spell.SkillType.Hurricane:
                 hurricane = spell;

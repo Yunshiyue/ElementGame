@@ -17,16 +17,22 @@ public class LavaSpell : FlyingSpell
     }
     public override void ReleaseSpell()
     {
-        GameObject lava = poolManager.GetGameObject("Lava");
-        Lava a = lava.GetComponent<Lava>();
-        a.SetThrower(player);
 
-        //设置生成位置
-        flyingStartPositon.x = player.transform.position.x;
-        flyingStartPositon.y = player.transform.position.y + 1;
-        a.SetStartPosition(flyingStartPositon);
+        int maxThrowNum = Random.Range(3, 7);
+        for(int i = 0; i < maxThrowNum; i++)
+        {
+            GameObject lava = poolManager.GetGameObject("Lava");
+            Lava a = lava.GetComponent<Lava>();
+            a.SetThrower(player);
 
-        //设置方向
-        a.SetDirection(player.transform.localScale.x);
+            //设置生成位置
+            flyingStartPositon.x = player.transform.position.x;
+            flyingStartPositon.y = player.transform.position.y + 1;
+            a.SetStartPosition(flyingStartPositon);
+
+            //设置方向
+            a.SetDirection(Random.value * 2 - 1);
+        }
+
     }
 }

@@ -116,9 +116,7 @@ public class Player : myUpdate
         ChangeElementControl();
         InteractiveCheck();
 
-
         MoveControl();
-
 
     }
     private void ChangeElementControl()
@@ -158,20 +156,38 @@ public class Player : myUpdate
         lastHp = defenceComponent.getHp();
 
         defenceComponent.AttackCheck();
+
         if (defenceComponent.getHpReduction() > 0)
         {
-            ChangeHpUI();
+            ReductionChangeHpUI();
+        }
+
+        lastHp = defenceComponent.getHp();
+        if (defenceComponent.getRecoverdHp() > 0)
+        {
+            RecoverChangeHpUI();
         }
 
         defenceComponent.Clear();
     }
-    public void ChangeHpUI()
+    //掉血改变UI
+    public void ReductionChangeHpUI()
     {
         for (int i = 0; i < defenceComponent.getHpReduction(); i++)
         {
             int index = lastHp - i-1;
-            Debug.Log("lost-- HP:" + defenceComponent.getHp() + ";index:" + index);
+            //Debug.Log("lost-- HP:" + defenceComponent.getHp() + ";index:" + index);
             hpArray[index].Lost();
+        }
+    }
+    //回血改变UI
+    public void RecoverChangeHpUI()
+    {
+        for (int i = 0; i < defenceComponent.getRecoverdHp(); i++)
+        {
+            int index = lastHp - i-1;
+            //Debug.Log("recover-- HP:" + defenceComponent.getHp() + ";index:" + index);
+            hpArray[index].Recover();
         }
     }
     //移动控制，包括X轴移动、跳跃、下蹲；通过向移动组件“请求”实现。

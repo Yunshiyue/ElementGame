@@ -7,24 +7,60 @@ public class IceAbility : myUpdate, Ability
     private UpdateType type = UpdateType.Player;
     private int priorityInType = 6;
 
+    private bool isOn = true;
     private MovementPlayer movementComponent;
 
+    //武器切换UI
+    private GameObject weaponChangePanel;
+    private WeaponChangeUI weaponChangeUI;
+
+    //冰疗
+    private IceHealSpell iceHealSpell;
     //水盾
     private WaterShieldSpell waterShieldSpell;
 
     //冰雷
     private IceThunderSpell iceThunderSpell;
 
+    public enum IceWeapon { Sword, Arrow, Shield, Hammer}
+    private IceWeapon weapon = IceWeapon.Sword;
     //冰墙
     private IceShieldSpell iceShieldSpell;
+    //冰剑
+    private IceSwordSpell iceSwordSpell;
+    //冰箭
+    private IceArrowSpell iceArrowSpell;
+    //冰锤
+    private IceHammerSpell iceHammerSpell;
+    //冰风四技能
+    //冰剑
+    private IceBlinkSpell iceBlinkSpell;
+    //冰箭
+    private IceShotSpell iceShotSpell;
+    //冰盾
+    private IceShieldMashSpell iceSheildMashSpell;
+
+    //冻结层级的filter
+    private ContactFilter2D filter;
+    ////冰层的计时器
+    public static readonly float MAX_ICE_EXIST_TIME = 8f;
+    private PoolManager poolManager;
+    public static readonly string IceFreezingZoneName = "IceFreezingZone";
+    //public readonly int MAX_ICE_EXIST_NUMBER = 32;
+    //private LinkedList<int> freeClockArrayElement = new LinkedList<int>();
+    //private 
+
 
     //激活该主元素，同时制定两个辅助元素
     public void Activate(ElementAbilityManager.Element aElement, ElementAbilityManager.Element bElement)
     {
         //把冰主元素本身需要的资源激活
 
-        this.enabled = true;
+        this.isOn = true;
         iceShieldSpell.Enable();
+        iceSwordSpell.Enable();
+        iceArrowSpell.Enable();
+        iceHealSpell.Enable();
         //把指定辅助技能所需要的资源激活
 
         //水盾
@@ -36,6 +72,12 @@ public class IceAbility : myUpdate, Ability
         {
             iceThunderSpell.Enable();
         }
+        if (aElement == ElementAbilityManager.Element.Wind || bElement == ElementAbilityManager.Element.Wind)
+        {
+            iceBlinkSpell.Enable();
+            iceShotSpell.Enable();
+        }
+
     }
     //休眠该主元素
     public void DisActivate()
@@ -43,7 +85,10 @@ public class IceAbility : myUpdate, Ability
         waterShieldSpell.Disable();
         iceThunderSpell.Disable();
         iceShieldSpell.Disable();
-        this.enabled = false;
+        iceBlinkSpell.Disable();
+        iceArrowSpell.Disable();
+        iceShotSpell.Disable();
+        this.isOn = false;
 
     }
 
@@ -51,6 +96,12 @@ public class IceAbility : myUpdate, Ability
     {
         //获得场景物体引用
         movementComponent = GetComponent<MovementPlayer>();
+        poolManager = GameObject.Find("PoolManager").GetComponent<PoolManager>();
+
+        //武器切换UI
+        weaponChangePanel = GameObject.Find("WeaponChangePanel");
+        weaponChangeUI = weaponChangePanel.GetComponent<WeaponChangeUI>();
+        weaponChangePanel.SetActive(false);
 
         //初始化技能类
         waterShieldSpell = new WaterShieldSpell();
@@ -61,21 +112,87 @@ public class IceAbility : myUpdate, Ability
 
         iceShieldSpell = new IceShieldSpell();
         iceShieldSpell.Initialize();
+        
+        iceSwordSpell = new IceSwordSpell();
+        iceSwordSpell.Initialize();
+
+        iceHealSpell = new IceHealSpell();
+        iceHealSpell.Initialize();
+        iceHealSpell.Enable();
+
+        iceBlinkSpell = new IceBlinkSpell();
+        iceBlinkSpell.Initialize();
+
+        iceArrowSpell = new IceArrowSpell();
+        iceArrowSpell.Initialize();
+        
+        iceHammerSpell = new IceHammerSpell();
+        iceHammerSpell.Initialize();
+
+        iceShotSpell = new IceShotSpell();
+        iceShotSpell.Initialize();
+
+        iceSheildMashSpell = new IceShieldMashSpell();
+        iceSheildMashSpell.Initialize();
+
+        //以下为碰墙检测参数的初始化
+        filter.useNormalAngle = false;
+        filter.useDepth = false;
+        filter.useOutsideDepth = false;
+        filter.useOutsideNormalAngle = false;
+        filter.useTriggers = false;
+
+        filter.useLayerMask = true;
+
+        LayerMask layerMask = 0;
+        layerMask ^= 1 << LayerMask.NameToLayer("Water");
+
+        filter.layerMask = layerMask;
     }
 
     public override void MyUpdate()
     {
-        waterShieldSpell.WaterShieldClock();
+        if(isOn)
+        {
+            waterShieldSpell.WaterShieldClock();
+            iceShotSpell.IceShotClock();
+        }
     }
     public void ShortSpell()
     {
-        Debug.Log("冰短做好！");
-        if (movementComponent.RequestChangeControlStatus(IceThunderSpell.ICE_THUNDER_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
-        {
-            iceShieldSpell.Cast();
-        }
-        
+       
+            switch (weapon)
+            {
+            case IceWeapon.Sword:
+                if (movementComponent.RequestChangeControlStatus(IceSwordSpell.ICE_SWORD_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
+                {
+                    iceSwordSpell.Cast();
+                }
+                break;
+
+            case IceWeapon.Arrow:
+                if (movementComponent.RequestChangeControlStatus(IceArrowSpell.ICE_ARROW_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
+                {
+                    iceArrowSpell.Cast();
+                }
+                break;
+            case IceWeapon.Shield:
+                if (movementComponent.RequestChangeControlStatus(IceShieldSpell.ICE_SHIELD_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
+                {
+                    iceShieldSpell.Cast();
+                }
+                break;
+
+            case IceWeapon.Hammer:
+                if (movementComponent.RequestChangeControlStatus(IceHammerSpell.ICE_HAMMER_TIME , MovementPlayer.PlayerControlStatus.AbilityWithMovement))
+                {
+                    iceHammerSpell.Cast();
+                }
+                break;
+            }
+    
     }
+    
 
     public override int GetPriorityInType()
     {
@@ -85,10 +202,6 @@ public class IceAbility : myUpdate, Ability
     public override UpdateType GetUpdateType()
     {
         return type;
-    }
-    public bool Casting()
-    {
-        return movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Casting);
     }
 
     public void FullySpell(ElementAbilityManager.Element aElement, ElementAbilityManager.Element bElement)
@@ -100,7 +213,8 @@ public class IceAbility : myUpdate, Ability
             {
                 waterShieldSpell.Cast();
             }
-        }else if (aElement == ElementAbilityManager.Element.Thunder && bElement == ElementAbilityManager.Element.NULL ||
+        }
+        else if (aElement == ElementAbilityManager.Element.Thunder && bElement == ElementAbilityManager.Element.NULL ||
            aElement == ElementAbilityManager.Element.NULL && bElement == ElementAbilityManager.Element.Thunder)
         {
             if (movementComponent.RequestChangeControlStatus(IceThunderSpell.ICE_THUNDER_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
@@ -108,15 +222,93 @@ public class IceAbility : myUpdate, Ability
                 iceThunderSpell.Cast();
             }
         }
+
+        else if (aElement == ElementAbilityManager.Element.Wind && bElement == ElementAbilityManager.Element.NULL ||
+           aElement == ElementAbilityManager.Element.NULL && bElement == ElementAbilityManager.Element.Wind)
+        {
+            if (movementComponent.RequestChangeControlStatus(IceShieldMashSpell.ICE_SHIELD_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
+            {
+                switch(weapon)
+                {
+                    case IceWeapon.Sword:
+                        iceBlinkSpell.Cast();
+                        break;
+                    case IceWeapon.Arrow:
+                        iceShotSpell.Cast();
+                        break;
+                    case IceWeapon.Shield:
+                        iceSheildMashSpell.Cast();
+                        break;
+                }
+            }
+        }
     }
 
     public int NextAuxiliarySpellCost()
     {
-        throw new System.NotImplementedException();
+        return 1;
     }
 
     public void AuxiliarySpell()
     {
-        throw new System.NotImplementedException();
+        if (movementComponent.RequestChangeControlStatus(IceThunderSpell.ICE_THUNDER_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
+        {
+            iceHealSpell.Cast();
+        }
+    }
+
+    public bool Casting(bool isFullySpelt, ElementAbilityManager.Element aElement, ElementAbilityManager.Element bElement)
+    {
+        if(movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Casting))
+        {
+            if(isFullySpelt && aElement == ElementAbilityManager.Element.NULL && bElement == ElementAbilityManager.Element.NULL)
+            {
+                //显示选择界面
+                weaponChangePanel.SetActive(true);
+                if(Input.GetKeyUp(KeyCode.A))
+                {
+                    //切换到
+                    weaponChangeUI.ChooseWeapon(IceWeapon.Shield);
+                    weapon = IceWeapon.Shield;
+                }
+                else if(Input.GetKeyUp(KeyCode.D))
+                {
+                    weaponChangeUI.ChooseWeapon(IceWeapon.Sword);
+                    weapon = IceWeapon.Sword;
+                }
+                else if(Input.GetKeyUp(KeyCode.W))
+                {
+                    weaponChangeUI.ChooseWeapon(IceWeapon.Arrow);
+                    weapon = IceWeapon.Arrow;
+                }
+                else if(Input.GetKeyUp(KeyCode.S))
+                {
+                    weaponChangeUI.ChooseWeapon(IceWeapon.Hammer);
+                    weapon = IceWeapon.Hammer;
+                }
+            }
+            else
+            {
+                //选择界面消失
+                weaponChangePanel.SetActive(false);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public void FreezingZone(BoxCollider2D abilityCollider)
+    {
+        Debug.Log("进入了冰冻函数");
+        Collider2D[] waterColliders = new Collider2D[8];
+        if(abilityCollider.OverlapCollider(filter, waterColliders) != 0)
+        {
+            Debug.Log(string.Format("冻到了水域{0}", waterColliders[0].name));
+            BoxCollider2D waterCollider = (BoxCollider2D)waterColliders[0];
+            BoxCollider2D freezingCollider = poolManager.GetGameObject(IceFreezingZoneName).GetComponent<BoxCollider2D>();
+            freezingCollider.gameObject.SetActive(true);
+            freezingCollider.GetComponent<IceDisappear>().SetPoolManger(poolManager);
+            ColliderBoundsCalculator.SetColliderSizeAndPositionByRect(freezingCollider, ColliderBoundsCalculator.GetColliderIntersection(abilityCollider, waterCollider));
+        }
     }
 }

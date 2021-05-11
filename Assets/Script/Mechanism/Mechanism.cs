@@ -1,7 +1,7 @@
 ﻿/**
  * @Description: Mechanism类为所有可以触发的机关的父类，包含触发机关的方法
  * @Author: CuteRed
-1-2-1 20:30
+
  *     
 */
 
@@ -41,7 +41,7 @@ public abstract class Mechanism : MonoBehaviour
     /// 机关是否被触发
     /// </summary>
     /// <returns></returns>
-    public bool IsTriggered()
+    public virtual bool IsTriggered()
     {
         return isTriggered;
     }

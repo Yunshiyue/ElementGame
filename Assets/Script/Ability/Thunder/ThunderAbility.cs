@@ -10,7 +10,11 @@ public class ThunderAbility : myUpdate, Ability
 
     private MovementPlayer movementComponent;
 
+    private bool isOn = false;
+    private bool isInThunderWind = false;
+
     private GameObject thunderCircleObject;
+    private SpriteRenderer thunderCircleRenderer;
     private ThunderCircle thunderCircleScript;
 
     //通过OnTriggerEnter和OnTriggerExit记录在雷圈中的敌人或者物体
@@ -18,6 +22,8 @@ public class ThunderAbility : myUpdate, Ability
 
     private const int MAX_ENMEY_NUMBER_IN_THUNDER_CIRCLE = 32;
 
+    //雷灵
+    private ThunderElfSpell thunderElfSpell;
     //闪电链
     private ThunderLinkSpell thunderLinkSpell;
     //雷球
@@ -31,9 +37,9 @@ public class ThunderAbility : myUpdate, Ability
     //激活该主元素，同时制定两个辅助元素
     public void Activate(ElementAbilityManager.Element aElement, ElementAbilityManager.Element bElement)
     {
-        this.enabled = true;
+        isOn = true;
         //把雷主元素本身需要的资源激活
-        thunderCircleObject.SetActive(true);
+        thunderCircleRenderer.enabled = true;
 
         //把制定辅助技能所需要的资源激活
         //雷球
@@ -54,7 +60,8 @@ public class ThunderAbility : myUpdate, Ability
     //休眠该主元素
     public void DisActivate()
     {
-        thunderCircleObject.SetActive(false);
+        isOn = false;
+        thunderCircleRenderer.enabled = false;
         targetInThunderCircle.Clear();
 
         //雷球
@@ -64,7 +71,6 @@ public class ThunderAbility : myUpdate, Ability
         thunderLongSpell.Disable();
         thunderIceSpell.Disable();
 
-        this.enabled = false;
     }
 
     public override void Initialize()
@@ -72,7 +78,8 @@ public class ThunderAbility : myUpdate, Ability
         //获得场景物体引用
         thunderCircleObject = GameObject.Find("ThunderCircle");
         thunderCircleScript = thunderCircleObject.GetComponent<ThunderCircle>();
-        if(thunderCircleScript == null)
+        thunderCircleRenderer = thunderCircleObject.GetComponent<SpriteRenderer>();
+        if (thunderCircleScript == null)
         {
             Debug.LogError("在ThunderAbility中，没有找到雷圈脚本！");
         }
@@ -91,15 +98,24 @@ public class ThunderAbility : myUpdate, Ability
 
         thunderIceSpell = new ThunderIceSpell();
         thunderIceSpell.Initialize();
+
+        thunderElfSpell = new ThunderElfSpell();
+        thunderElfSpell.Initialize();
+        thunderElfSpell.Enable();
     }
 
     public override void MyUpdate()
     {
-        thunderLinkSpell.ThunderLinkClock();
+        if(isOn)
+        {
+            thunderLinkSpell.ThunderLinkClock();
+            ThunderWindClock();
+        }
+        thunderElfSpell.ThunderElfClock();
     }
     public void ShortSpell()
     {
-        if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
+        if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME * 2.5f, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
         {
             thunderBallSpell.Cast();
         }
@@ -111,7 +127,6 @@ public class ThunderAbility : myUpdate, Ability
         {
             if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
             {
-                Debug.Log("雷击做好！");
                 thunderLongSpell.Cast();
             }
         }
@@ -128,17 +143,17 @@ public class ThunderAbility : myUpdate, Ability
         {
             if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
             {
-                Debug.Log("雷冰做好！");
                 thunderIceSpell.Cast();
             }
         }
         else if (aElement == ElementAbilityManager.Element.Wind && bElement == ElementAbilityManager.Element.NULL ||
                     aElement == ElementAbilityManager.Element.NULL && bElement == ElementAbilityManager.Element.Wind)
         {
-            if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
-            {
-                Debug.Log("雷风还未做好！");
-            }
+             if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
+             {
+                 isInThunderWind = true;
+                 thunderCircleScript.ExpendCircle();
+             }
         }
     }
     public GameObject GetClosestTargetInList(List<GameObject> gameObjects)
@@ -198,18 +213,45 @@ public class ThunderAbility : myUpdate, Ability
         return type;
     }
 
-    public bool Casting()
-    {
-        return movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Casting);
-    }
-
     public int NextAuxiliarySpellCost()
     {
-        throw new System.NotImplementedException();
+        return 1;
     }
 
     public void AuxiliarySpell()
     {
-        throw new System.NotImplementedException();
+        if (movementComponent.RequestChangeControlStatus(ElementAbilityManager.DEFALT_CASTING_TIME, MovementPlayer.PlayerControlStatus.AbilityWithMovement))
+        {
+            thunderElfSpell.Cast();
+        }
+    }
+
+    public bool Casting(bool isFullySpelt, ElementAbilityManager.Element aElement, ElementAbilityManager.Element bElement)
+    {
+        return movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Casting);
+    }
+    private float curThunderWindTime = 0;
+    private float totalThunderWindTime = 10f;
+    private float curThunderAttackTime = 0;
+    private float onceThunderAttackTime = 1f;
+    private void ThunderWindClock()
+    {
+        if(isInThunderWind)
+        {
+            curThunderAttackTime += Time.deltaTime;
+            if(curThunderAttackTime >= onceThunderAttackTime)
+            {
+                curThunderAttackTime = 0;
+                thunderCircleScript.AttackThunderCircle();
+            }
+
+            curThunderWindTime += Time.deltaTime;
+            if (curThunderWindTime >= totalThunderWindTime)
+            {
+                curThunderWindTime = 0;
+                thunderCircleScript.LessenCircle();
+                isInThunderWind = false;
+            }
+        }
     }
 }

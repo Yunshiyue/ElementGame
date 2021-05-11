@@ -35,7 +35,7 @@ public class AttackedSeek : Action
         {
             movementComponent.isBeAttacked = false;
             //状态结束
-            Debug.Log("close");
+            //Debug.Log("close");
             return TaskStatus.Failure;
         }
 

@@ -1,9 +1,9 @@
 ﻿/**
  * @Description: CanFight类是所有能够进行“攻击”的单位的父类。拥有血量、攻击力、是否死亡等基本属性，以及攻击、被攻击、死亡等基本方法。
  * @Author: ridger
-1-1-26 19:51
+
  * 
-1-1-27 11:59
+
  * @Editor: ridger
  * @Edit: 该文件已被弃用，CanFight模块使用Fight和BeFight分离的组件设计，而不是合并的父类。
  * 

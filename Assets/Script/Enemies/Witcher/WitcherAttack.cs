@@ -48,7 +48,7 @@ public class WitcherAttack : AttackEnemies
             movementComponent.RecoverScale();
             movementComponent.enemyAnim.SetBool("firing", true);
             //帧事件 FireBall
-            Debug.Log("fire");
+            //Debug.Log("fire");
         }
     }
     private Vector2 flyingDirection = new Vector2(1, 0);

@@ -13,6 +13,6 @@ public class RemoteAutoFetchedMainElement : RemoteAutoFetchElement
     {
         base.Awake();
         ColorMyself();
-        Debug.Log("main初始化结束！" + element);
+        //Debug.Log("main初始化结束！" + element);
     }
 }

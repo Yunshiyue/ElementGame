@@ -1,9 +1,9 @@
 ﻿/**
  * @Description: Switch为开关类，被指定属性攻击后可触发指定机关（一对一）
  * @Author: CuteRed
-1-3-3 20:46
+
  *  
-1-3-6 11:00
+
  * @Editor: CuteRed
  * @Edit: 将部分变量public，该机关具有普适性
 */

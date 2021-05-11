@@ -26,6 +26,10 @@ public class ThunderBallSpell : FlyingSpell
         flyingDirection.x = player.transform.localScale.x;
         flyingDirection.y = 0;
         a.SetDirection(flyingDirection);
+
+        a.SetMaxExistTime(10.0f);
+
+        a.SetTargetLayerName("Enemy");
     }
 
    

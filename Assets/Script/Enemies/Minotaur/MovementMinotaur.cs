@@ -94,7 +94,7 @@ public class MovementMinotaur : MovementEnemies
     {
         isDashing = true;
         dashColl.enabled = true;
-        ChangeSpeed(1f, 4);
+        ChangeSpeed(1f, 4,1);
     }
    
 

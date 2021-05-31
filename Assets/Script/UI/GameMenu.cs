@@ -34,8 +34,8 @@ public class GameMenu : MonoBehaviour
 
     private void Awake()
     {
-        savePanel = GameObject.Find("SavePanel");
-        saveMenu = GameObject.Find("SaveMenu").GetComponent<SaveMenu>();
+        //savePanel = GameObject.Find("SavePanel");
+        //saveMenu = GameObject.Find("SaveMenu").GetComponent<SaveMenu>();
 
         pauseMenu = GameObject.Find("UICameraCanvas/GameMenu/PauseMenu");
         if (pauseMenu == null)
@@ -74,7 +74,7 @@ public class GameMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         elementMenu.gameObject.SetActive(false);
         gameOverPanel.SetActive(false);
-        savePanel.SetActive(false);
+        //savePanel.SetActive(false);
 
         Debug.Log("UI加载完成");
     }
@@ -93,7 +93,7 @@ public class GameMenu : MonoBehaviour
 
         elementMenu.gameObject.SetActive(false);
         gameOverPanel.SetActive(false);
-        savePanel.SetActive(false);
+        //savePanel.SetActive(false);
 
         //暂停
         Time.timeScale = 0;
@@ -142,7 +142,7 @@ public class GameMenu : MonoBehaviour
         //switchButton.SetActive(false);
         //pauseButton.SetActive(false);
         elementMenu.gameObject.SetActive(false);
-        savePanel.SetActive(false);
+        //savePanel.SetActive(false);
         //死亡界面显示
         gameOverPanel.SetActive(true);
 
@@ -150,21 +150,21 @@ public class GameMenu : MonoBehaviour
     }
     public void ShowSaveMenu()
     {
-        pauseMenu.SetActive(false);
-        elementMenu.gameObject.SetActive(false);
-        gameOverPanel.SetActive(false);
+        //pauseMenu.SetActive(false);
+        //elementMenu.gameObject.SetActive(false);
+        //gameOverPanel.SetActive(false);
 
-        savePanel.SetActive(true);
-        saveMenu.RefreshSavePanel(SaveManager.SaveMode.Save);
+        ////savePanel.SetActive(true);
+        ////saveMenu.RefreshSavePanel(SaveManager.SaveMode.Save);
     }
     public void ShowLoadMenu()
     {
-        pauseMenu.SetActive(false);
-        elementMenu.gameObject.SetActive(false);
-        gameOverPanel.SetActive(false);
+        //pauseMenu.SetActive(false);
+        //elementMenu.gameObject.SetActive(false);
+        //gameOverPanel.SetActive(false);
 
-        savePanel.SetActive(true);
-        saveMenu.RefreshSavePanel(SaveManager.SaveMode.Load);
+        ////savePanel.SetActive(true);
+        ////saveMenu.RefreshSavePanel(SaveManager.SaveMode.Load);
     }
 
     public void DebugText()

@@ -66,18 +66,18 @@ public class Player : myUpdate
     //心心数组
     private HPItem[] hpArray;
 
-    //Input System
-    private Keyboard keyboard;
-    private Mouse m_mouse;
-    [SerializeField] private InputChannelReceiverBase receiver;
+    ////Input System
+    //private Keyboard keyboard;
+    //private Mouse m_mouse;
+    //[SerializeField] private InputChannelReceiverBase receiver;
 
     public override void Initialize()
     {
-        if (receiver == null)
-        {
-            receiver = GetComponent<InputChannelReceiverBase>();
-        }    
-        receiver.onDeviceChange += OnDeviceChange;
+        //if (receiver == null)
+        //{
+        //    receiver = GetComponent<InputChannelReceiverBase>();
+        //}    
+        //receiver.onDeviceChange += OnDeviceChange;
 
         canFight = GetComponent<CanFight>();
         if (canFight == null)
@@ -135,11 +135,11 @@ public class Player : myUpdate
     //根据设计，先进行受伤判断，再进行移动控制和技能控制
     public override void MyUpdate()
     {
-        if (keyboard == null)
-        {
-            keyboard = InputSystem.GetDevice<Keyboard>();
-        }
-        
+        //if (keyboard == null)
+        //{
+        //    keyboard = InputSystem.GetDevice<Keyboard>();
+        //}
+
         MenuCheck();
         DefenceCheck();
 
@@ -149,39 +149,12 @@ public class Player : myUpdate
         abilityManager.SetCastDebugInfo();
 
         ChangeElementControl();
-        InteractiveCheck();
 
         MoveControl();
+        InteractiveCheck();
 
     }
 
-    void OnDeviceChange(InputDevice device, InputDeviceChange change)
-    {
-        switch (change)
-        {
-            case InputDeviceChange.Added:
-                SetDevice(device);
-                return;
-            case InputDeviceChange.Removed:
-                SetDevice(device, false);
-                return;
-        }
-    }
-
-    void SetDevice(InputDevice device, bool add = true)
-    {
-        //uiController?.SetDevice(device, add);
-
-        switch (device)
-        {
-            case Mouse mouse:
-                m_mouse = add ? mouse : null;
-                return;
-            case Keyboard keyboard:
-                keyboard = add ? keyboard : null;
-                return;
-        }
-    }
 
     private void ChangeElementControl()
     {
@@ -199,40 +172,20 @@ public class Player : myUpdate
             abilityManager.NextBElement();
         }
 
-        //if (keyboard.zKey.isPressed)
-        //{
-        //    abilityManager.NextMainElement();
-        //}
-        //if (keyboard.xKey.isPressed)
-        //{
-        //    abilityManager.NextAElement();
-        //}
-        //if (keyboard.yKey.isPressed)
-        //{
-        //    abilityManager.NextBElement();
-        //}
     }
     private void InteractiveCheck()
     {
-        //旧输入系统
-        //if (Input.GetKeyDown(KeyCode.F))
-        //{
-        //    interactivePlayer.InteractiveWithClosetObject();
-        //}
-
-        if (keyboard.fKey.isPressed)
+        if (Input.GetKeyDown(KeyCode.F))
         {
             interactivePlayer.InteractiveWithClosetObject();
         }
+
     }
+
     private void MenuCheck()
     {
         //旧输入模式
         if (Input.GetButtonDown("ReloadScene"))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-        if (keyboard.rKey.isPressed)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }

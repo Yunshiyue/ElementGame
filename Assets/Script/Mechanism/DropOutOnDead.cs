@@ -31,6 +31,7 @@ public class DropOutOnDead : MonoBehaviour
 
     private void DropOut(string thing, int number)
     {
+        Debug.Log(this.name);
         if (thing != "" && number != 0)
         {
             Vector2 direction = new Vector2(0, 1);

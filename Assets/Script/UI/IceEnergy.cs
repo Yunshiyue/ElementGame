@@ -26,10 +26,10 @@ public class IceEnergy : MonoBehaviour
     void Update()
     {
         //旧输入系统
-        //iceUse = Input.GetKeyDown("u");
-        //iceRecover = Input.GetKeyDown("i");
-        iceUse = keyboard.uKey.isPressed;
-        iceRecover = keyboard.iKey.isPressed;
+        iceUse = Input.GetKeyDown("u");
+        iceRecover = Input.GetKeyDown("i");
+        //iceUse = keyboard.uKey.isPressed;
+        //iceRecover = keyboard.iKey.isPressed;
 
         if (iceUse)
         {

@@ -253,22 +253,22 @@ public class OnFloorDetector : myUpdate
         }
 
         //旧输入系统
-        //if(rightTopCheck && Input.GetAxis("Horizontal") > 0f)
-        //{
-        //    playerMovementComponent.SetSideWall(2);
-        //}
-        //else if(leftTopCheck && Input.GetAxis("Horizontal") < 0f)
-        //{
-        //    playerMovementComponent.SetSideWall(1);
-        //}
-        if (rightTopCheck && keyboard.dKey.isPressed)
+        if (rightTopCheck && Input.GetAxis("Horizontal") > 0f)
         {
             playerMovementComponent.SetSideWall(2);
         }
-        else if (leftTopCheck && keyboard.aKey.isPressed)
+        else if (leftTopCheck && Input.GetAxis("Horizontal") < 0f)
         {
             playerMovementComponent.SetSideWall(1);
         }
+        //if (rightTopCheck && keyboard.dKey.isPressed)
+        //{
+        //    playerMovementComponent.SetSideWall(2);
+        //}
+        //else if (leftTopCheck && keyboard.aKey.isPressed)
+        //{
+        //    playerMovementComponent.SetSideWall(1);
+        //}
         else
         {
             playerMovementComponent.SetSideWall(0);

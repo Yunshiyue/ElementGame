@@ -144,8 +144,8 @@ public class Player : myUpdate
         DefenceCheck();
 
         //旧输入系统
-        //abilityManager.AbilityControl(Input.GetButton("MainElement"), Input.GetButtonDown("FirstOtherElement"), Input.GetButtonDown("SecondOtherElement"));
-        abilityManager.AbilityControl(keyboard.jKey.isPressed, keyboard.kKey.isPressed, keyboard.lKey.isPressed);
+        abilityManager.AbilityControl(Input.GetButton("MainElement"), Input.GetButtonDown("FirstOtherElement"), Input.GetButtonDown("SecondOtherElement"));
+        //abilityManager.AbilityControl(keyboard.jKey.isPressed, keyboard.kKey.isPressed, keyboard.lKey.isPressed);
         abilityManager.SetCastDebugInfo();
 
         ChangeElementControl();
@@ -186,36 +186,36 @@ public class Player : myUpdate
     private void ChangeElementControl()
     {
         //旧输入系统
-        //if(Input.GetKeyDown(KeyCode.Z))
-        //{
-        //    abilityManager.NextMainElement();
-        //}
-        //if (Input.GetKeyDown(KeyCode.X))
-        //{
-        //    abilityManager.NextAElement();
-        //}
-        //if (Input.GetKeyDown(KeyCode.C))
-        //{
-        //    abilityManager.NextBElement();
-        //}
-
-        if (keyboard.zKey.isPressed)
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             abilityManager.NextMainElement();
         }
-        if (keyboard.xKey.isPressed)
+        if (Input.GetKeyDown(KeyCode.X))
         {
             abilityManager.NextAElement();
         }
-        if (keyboard.yKey.isPressed)
+        if (Input.GetKeyDown(KeyCode.C))
         {
             abilityManager.NextBElement();
         }
+
+        //if (keyboard.zKey.isPressed)
+        //{
+        //    abilityManager.NextMainElement();
+        //}
+        //if (keyboard.xKey.isPressed)
+        //{
+        //    abilityManager.NextAElement();
+        //}
+        //if (keyboard.yKey.isPressed)
+        //{
+        //    abilityManager.NextBElement();
+        //}
     }
     private void InteractiveCheck()
     {
         //旧输入系统
-        //if(Input.GetKeyDown(KeyCode.F))
+        //if (Input.GetKeyDown(KeyCode.F))
         //{
         //    interactivePlayer.InteractiveWithClosetObject();
         //}
@@ -228,14 +228,14 @@ public class Player : myUpdate
     private void MenuCheck()
     {
         //旧输入模式
-        //if(Input.GetButtonDown("ReloadScene"))
-        //{
-        //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        //}
-        //if (keyboard.rKey.isPressed)
-        //{
-        //    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        //}
+        if (Input.GetButtonDown("ReloadScene"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        if (keyboard.rKey.isPressed)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     //防御组件检查，目前只统计信息，但并不对信息做什么处理
@@ -282,27 +282,27 @@ public class Player : myUpdate
     private void MoveControl()
     {
         //旧输入系统
-        //tempMovement.x = Input.GetAxis("Horizontal");
+        tempMovement.x = Input.GetAxis("Horizontal");
         movementComponent.RequestMoveByFrame(tempMovement, MovementPlayer.MovementMode.PlayerControl, Space.Self);
 
         //旧输入系统
-        //if(Input.GetButtonDown("Jump"))
-        //{
-        //    movementComponent.RequestJump();
-        //}
-        //if(Input.GetButton("Crouch"))
-        //{
-        //    movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Crouch);
-        //}
-
-        if (keyboard.spaceKey.isPressed)
+        if (Input.GetButtonDown("Jump"))
         {
             movementComponent.RequestJump();
         }
-        if (keyboard.sKey.isPressed)
+        if (Input.GetButton("Crouch"))
         {
             movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Crouch);
         }
+
+        //if (keyboard.spaceKey.isPressed)
+        //{
+        //    movementComponent.RequestJump();
+        //}
+        //if (keyboard.sKey.isPressed)
+        //{
+        //    movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Crouch);
+        //}
     }
 
     public void OnMove(InputAction.CallbackContext context)

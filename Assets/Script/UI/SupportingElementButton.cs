@@ -9,23 +9,30 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class SupportingElementButton : MonoBehaviour, IPointerEnterHandler, IPointerUpHandler, IPointerExitHandler
+public class SupportingElementButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    public bool isTrigger = false;   
+    public bool isTrigger = false;
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        isTrigger = true;
+
+        if (!isTrigger)
+        {
+            isTrigger = true;
+        }
     }
-
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        isTrigger = false;
-    }
-
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (isTrigger)
+        {
+            StartCoroutine(SleepExit());
+            isTrigger = false;
+        }
+    }
+
+    IEnumerator SleepExit()
+    {
+        yield return new WaitForSeconds(0.005f);
         isTrigger = false;
     }
 

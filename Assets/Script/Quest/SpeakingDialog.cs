@@ -25,7 +25,7 @@ public class SpeakingDialog : MonoBehaviour
     public GameObject SpeakInputPanel;//获取语音输入界面
 
 
-    bool acceptMission;
+    bool acceptMission = false;
     bool isEndDialog;
     public GameObject NPC;//拿到布置任务的NPC
     private TalkUI talkUI;
@@ -73,6 +73,7 @@ public class SpeakingDialog : MonoBehaviour
             index = 0;//从头开始
             isEndDialog = false;
             SpeakInputPanel.SetActive(false);//关闭语音输入界面
+            speakContent.text = "(按住说话)";
             if (talkUI.isEndDialog1 == false && acceptMission)//如果没接任务，触发接任务的对话，结束对话一，激活任务
             {
                 enemy.SetActive(true);

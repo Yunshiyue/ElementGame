@@ -16,6 +16,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class OnFloorDetector : myUpdate
 {
@@ -50,6 +51,9 @@ public class OnFloorDetector : myUpdate
 
     private GameObject player;
 
+    //Input System
+    private Keyboard keyboard;
+
     //updateManager中代替start函数的初始化方法
     override public void Initialize()
     {
@@ -68,6 +72,12 @@ public class OnFloorDetector : myUpdate
 
         groundLayer = LayerMask.GetMask("Platform");
         waterLayer = LayerMask.GetMask("Water");
+
+        keyboard = InputSystem.GetDevice<Keyboard>();
+        if (keyboard == null)
+        {
+            Debug.LogError("在" + gameObject.name + "中，初始化keyboard失败");
+        }
 
         //给探测器固定位置
         ldnx = -coll.size.x / 2 + LRDetectorInsideLength;
@@ -242,14 +252,23 @@ public class OnFloorDetector : myUpdate
             playerMovementComponent.SetRightDetect(gameObject, false);
         }
 
-        if(rightTopCheck && Input.GetAxis("Horizontal") > 0f)
+        //旧输入系统
+        if (rightTopCheck && Input.GetAxis("Horizontal") > 0f)
         {
             playerMovementComponent.SetSideWall(2);
         }
-        else if(leftTopCheck && Input.GetAxis("Horizontal") < 0f)
+        else if (leftTopCheck && Input.GetAxis("Horizontal") < 0f)
         {
             playerMovementComponent.SetSideWall(1);
         }
+        //if (rightTopCheck && keyboard.dKey.isPressed)
+        //{
+        //    playerMovementComponent.SetSideWall(2);
+        //}
+        //else if (leftTopCheck && keyboard.aKey.isPressed)
+        //{
+        //    playerMovementComponent.SetSideWall(1);
+        //}
         else
         {
             playerMovementComponent.SetSideWall(0);

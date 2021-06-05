@@ -29,11 +29,19 @@
 
  * @Editor: ridger
  * @Edit: 当主角死亡时场景重置，在movement脚本中实现
+ * 
+ * @Editor: CuteRed
+ * @Edit: 为适应云游戏，改变了输入系统
  */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
+using Unity.RenderStreaming;
+
+
 
 [RequireComponent(typeof(MovementPlayer))]
 //[RequireComponent(typeof(AttackPlayer))]
@@ -57,8 +65,20 @@ public class Player : myUpdate
 
     //心心数组
     private HPItem[] hpArray;
+
+    ////Input System
+    //private Keyboard keyboard;
+    //private Mouse m_mouse;
+    //[SerializeField] private InputChannelReceiverBase receiver;
+
     public override void Initialize()
     {
+        //if (receiver == null)
+        //{
+        //    receiver = GetComponent<InputChannelReceiverBase>();
+        //}    
+        //receiver.onDeviceChange += OnDeviceChange;
+
         canFight = GetComponent<CanFight>();
         if (canFight == null)
         {
@@ -69,6 +89,13 @@ public class Player : myUpdate
         string[] targets = new string[1];
         targets[0] = targetLayerName;
         canFight.Initiailize(targets);
+
+        //初始化键盘事件
+        //keyboard = InputSystem.GetDevice<Keyboard>();
+        //if (keyboard == null)
+        //{
+        //    Debug.LogError("在Player中，初始化键盘事件失败！");
+        //}
 
         movementComponent = GetComponent<MovementPlayer>();
         if(movementComponent == null)
@@ -102,26 +129,37 @@ public class Player : myUpdate
             hpArray[i] = hpItem.GetComponent<HPItem>();
             hpArray[i].Getting();
         }
+
     }
 
     //根据设计，先进行受伤判断，再进行移动控制和技能控制
     public override void MyUpdate()
     {
+        //if (keyboard == null)
+        //{
+        //    keyboard = InputSystem.GetDevice<Keyboard>();
+        //}
+
         MenuCheck();
         DefenceCheck();
 
+        //旧输入系统
         abilityManager.AbilityControl(Input.GetButton("MainElement"), Input.GetButtonDown("FirstOtherElement"), Input.GetButtonDown("SecondOtherElement"));
+        //abilityManager.AbilityControl(keyboard.jKey.isPressed, keyboard.kKey.isPressed, keyboard.lKey.isPressed);
         abilityManager.SetCastDebugInfo();
 
         ChangeElementControl();
-        InteractiveCheck();
 
         MoveControl();
+        InteractiveCheck();
 
     }
+
+
     private void ChangeElementControl()
     {
-        if(Input.GetKeyDown(KeyCode.Z))
+        //旧输入系统
+        if (Input.GetKeyDown(KeyCode.Z))
         {
             abilityManager.NextMainElement();
         }
@@ -137,14 +175,17 @@ public class Player : myUpdate
     }
     private void InteractiveCheck()
     {
-        if(Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.F))
         {
             interactivePlayer.InteractiveWithClosetObject();
         }
+
     }
+
     private void MenuCheck()
     {
-        if(Input.GetButtonDown("ReloadScene"))
+        //旧输入模式
+        if (Input.GetButtonDown("ReloadScene"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
@@ -193,17 +234,34 @@ public class Player : myUpdate
     //移动控制，包括X轴移动、跳跃、下蹲；通过向移动组件“请求”实现。
     private void MoveControl()
     {
+        //旧输入系统
         tempMovement.x = Input.GetAxis("Horizontal");
         movementComponent.RequestMoveByFrame(tempMovement, MovementPlayer.MovementMode.PlayerControl, Space.Self);
 
-        if(Input.GetButtonDown("Jump"))
+        //旧输入系统
+        if (Input.GetButtonDown("Jump"))
         {
             movementComponent.RequestJump();
         }
-        if(Input.GetButton("Crouch"))
+        if (Input.GetButton("Crouch"))
         {
             movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Crouch);
         }
+
+        //if (keyboard.spaceKey.isPressed)
+        //{
+        //    movementComponent.RequestJump();
+        //}
+        //if (keyboard.sKey.isPressed)
+        //{
+        //    movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Crouch);
+        //}
+    }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        tempMovement.x = context.ReadValue<Vector2>().x;
+        
     }
 
     public override int GetPriorityInType()

@@ -17,7 +17,7 @@ public class DialogSystem : MonoBehaviour
     public Sprite face01, face02;
 
     [Header("触发事件")]
-    public GameObject enemy;
+    //public GameObject enemy;
     
 
     public GameObject NPC;
@@ -64,7 +64,7 @@ public class DialogSystem : MonoBehaviour
             index = 0;
             if(talkUI.isEndDialog1 == false)//如果没接任务，触发接任务的对话，结束对话一，激活任务
             {
-                enemy.SetActive(true);
+                //enemy.SetActive(true);
                 talkUI.isEndDialog1 = true;
                 talkUI.isActivateMission = true;
             }

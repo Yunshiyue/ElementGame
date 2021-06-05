@@ -25,9 +25,9 @@ public class MainMenu : MonoBehaviour
     private void Awake()
     {
         video = GameObject.Find("VideoPanel").GetComponent<VideoPlayer>();
-        savePanel = GameObject.Find("SavePanel");
+        //savePanel = GameObject.Find("SavePanel");
         mainMenu = GameObject.Find("Menu");
-        saveMenu = GameObject.Find("SaveMenu").GetComponent<SaveMenu>();
+        //saveMenu = GameObject.Find("SaveMenu").GetComponent<SaveMenu>();
 
         if (video == null)
         {
@@ -36,7 +36,7 @@ public class MainMenu : MonoBehaviour
     }
     private void Start()
     {
-        savePanel.SetActive(false);
+        //savePanel.SetActive(false);
     }
 
     private void OnEnable()
@@ -55,14 +55,14 @@ public class MainMenu : MonoBehaviour
 
     public void ShowSavePanel()
     {
-        saveMenu.RefreshSavePanel(SaveManager.SaveMode.Load);
-        mainMenu.SetActive(false);
-        savePanel.SetActive(true);
+        //saveMenu.RefreshSavePanel(SaveManager.SaveMode.Load);
+        //mainMenu.SetActive(false);
+        //savePanel.SetActive(true);
     }
     public void ShowMainPanel()
     {
         mainMenu.SetActive(true);
-        savePanel.SetActive(false);
+        //savePanel.SetActive(false);
     }
 
     private void OnDisable()

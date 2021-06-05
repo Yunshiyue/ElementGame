@@ -146,9 +146,15 @@ public class Witcher : Enemies
     {
         if (NPC != null)
         {
-            talker.isFinishMission = true;
-            talker.isEndDialog2 = true;
+            talker.killCount++;
+            if (talker.killCount >= 1)
+            {
+                talker.isFinishMission = true;
+                talker.isEndDialog2 = true;
+            }
+            
         }
+        
     }
     
 }

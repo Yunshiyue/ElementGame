@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3390ca5346073b64fb0f7ca711b2e137, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Thing1: Gold
+  Thing1: 
   Thing1Number: 3
   Thing2: MainElementStone
   Thing2Number: 2

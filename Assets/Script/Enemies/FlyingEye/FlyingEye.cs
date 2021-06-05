@@ -8,12 +8,22 @@ using UnityEngine;
 [RequireComponent(typeof(DefenceEnemies))]
 public class FlyingEye : Enemies
 {
+    //查看有无击杀飞眼的任务
+    public GameObject NPC;
+    private TalkUI talker;
+    
+
     //private FlyingEyeMovement movementComponent;
     private FlyingEyeAttack attackComponent;
 
     public override void Initialize()
     {
-        
+        if (NPC != null)//如果有NPC布置了击杀FlyEyes的任务
+        {
+            //完成任务需求的对象
+            talker = NPC.GetComponent<TalkUI>();
+        }
+
         priorityInType = 2;
 
         //movementComponent = GetComponent<FlyingEyeMovement>();
@@ -62,6 +72,20 @@ public class FlyingEye : Enemies
     public override int GetPriorityInType()
     {
         return priorityInType;
+    }
+    protected override void OnDisable()//接受了杀死FlyEyes的任务会调用这个方法
+    {
+        if (NPC != null)
+        {
+            talker.killCount++;
+            if (talker.killCount >= 2)
+            {
+                talker.isFinishMission = true;
+                talker.isEndDialog2 = true;
+            }
+            
+        }
+        
     }
 
 }

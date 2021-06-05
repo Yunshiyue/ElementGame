@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class IceAbility : myUpdate, Ability
 {
@@ -9,6 +10,9 @@ public class IceAbility : myUpdate, Ability
 
     private bool isOn = true;
     private MovementPlayer movementComponent;
+
+    //Input System
+    private Keyboard keyboard;
 
     //武器切换UI
     private GameObject weaponChangePanel;
@@ -148,6 +152,12 @@ public class IceAbility : myUpdate, Ability
         layerMask ^= 1 << LayerMask.NameToLayer("Water");
 
         filter.layerMask = layerMask;
+
+        keyboard = InputSystem.GetDevice<Keyboard>();
+        if (keyboard == null)
+        {
+            Debug.LogError("在" + gameObject.name + "中，初始化keyboard失败");
+        }
     }
 
     public override void MyUpdate()
@@ -265,23 +275,44 @@ public class IceAbility : myUpdate, Ability
             {
                 //显示选择界面
                 weaponChangePanel.SetActive(true);
-                if(Input.GetKeyUp(KeyCode.A))
+                //if(Input.GetKeyUp(KeyCode.A))
+                //{
+                //    //切换到
+                //    weaponChangeUI.ChooseWeapon(IceWeapon.Shield);
+                //    weapon = IceWeapon.Shield;
+                //}
+                //else if(Input.GetKeyUp(KeyCode.D))
+                //{
+                //    weaponChangeUI.ChooseWeapon(IceWeapon.Sword);
+                //    weapon = IceWeapon.Sword;
+                //}
+                //else if(Input.GetKeyUp(KeyCode.W))
+                //{
+                //    weaponChangeUI.ChooseWeapon(IceWeapon.Arrow);
+                //    weapon = IceWeapon.Arrow;
+                //}
+                //else if(Input.GetKeyUp(KeyCode.S))
+                //{
+                //    weaponChangeUI.ChooseWeapon(IceWeapon.Hammer);
+                //    weapon = IceWeapon.Hammer;
+                //}
+                if (keyboard.aKey.isPressed)
                 {
                     //切换到
                     weaponChangeUI.ChooseWeapon(IceWeapon.Shield);
                     weapon = IceWeapon.Shield;
                 }
-                else if(Input.GetKeyUp(KeyCode.D))
+                else if (keyboard.dKey.isPressed)
                 {
                     weaponChangeUI.ChooseWeapon(IceWeapon.Sword);
                     weapon = IceWeapon.Sword;
                 }
-                else if(Input.GetKeyUp(KeyCode.W))
+                else if (keyboard.wKey.isPressed)
                 {
                     weaponChangeUI.ChooseWeapon(IceWeapon.Arrow);
                     weapon = IceWeapon.Arrow;
                 }
-                else if(Input.GetKeyUp(KeyCode.S))
+                else if (keyboard.sKey.isPressed)
                 {
                     weaponChangeUI.ChooseWeapon(IceWeapon.Hammer);
                     weapon = IceWeapon.Hammer;

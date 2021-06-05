@@ -17,6 +17,7 @@ public class TalkUI : MonoBehaviour
     public bool isEndDialog1;//是否结束对话一
     public bool isEndDialog2;//是否结束对话二
     public bool isEndDialog3;//是否结束对话三
+    public int killCount = 0;
 
   
 

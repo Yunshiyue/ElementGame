@@ -238,6 +238,7 @@ public class Player : myUpdate
         tempMovement.x = Input.GetAxis("Horizontal");
         movementComponent.RequestMoveByFrame(tempMovement, MovementPlayer.MovementMode.PlayerControl, Space.Self);
 
+
         //旧输入系统
         if (Input.GetButtonDown("Jump"))
         {

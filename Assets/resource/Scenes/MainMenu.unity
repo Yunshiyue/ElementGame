@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 0
+  m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 31524278}
   - component: {fileID: 31524277}
   m_Layer: 5
-  m_Name: LoadGameButton
+  m_Name: SettingButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -419,8 +419,8 @@ Canvas:
   m_GameObject: {fileID: 216401804}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1808788216}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -521,7 +521,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.000061035156, y: -52.268005}
+  m_AnchoredPosition: {x: 0, y: -30}
   m_SizeDelta: {x: -876.8529, y: -104.53639}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &492945043
@@ -537,7 +537,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -968,7 +968,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 98}
+  m_AnchoredPosition: {x: 0, y: 119}
   m_SizeDelta: {x: 401.06958, y: 87.9642}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1203457955
@@ -1828,6 +1828,13 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7139148938193794313, guid: fecb4006ad51a0b4d9bf7f30a0f9ff7e,
+        type: 3}
+      propertyPath: m_text
+      value: 'Setting
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 7139148938193794315, guid: fecb4006ad51a0b4d9bf7f30a0f9ff7e,
         type: 3}

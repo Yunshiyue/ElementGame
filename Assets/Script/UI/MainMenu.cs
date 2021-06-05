@@ -24,15 +24,15 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
-        video = GameObject.Find("VideoPanel").GetComponent<VideoPlayer>();
+        //video = GameObject.Find("VideoPanel").GetComponent<VideoPlayer>();
         //savePanel = GameObject.Find("SavePanel");
         mainMenu = GameObject.Find("Menu");
         //saveMenu = GameObject.Find("SaveMenu").GetComponent<SaveMenu>();
 
-        if (video == null)
-        {
-            Debug.LogError("在" + gameObject + "中，未找到VideoPlayer");
-        }
+        //if (video == null)
+        //{
+        //    Debug.LogError("在" + gameObject + "中，未找到VideoPlayer");
+        //}
     }
     private void Start()
     {
@@ -41,8 +41,8 @@ public class MainMenu : MonoBehaviour
 
     private void OnEnable()
     {
-        video = GameObject.Find("VideoPanel").GetComponent<VideoPlayer>();
-        video.Play();
+        //video = GameObject.Find("VideoPanel").GetComponent<VideoPlayer>();
+        //video.Play();
     }
 
     /// <summary>
@@ -67,7 +67,7 @@ public class MainMenu : MonoBehaviour
 
     private void OnDisable()
     {
-        video.Pause();
+        //video.Pause();
     }
 
     /// <summary>

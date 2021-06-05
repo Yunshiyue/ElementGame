@@ -83,9 +83,19 @@
       "dependencies": {},
       "url": "https://packages.unity.cn"
     },
+    "com.unity.connect.share": {
+      "version": "4.2.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.editorcoroutines": "1.0.0",
+        "com.unity.settings-manager": "1.0.2"
+      },
+      "url": "https://packages.unity.cn"
+    },
     "com.unity.editorcoroutines": {
       "version": "1.0.0",
-      "depth": 2,
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://packages.unity.cn"
@@ -181,6 +191,13 @@
         "com.unity.webrtc": "2.3.3-preview",
         "com.unity.inputsystem": "1.0.0"
       },
+      "url": "https://packages.unity.cn"
+    },
+    "com.unity.settings-manager": {
+      "version": "1.0.2",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
       "url": "https://packages.unity.cn"
     },
     "com.unity.shadergraph": {

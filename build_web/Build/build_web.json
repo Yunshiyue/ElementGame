@@ -1,0 +1,16 @@
+{
+"companyName": "DefaultCompany",
+"productName": "GameProject",
+"productVersion": "0.1",
+"dataUrl": "build_web.data.unityweb",
+"wasmCodeUrl": "build_web.wasm.code.unityweb",
+"wasmFrameworkUrl": "build_web.wasm.framework.unityweb",
+"graphicsAPI": ["WebGL 2.0","WebGL 1.0"],
+"webglContextAttributes": {"preserveDrawingBuffer": false},
+"splashScreenStyle": "Dark",
+"backgroundColor": "#231F20",
+"cacheControl": {"default": "must-revalidate"},
+"developmentBuild": false,
+"multithreading": false,
+"unityVersion": "2019.4.17f1c1"
+}

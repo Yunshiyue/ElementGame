@@ -120,7 +120,7 @@ public class GameMenu : MonoBehaviour
     /// </summary>
     public void ReturnToMainMenu()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1;
     }
 

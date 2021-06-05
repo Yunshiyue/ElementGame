@@ -5,16 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/resource/Scenes/Deprecated/test_load.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/resource/Scenes/MainMenu.unity
+    guid: ea5f9efccc89ab44785739839ce9bd97
   - enabled: 1
     path: Assets/resource/Scenes/test_boss.unity
     guid: 4e7cd4b0b7eb0cb4bbf49cfabef61f20
   - enabled: 1
     path: Assets/resource/Scenes/Level1_FirePuzzle.unity
     guid: 29ce787e8b645d6489b3034e21680f89
-  - enabled: 1
-    path: Assets/resource/Scenes/MainMenu.unity
-    guid: ea5f9efccc89ab44785739839ce9bd97
   m_configObjects: {}

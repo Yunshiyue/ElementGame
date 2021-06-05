@@ -32,6 +32,9 @@
  * 
  * @Editor: CuteRed
  * @Edit: 为适应云游戏，改变了输入系统
+ * 
+ * @Editor: CuteRed
+ * @Edit: 增加移动端支持
  */
 
 using System.Collections;
@@ -39,7 +42,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
-using Unity.RenderStreaming;
 
 
 
@@ -66,19 +68,55 @@ public class Player : myUpdate
     //心心数组
     private HPItem[] hpArray;
 
-    ////Input System
-    //private Keyboard keyboard;
-    //private Mouse m_mouse;
-    //[SerializeField] private InputChannelReceiverBase receiver;
+    //平台
+    private PlatformJudge.Platfrom platform;
+
+    //移动端需要的控件
+    private Joystick joystick;
+    /// <summary>
+    /// 平台管理器
+    /// </summary>
+    private PlatformJudge platformJudge;
+    /// <summary>
+    /// 主元素按钮
+    /// </summary>
+    private MainElementButton aButton;
+    private SupportingElementButton bButton;
+    private SupportingElementButton cButton;
+    /// <summary>
+    /// 跳跃按钮
+    /// </summary>
+    private SimpleButton jumpButton;
+    /// <summary>
+    /// 交互按钮
+    /// </summary>
+    private SimpleButton interactButton;
 
     public override void Initialize()
     {
-        //if (receiver == null)
-        //{
-        //    receiver = GetComponent<InputChannelReceiverBase>();
-        //}    
-        //receiver.onDeviceChange += OnDeviceChange;
+        //判断平台
+        platformJudge = GameObject.Find("ControllerMode").GetComponent<PlatformJudge>();
+        if (platformJudge == null)
+        {
+            Debug.LogError("找不到ControllerMode");
+        }
+        platform = platformJudge.GetPlatform();
+        if (platform == PlatformJudge.Platfrom.ANDROID || platform == PlatformJudge.Platfrom.IOS || platform == PlatformJudge.Platfrom.WEB_MOBILE)
+        {
+            joystick = GameObject.Find("Variable Joystick").GetComponent<Joystick>();
+            if (joystick == null)
+            {
+                Debug.LogError("移动端获取摇杆失败！");
+            }
 
+            aButton = GameObject.Find("AButton").GetComponent<MainElementButton>();
+            bButton = GameObject.Find("BButton").GetComponent<SupportingElementButton>();
+            cButton = GameObject.Find("CButton").GetComponent<SupportingElementButton>();
+
+            jumpButton = GameObject.Find("JumpButton").GetComponent<SimpleButton>();
+            interactButton = GameObject.Find("InteractButton").GetComponent<SimpleButton>();
+        }
+        
         canFight = GetComponent<CanFight>();
         if (canFight == null)
         {
@@ -90,12 +128,6 @@ public class Player : myUpdate
         targets[0] = targetLayerName;
         canFight.Initiailize(targets);
 
-        //初始化键盘事件
-        //keyboard = InputSystem.GetDevice<Keyboard>();
-        //if (keyboard == null)
-        //{
-        //    Debug.LogError("在Player中，初始化键盘事件失败！");
-        //}
 
         movementComponent = GetComponent<MovementPlayer>();
         if(movementComponent == null)
@@ -135,17 +167,12 @@ public class Player : myUpdate
     //根据设计，先进行受伤判断，再进行移动控制和技能控制
     public override void MyUpdate()
     {
-        //if (keyboard == null)
-        //{
-        //    keyboard = InputSystem.GetDevice<Keyboard>();
-        //}
 
         MenuCheck();
         DefenceCheck();
 
-        //旧输入系统
-        abilityManager.AbilityControl(Input.GetButton("MainElement"), Input.GetButtonDown("FirstOtherElement"), Input.GetButtonDown("SecondOtherElement"));
-        //abilityManager.AbilityControl(keyboard.jKey.isPressed, keyboard.kKey.isPressed, keyboard.lKey.isPressed);
+        AbilityControl();
+        
         abilityManager.SetCastDebugInfo();
 
         ChangeElementControl();
@@ -155,10 +182,20 @@ public class Player : myUpdate
 
     }
 
+    private void AbilityControl()
+    {
+        if (platform == PlatformJudge.Platfrom.PC || platform == PlatformJudge.Platfrom.WEB_PC)
+        {
+            abilityManager.AbilityControl(Input.GetButton("MainElement"), Input.GetButtonDown("FirstOtherElement"), Input.GetButtonDown("SecondOtherElement"));
+        }
+        else
+        {
+            abilityManager.AbilityControl(aButton.IsTrigger(), bButton.IsTrigger(), cButton.IsTrigger());
+        }
+    }
 
     private void ChangeElementControl()
     {
-        //旧输入系统
         if (Input.GetKeyDown(KeyCode.Z))
         {
             abilityManager.NextMainElement();
@@ -175,16 +212,25 @@ public class Player : myUpdate
     }
     private void InteractiveCheck()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (platform == PlatformJudge.Platfrom.PC || platform == PlatformJudge.Platfrom.WEB_PC)
         {
-            interactivePlayer.InteractiveWithClosetObject();
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                interactivePlayer.InteractiveWithClosetObject();
+            }
+        }
+        else 
+        { 
+            if (interactButton.IsTrigger())
+            {
+                interactivePlayer.InteractiveWithClosetObject();
+            }
         }
 
     }
 
     private void MenuCheck()
     {
-        //旧输入模式
         if (Input.GetButtonDown("ReloadScene"))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -234,33 +280,36 @@ public class Player : myUpdate
     //移动控制，包括X轴移动、跳跃、下蹲；通过向移动组件“请求”实现。
     private void MoveControl()
     {
-        //旧输入系统
-        tempMovement.x = Input.GetAxis("Horizontal");
-        movementComponent.RequestMoveByFrame(tempMovement, MovementPlayer.MovementMode.PlayerControl, Space.Self);
-
-        //旧输入系统
-        if (Input.GetButtonDown("Jump"))
+        if (platform == PlatformJudge.Platfrom.PC || platform == PlatformJudge.Platfrom.WEB_PC)
         {
-            movementComponent.RequestJump();
-        }
-        if (Input.GetButton("Crouch"))
-        {
-            movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Crouch);
-        }
+            tempMovement.x = Input.GetAxis("Horizontal");
+            movementComponent.RequestMoveByFrame(tempMovement, MovementPlayer.MovementMode.PlayerControl, Space.Self);
 
-        //if (keyboard.spaceKey.isPressed)
-        //{
-        //    movementComponent.RequestJump();
-        //}
-        //if (keyboard.sKey.isPressed)
-        //{
-        //    movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Crouch);
-        //}
+            if (Input.GetButtonDown("Jump"))
+            {
+                movementComponent.RequestJump();
+            }
+            if (Input.GetButton("Crouch"))
+            {
+                movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Crouch);
+            }
     }
+        else
+        {
+            tempMovement.x = joystick.Horizontal;
+            movementComponent.RequestMoveByFrame(tempMovement, MovementPlayer.MovementMode.PlayerControl, Space.Self);
 
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        tempMovement.x = context.ReadValue<Vector2>().x;
+            if (platformJudge.IsJump())
+            {
+                movementComponent.RequestJump();
+                platformJudge.ClearJump();
+            }
+            if (joystick.Vertical < -0.5f)
+            {
+                movementComponent.RequestChangeControlStatus(0f, MovementPlayer.PlayerControlStatus.Crouch);
+            }
+        }
+
         
     }
 

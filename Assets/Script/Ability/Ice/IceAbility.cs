@@ -11,8 +11,16 @@ public class IceAbility : myUpdate, Ability
     private bool isOn = true;
     private MovementPlayer movementComponent;
 
-    //Input System
-    private Keyboard keyboard;
+    //平台
+    private PlatformJudge.Platfrom platform;
+
+    //移动端需要的控件
+    private Joystick joystick;
+    /// <summary>
+    /// 平台管理器
+    /// </summary>
+    private PlatformJudge platformJudge;
+
 
     //武器切换UI
     private GameObject weaponChangePanel;
@@ -153,10 +161,20 @@ public class IceAbility : myUpdate, Ability
 
         filter.layerMask = layerMask;
 
-        keyboard = InputSystem.GetDevice<Keyboard>();
-        if (keyboard == null)
+        //判断平台
+        platformJudge = GameObject.Find("ControllerMode").GetComponent<PlatformJudge>();
+        if (platformJudge == null)
         {
-            Debug.LogError("在" + gameObject.name + "中，初始化keyboard失败");
+            Debug.LogError("找不到ControllerMode");
+        }
+        platform = platformJudge.GetPlatform();
+        if (platform == PlatformJudge.Platfrom.ANDROID || platform == PlatformJudge.Platfrom.IOS || platform == PlatformJudge.Platfrom.WEB_MOBILE)
+        {
+            joystick = GameObject.Find("Variable Joystick").GetComponent<Joystick>();
+            if (joystick == null)
+            {
+                Debug.LogError("移动端获取摇杆失败！");
+            }
         }
     }
 
@@ -275,48 +293,62 @@ public class IceAbility : myUpdate, Ability
             {
                 //显示选择界面
                 weaponChangePanel.SetActive(true);
-                //if(Input.GetKeyUp(KeyCode.A))
-                //{
-                //    //切换到
-                //    weaponChangeUI.ChooseWeapon(IceWeapon.Shield);
-                //    weapon = IceWeapon.Shield;
-                //}
-                //else if(Input.GetKeyUp(KeyCode.D))
-                //{
-                //    weaponChangeUI.ChooseWeapon(IceWeapon.Sword);
-                //    weapon = IceWeapon.Sword;
-                //}
-                //else if(Input.GetKeyUp(KeyCode.W))
-                //{
-                //    weaponChangeUI.ChooseWeapon(IceWeapon.Arrow);
-                //    weapon = IceWeapon.Arrow;
-                //}
-                //else if(Input.GetKeyUp(KeyCode.S))
-                //{
-                //    weaponChangeUI.ChooseWeapon(IceWeapon.Hammer);
-                //    weapon = IceWeapon.Hammer;
-                //}
-                if (keyboard.aKey.isPressed)
+
+                if (platform == PlatformJudge.Platfrom.PC || platform == PlatformJudge.Platfrom.WEB_PC)
                 {
-                    //切换到
-                    weaponChangeUI.ChooseWeapon(IceWeapon.Shield);
-                    weapon = IceWeapon.Shield;
+                    if (Input.GetKeyUp(KeyCode.A))
+                    {
+                        //切换到
+                        weaponChangeUI.ChooseWeapon(IceWeapon.Shield);
+                        weapon = IceWeapon.Shield;
+                    }
+                    else if (Input.GetKeyUp(KeyCode.D))
+                    {
+                        weaponChangeUI.ChooseWeapon(IceWeapon.Sword);
+                        weapon = IceWeapon.Sword;
+                    }
+                    else if (Input.GetKeyUp(KeyCode.W))
+                    {
+                        weaponChangeUI.ChooseWeapon(IceWeapon.Arrow);
+                        weapon = IceWeapon.Arrow;
+                    }
+                    else if (Input.GetKeyUp(KeyCode.S))
+                    {
+                        weaponChangeUI.ChooseWeapon(IceWeapon.Hammer);
+                        weapon = IceWeapon.Hammer;
+                    }
                 }
-                else if (keyboard.dKey.isPressed)
+                else
                 {
-                    weaponChangeUI.ChooseWeapon(IceWeapon.Sword);
-                    weapon = IceWeapon.Sword;
+                    float x = joystick.Horizontal;
+                    float y = joystick.Vertical;
+                    //左
+                    if (x < -0.5f)
+                    {
+                        //切换到
+                        weaponChangeUI.ChooseWeapon(IceWeapon.Shield);
+                        weapon = IceWeapon.Shield;
+                    }
+                    //右
+                    else if (x > 0.5f)
+                    {
+                        weaponChangeUI.ChooseWeapon(IceWeapon.Sword);
+                        weapon = IceWeapon.Sword;
+                    }
+                    //上
+                    else if (y > 0.5f)
+                    {
+                        weaponChangeUI.ChooseWeapon(IceWeapon.Arrow);
+                        weapon = IceWeapon.Arrow;
+                    }
+                    //下
+                    else if (y < -0.5f)
+                    {
+                        weaponChangeUI.ChooseWeapon(IceWeapon.Hammer);
+                        weapon = IceWeapon.Hammer;
+                    }
                 }
-                else if (keyboard.wKey.isPressed)
-                {
-                    weaponChangeUI.ChooseWeapon(IceWeapon.Arrow);
-                    weapon = IceWeapon.Arrow;
-                }
-                else if (keyboard.sKey.isPressed)
-                {
-                    weaponChangeUI.ChooseWeapon(IceWeapon.Hammer);
-                    weapon = IceWeapon.Hammer;
-                }
+
             }
             else
             {

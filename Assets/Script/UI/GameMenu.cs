@@ -29,8 +29,8 @@ public class GameMenu : MonoBehaviour
     /// 死亡界面
     /// </summary>
     private GameObject gameOverPanel;
-    private GameObject savePanel;
-    private SaveMenu saveMenu;
+
+    private GameObject taskPanel;
 
     private void Awake()
     {
@@ -55,6 +55,8 @@ public class GameMenu : MonoBehaviour
         //    Debug.LogError("在" + gameObject.name + "中，找不到pauseButton");
         //}
 
+        taskPanel = GameObject.Find("TaskPanel");
+
         elementMenu = GameObject.Find("SwitchElementMenu").GetComponent<ElementMenu>();
         if (elementMenu == null)
         {
@@ -74,6 +76,7 @@ public class GameMenu : MonoBehaviour
         pauseMenu.SetActive(false);
         elementMenu.gameObject.SetActive(false);
         gameOverPanel.SetActive(false);
+        taskPanel.SetActive(false);
         //savePanel.SetActive(false);
 
         Debug.Log("UI加载完成");
@@ -120,7 +123,7 @@ public class GameMenu : MonoBehaviour
     /// </summary>
     public void ReturnToMainMenu()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1;
     }
 
@@ -131,6 +134,11 @@ public class GameMenu : MonoBehaviour
     {
         elementMenu.gameObject.SetActive(true);
         elementMenu.RefreshItem();
+    }    
+    public void ShowTaskMenu()
+    {
+        taskPanel.gameObject.SetActive(true);
+        Time.timeScale = 0;
     }
 
     /// <summary>

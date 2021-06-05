@@ -62,12 +62,14 @@ public class BaiduASR : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     void Start()
     {
+#if !UNITY_WEBGL
         //获取麦克风设备，判断是否有麦克风设备
         if (Microphone.devices.Length > 0)
         {
             isHaveMic = true;
             currentDeviceName = Microphone.devices[0];
         }
+#endif
 
         //获取相关组件
         textBtn = this.transform.GetChild(0).GetComponent<Text>();
@@ -87,10 +89,12 @@ public class BaiduASR : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     /// <returns></returns>
     public bool StartRecording(bool isLoop = false) //8000,16000
     {
+#if !UNITY_WEBGL
         if (isHaveMic == false || Microphone.IsRecording(currentDeviceName))
         {
             return false;
         }
+#endif
 
         //开始录音
         /*
@@ -103,8 +107,9 @@ public class BaiduASR : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
         lastPressTimestamp = GetTimestampOfNowWithMillisecond();
 
+#if !UNITY_WEBGL
         saveAudioClip = Microphone.Start(currentDeviceName, isLoop, recordMaxLength, recordFrequency);
-
+#endif
         return true;
     }
 
@@ -114,14 +119,16 @@ public class BaiduASR : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     /// <returns></returns>
     public int EndRecording()
     {
+#if !UNITY_WEBGL
         if (isHaveMic == false || !Microphone.IsRecording(currentDeviceName))
         {
             return 0;
         }
 
+
         //结束录音
         Microphone.End(currentDeviceName);
-
+#endif
         //向上取整,避免遗漏录音末尾
         return Mathf.CeilToInt((float)(GetTimestampOfNowWithMillisecond() - lastPressTimestamp) / 1000f);
     }

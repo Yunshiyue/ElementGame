@@ -988,19 +988,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WithcerObject
       objectReference: {fileID: 0}
-<<<<<<< HEAD:Assets/resource/Scenes/Scene 1.unity
-    - target: {fileID: 7578484906680832496, guid: f1ccfca93606a9c4b95e9d9c2ccdbe36,
-        type: 3}
-      propertyPath: NPC
-      value: 
-      objectReference: {fileID: 408672099}
-=======
     - target: {fileID: 7578484906383329471, guid: f1ccfca93606a9c4b95e9d9c2ccdbe36,
         type: 3}
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
->>>>>>> origin:Assets/resource/Scenes/test_boss.unity
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1ccfca93606a9c4b95e9d9c2ccdbe36, type: 3}
 --- !u!1 &630614873

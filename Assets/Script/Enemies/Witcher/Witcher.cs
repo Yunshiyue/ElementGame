@@ -6,8 +6,13 @@ using UnityEngine;
 [RequireComponent(typeof(MovementWitcher))]
 [RequireComponent(typeof(WitcherAttack))]
 [RequireComponent(typeof(DefenceEnemies))]
-public class Witcher : Enemies
+public class Witcher : Enemies 
 {
+    //完成任务的对象，任务内容为杀死一只巫师
+    public GameObject NPC;
+    private TalkUI talker;
+
+
     private MovementWitcher movementComponent;
     private WitcherAttack attackComponent;
 
@@ -19,7 +24,12 @@ public class Witcher : Enemies
     private bool canBack = true;
     public override void Initialize()
     {
-        
+        if (NPC != null)//如果有NPC布置了击杀巫师的任务
+        {
+            //完成任务需求的对象
+            talker = NPC.GetComponent<TalkUI>();
+        }
+
         priorityInType = 1;
 
         player = GameObject.Find("Player");
@@ -132,4 +142,19 @@ public class Witcher : Enemies
     {
         return priorityInType;
     }
+    protected  override void OnDisable()//接受了杀死巫师的任务会调用这个方法
+    {
+        if (NPC != null)
+        {
+            talker.killCount++;
+            if (talker.killCount >= 1)
+            {
+                talker.isFinishMission = true;
+                talker.isEndDialog2 = true;
+            }
+            
+        }
+        
+    }
+    
 }

@@ -41,7 +41,7 @@ public class PlatformJudge : MonoBehaviour
         {
             Debug.LogError("获取移动端按钮失败");
         }
-
+        Debug.Log("判断平台");
 
         //以下处理平台
 #if UNITY_ANDROID
@@ -70,6 +70,10 @@ public class PlatformJudge : MonoBehaviour
 
 #if UNITY_STANDALONE_WIN
         Debug.Log("我是从Windows的电脑上运行的");
+        platform = Platfrom.PC;
+#endif
+#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
+        Debug.Log("osx");
         platform = Platfrom.PC;
 #endif
 
